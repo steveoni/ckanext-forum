@@ -1,4 +1,5 @@
 {% extends "issues/base.html" %}
+{% set ckan_28 = True if h.ckan_version().startswith('2.8') else False %}
 
 {% block primary_content %}
   <section class="module">
@@ -11,7 +12,7 @@
 
 {% block secondary_content %}
   <section class="module module-narrow">
-    <h2 class="module-heading"><i class="icon-info-sign"></i> {{ _('What are issues?') }}</h2>
+    <h2 class="module-heading"><i class="{{ 'fa fa-info-circle' if ckan_28 else 'icon-info-sign' }}"></i> {{ _('What are issues?') }}</h2>
     <div class="module-content">
       {% trans %}
         <p>Issues are ... .</p>
