@@ -47,7 +47,7 @@
         <li class="nav-item {% if status==valid_status%}active{% endif %}">
         {% set href = h.replace_url_param(new_params={'status': valid_status}, extras=url_params) %}
         <a id="{{ valid_status }}-filter" href="{{ href }}">
-        <span>{{_(valid_status.title())}}</span>
+            <span>{{ _('Open') if valid_status == 'open' else _('Closed') }}</span>
         </a>
         </li>
         {% endfor %}

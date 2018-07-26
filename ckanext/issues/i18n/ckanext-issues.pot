@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-26 13:32+0200\n"
+"POT-Creation-Date: 2018-07-26 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -389,6 +389,14 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Open"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Closed"
+msgstr ""
+
 #: ckanext/issues/templates/issues/common.html:58
 msgid "Visibility"
 msgstr ""
@@ -415,7 +423,15 @@ msgstr ""
 msgid "Search issues..."
 msgstr ""
 
-#: ckanext/issues/templates/issues/dataset.html:35
+#: ckanext/issues/templates/issues/dataset.html:28
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:7
+msgid "{number} issue found"
+msgid_plural "{number} issues found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/issues/templates/issues/dataset.html:38
 msgid "No issues"
 msgstr ""
 
@@ -438,12 +454,7 @@ msgid "created issue"
 msgstr ""
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:5
-msgid "{number} issue found"
-msgstr ""
-
-#: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:5
+#: ckanext/issues/templates/snippets/search_result_text.html:8
 msgid "{number} issues found"
 msgstr ""
 
@@ -513,6 +524,10 @@ msgstr ""
 
 #: ckanext/issues/templates/issues/show.html:152
 msgid "Owner"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:157
+msgid "commented"
 msgstr ""
 
 #: ckanext/issues/templates/issues/show.html:175
@@ -589,15 +604,15 @@ msgstr ""
 msgid "{number} issue found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:3
+#: ckanext/issues/templates/snippets/search_result_text.html:4
 msgid "{number} issues found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:4
+#: ckanext/issues/templates/snippets/search_result_text.html:6
 msgid "No issues found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:6
+#: ckanext/issues/templates/snippets/search_result_text.html:10
 msgid "No issues found"
 msgstr ""
 

@@ -1,6 +1,8 @@
 {% if type == 'issue' %}
   {% set count = count if count is defined else 0 %}
-  {% set text_query = ungettext(_('{number} issue found for "{query}"'), _('{number} issues found for "{query}"'), count) %}
+  {% set number_issues_found_for = _('{number} issue found for "{query}"') %}
+  {% set number_issues_found_for_plural = _('{number} issues found for "{query}"') %}
+  {% set text_query = ungettext(number_issues_found_for, number_issues_found_for_plural, count) %}
   {% set text_query_none = _('No issues found for "{query}"') %}
   {% set number_issues_found = _('{number} issue found')%}
   {% set number_issues_fount_pl = _('{number} issues found')%}

@@ -154,7 +154,7 @@ endfor %}">
       {% endif %}
       <div class="issue-header-text">
         <a href="{{issue_or_comment.user.ckan_url}}" class="author">{{ issue_or_comment.user.name}}</a>
-        commented
+        {{ _('commented') }}
         <span title="{{issue_or_comment.created}}">{{ h.time_ago_from_timestamp(issue_or_comment.created).lower() }}</span>
       </div>
     </div>
@@ -170,7 +170,7 @@ endfor %}">
         </h1>
         <div class="issue-header-meta">
           <span class="issue-header-status {{issue.status}}">
-            <i class="{{ 'fa fa-exclamation-circle' if ckan_28 else 'icon-exclamation-sign' }}"></i> {{issue.status.title()}}
+            <i class="{{ 'fa fa-exclamation-circle' if ckan_28 else 'icon-exclamation-sign' }}"></i> {{ _(issue.status.title()) }}
           </span>
           <a href="{{issue.user.ckan_url}}">{{issue.user.name}}</a> {{ _('opened this issue') }} {{issue.time_ago}} &middot;
           {{ ungettext(_('{number} comment'), _('{number} comments'), comment_count).format(number=comment_count) }}
@@ -201,7 +201,7 @@ endfor %}">
                   placeholder="{{ _('Leave a comment') }}"
                   tabindex="1"></textarea>
                 <span class="editor-info-block">
-                  {{ _('You can use <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown formatting</a> here') }}</span>
+                  {% trans %}You can use <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown formatting</a> here{% endtrans %}</span>
               </div>
             </div>
             {% block form_actions %}

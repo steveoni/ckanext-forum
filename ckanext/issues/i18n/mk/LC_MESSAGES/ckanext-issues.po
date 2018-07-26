@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-26 13:32+0200\n"
+"POT-Creation-Date: 2018-07-26 16:19+0200\n"
 "PO-Revision-Date: 2018-07-25 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: mk\n"
@@ -348,19 +348,16 @@ msgstr "Проблеми"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:33
 #: ckanext/issues/templates/issues/moderation.html:32
-#, fuzzy
 msgid "Reported Issues"
 msgstr "Пријавени проблеми"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:50
 #: ckanext/issues/templates/issues/moderation.html:50
-#, fuzzy
 msgid "See dataset"
 msgstr "Видете податочен сет"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:59
 #: ckanext/issues/templates/issues/moderation.html:59
-#, fuzzy
 msgid "Abuse"
 msgstr "Злоупотреба"
 
@@ -370,22 +367,18 @@ msgid "Not abuse"
 msgstr "Не е злоупотреба"
 
 #: ckanext/issues/templates/issues/common.html:8
-#, fuzzy
 msgid "Spam/Abuse - hidden from normal users"
 msgstr "Скриено за обични корисници"
 
 #: ckanext/issues/templates/issues/common.html:12
-#, fuzzy
 msgid "Reported by you to admins"
 msgstr "Проблемот е пријавен до администратор"
 
 #: ckanext/issues/templates/issues/common.html:23
-#, fuzzy
 msgid "Opened by "
 msgstr "отворен"
 
 #: ckanext/issues/templates/issues/common.html:26
-#, fuzzy
 msgid "updated"
 msgstr "Ажурирај"
 
@@ -399,6 +392,14 @@ msgstr "%s коментари"
 #: ckanext/issues/templates/issues/organization_issues.html:43
 msgid "Status"
 msgstr "Статус"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Open"
+msgstr "Отворени"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Closed"
+msgstr "Затворени"
 
 #: ckanext/issues/templates/issues/common.html:58
 msgid "Visibility"
@@ -426,7 +427,15 @@ msgstr "Дали сте сигурни дека саката да го исбр�
 msgid "Search issues..."
 msgstr "Пребарај проблеми..."
 
-#: ckanext/issues/templates/issues/dataset.html:35
+#: ckanext/issues/templates/issues/dataset.html:28
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:7
+msgid "{number} issue found"
+msgid_plural "{number} issues found"
+msgstr[0] "{number} најден проблем"
+msgstr[1] "{number} најдени проблеми"
+
+#: ckanext/issues/templates/issues/dataset.html:38
 msgid "No issues"
 msgstr "Нема проблеми"
 
@@ -440,35 +449,24 @@ msgid "Update"
 msgstr "Ажурирај"
 
 #: ckanext/issues/templates/issues/moderation.html:22
-#, fuzzy
 msgid "No reported issues."
 msgstr "Нема пријавени проблеми"
 
 #: ckanext/issues/templates/issues/moderation.html:43
 #: ckanext/issues/templates/issues/moderation.html:45
-#, fuzzy
 msgid "created issue"
 msgstr "Креирани проблеми"
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:5
-#, fuzzy
-msgid "{number} issue found"
-msgstr "{number} најден проблем"
-
-#: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:5
-#, fuzzy
+#: ckanext/issues/templates/snippets/search_result_text.html:8
 msgid "{number} issues found"
 msgstr "{number} најден проблем"
 
 #: ckanext/issues/templates/issues/organization_issues.html:42
-#, fuzzy
 msgid "Reported"
 msgstr "Пријавен"
 
 #: ckanext/issues/templates/issues/organization_issues.html:44
-#, fuzzy
 msgid "Comments"
 msgstr "Коментари"
 
@@ -477,17 +475,14 @@ msgid "Resource"
 msgstr "Ресурс"
 
 #: ckanext/issues/templates/issues/organization_issues.html:67
-#, fuzzy
 msgid "Reported as spam/abuse"
 msgstr "Проблемот е пријавен како спам/злоупотреба"
 
 #: ckanext/issues/templates/issues/organization_issues.html:73
-#, fuzzy
 msgid "closed"
 msgstr "затворен"
 
 #: ckanext/issues/templates/issues/organization_issues.html:73
-#, fuzzy
 msgid "open"
 msgstr "отворен"
 
@@ -496,7 +491,6 @@ msgid "There are currently no issues for"
 msgstr "Моментално нема проблеми за"
 
 #: ckanext/issues/templates/issues/show.html:19
-#, fuzzy
 msgid "Issue"
 msgstr "Проблеми"
 
@@ -509,12 +503,10 @@ msgid "You have reported this as abuse, cancel the report"
 msgstr "Вие сте го пријавиле ова како злоупотреба, откажете го извештајот"
 
 #: ckanext/issues/templates/issues/show.html:112
-#, fuzzy
 msgid "Mark as spam/abuse"
 msgstr "Обележи како спам/злоупотреба"
 
 #: ckanext/issues/templates/issues/show.html:125
-#, fuzzy
 msgid "Mark as NOT spam/abuse"
 msgstr "Облежи дека НЕ е спам/злоупотреба"
 
@@ -538,22 +530,23 @@ msgstr "Модерирано:"
 msgid "Owner"
 msgstr "Сопственик"
 
+#: ckanext/issues/templates/issues/show.html:157
+msgid "commented"
+msgstr "коментираше"
+
 #: ckanext/issues/templates/issues/show.html:175
 msgid "opened this issue"
 msgstr "го отовори овој проблем"
 
 #: ckanext/issues/templates/issues/show.html:176
-#, fuzzy
 msgid "{number} comment"
 msgstr "{number} коментар"
 
 #: ckanext/issues/templates/issues/show.html:176
-#, fuzzy
 msgid "{number} comments"
 msgstr "{number} коментар"
 
 #: ckanext/issues/templates/issues/show.html:201
-#, fuzzy
 msgid "Leave a comment"
 msgstr "Остави коментар"
 
@@ -563,7 +556,7 @@ msgid ""
 "href=\"http://daringfireball.net/projects/markdown/syntax\" "
 "target=\"_blank\">Markdown formatting</a> here"
 msgstr ""
-"Овде можe да користите<a "
+"Овде можe да користите <a "
 "href=\"http://daringfireball.net/projects/markdown/syntax\" "
 "target=\"_blank\">форматирање со Markdown</a>"
 
@@ -592,8 +585,6 @@ msgid "Login to comment"
 msgstr "Најавете се за да коментирате"
 
 #: ckanext/issues/templates/issues/show.html:251
-#, fuzzy
-#| msgid "Assign"
 msgid "Assignee"
 msgstr "Доделено на"
 
@@ -618,20 +609,18 @@ msgid "Assign"
 msgstr "Додели"
 
 #: ckanext/issues/templates/snippets/search_result_text.html:3
-#, fuzzy
 msgid "{number} issue found for \"{query}\""
 msgstr "{number} најден проблем за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:3
-#, fuzzy
+#: ckanext/issues/templates/snippets/search_result_text.html:4
 msgid "{number} issues found for \"{query}\""
 msgstr "{number} најдени проблеми за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:4
+#: ckanext/issues/templates/snippets/search_result_text.html:6
 msgid "No issues found for \"{query}\""
 msgstr "Не се најдени проблеми за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:6
+#: ckanext/issues/templates/snippets/search_result_text.html:10
 msgid "No issues found"
 msgstr "Не се најдени проблеми"
 
