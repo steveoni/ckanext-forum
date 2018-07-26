@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-25 17:28+0200\n"
+"POT-Creation-Date: 2018-07-26 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,7 +215,7 @@ msgstr ""
 msgid "Issue marked as spam/abuse"
 msgstr ""
 
-#: ckanext/issues/logic/action/action.py:554
+#: ckanext/issues/logic/action/action.py:561
 msgid "Issue has already been reported by this user"
 msgstr ""
 
@@ -229,6 +229,7 @@ msgid "Not found"
 msgstr ""
 
 #: ckanext/issues/logic/validators/validators.py:45
+#: ckanext/issues/templates/issues/organization_issues.html:41
 msgid "Dataset"
 msgstr ""
 
@@ -270,6 +271,7 @@ msgstr ""
 
 #: ckanext/issues/templates/issues/add.html:27
 #: ckanext/issues/templates/issues/edit.html:25
+#: ckanext/issues/templates/issues/organization_issues.html:40
 msgid "Title"
 msgstr ""
 
@@ -298,38 +300,113 @@ msgstr ""
 msgid "All Issues"
 msgstr ""
 
+#: ckanext/issues/templates/issues/all_issues.html:24
+msgid "There are currently no issues"
+msgstr ""
+
 #: ckanext/issues/templates/issues/base.html:9
 msgid "Datasets"
 msgstr ""
 
-#: ckanext/issues/templates/issues/base_form_page.html:14
+#: ckanext/issues/templates/issues/base_form_page.html:15
 msgid "What are issues?"
 msgstr ""
 
-#: ckanext/issues/templates/issues/base_form_page.html:16
+#: ckanext/issues/templates/issues/base_form_page.html:17
 msgid " <p>Issues are ... .</p> "
 msgstr ""
 
-#: ckanext/issues/templates/issues/comment_moderation.html:8
-#: ckanext/issues/templates/issues/moderation.html:8
+#: ckanext/issues/templates/issues/comment_moderation.html:10
+#: ckanext/issues/templates/issues/moderation.html:9
 msgid "Reported issues"
 msgstr ""
 
-#: ckanext/issues/templates/issues/comment_moderation.html:28
-#: ckanext/issues/templates/issues/moderation.html:28
-#: ckanext/issues/templates/issues/organization_issues.html:11
+#: ckanext/issues/templates/issues/comment_moderation.html:23
+msgid "No reported comments."
+msgstr ""
+
+#: ckanext/issues/templates/issues/comment_moderation.html:30
+#: ckanext/issues/templates/issues/moderation.html:29
+#: ckanext/issues/templates/issues/organization_issues.html:12
 msgid "Organizations"
 msgstr ""
 
-#: ckanext/issues/templates/issues/comment_moderation.html:68
-#: ckanext/issues/templates/issues/moderation.html:69
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr ""
+
+#: ckanext/issues/templates/issues/comment_moderation.html:33
+#: ckanext/issues/templates/issues/moderation.html:32
+msgid "Reported Issues"
+msgstr ""
+
+#: ckanext/issues/templates/issues/comment_moderation.html:50
+#: ckanext/issues/templates/issues/moderation.html:50
+msgid "See dataset"
+msgstr ""
+
+#: ckanext/issues/templates/issues/comment_moderation.html:59
+#: ckanext/issues/templates/issues/moderation.html:59
+msgid "Abuse"
+msgstr ""
+
+#: ckanext/issues/templates/issues/comment_moderation.html:70
+#: ckanext/issues/templates/issues/moderation.html:70
 msgid "Not abuse"
 msgstr ""
 
-#: ckanext/issues/templates/issues/common.html:30
-#: ckanext/issues/templates/issues/organization_issues.html:76
+#: ckanext/issues/templates/issues/common.html:8
+msgid "Spam/Abuse - hidden from normal users"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:12
+msgid "Reported by you to admins"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:23
+msgid "Opened by "
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:26
+msgid "updated"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:77
 #, python-format
 msgid "%s comments"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:43
+#: ckanext/issues/templates/issues/organization_issues.html:43
+msgid "Status"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Open"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Closed"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:58
+msgid "Visibility"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Visible"
+msgstr ""
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Hidden"
 msgstr ""
 
 #: ckanext/issues/templates/issues/confirm_delete.html:3
@@ -341,22 +418,14 @@ msgstr ""
 msgid "Are you sure you want to delete issue - {0}?"
 msgstr ""
 
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/organization_issues.html:8
-#: ckanext/issues/templates/issues/organization_issues.html:22
-#: ckanext/issues/templates/issues/show.html:13
-msgid "Issues"
-msgstr ""
-
 #: ckanext/issues/templates/issues/dataset.html:26
-#: ckanext/issues/templates/issues/organization_issues.html:27
+#: ckanext/issues/templates/issues/organization_issues.html:28
 msgid "Search issues..."
 msgstr ""
 
 #: ckanext/issues/templates/issues/dataset.html:28
-#: ckanext/issues/templates/issues/organization_issues.html:29
-#: ckanext/issues/templates/snippets/search_result_text.html:4
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:7
 msgid "{number} issue found"
 msgid_plural "{number} issues found"
 msgstr[0] ""
@@ -375,63 +444,175 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: ckanext/issues/templates/issues/moderation.html:22
+msgid "No reported issues."
+msgstr ""
+
+#: ckanext/issues/templates/issues/moderation.html:43
+#: ckanext/issues/templates/issues/moderation.html:45
+msgid "created issue"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:8
+msgid "{number} issues found"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:42
+msgid "Reported"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:44
+msgid "Comments"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:62
+msgid "Resource"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:67
+msgid "Reported as spam/abuse"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "closed"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "open"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:88
+msgid "There are currently no issues for"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:19
+msgid "Issue"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:68
+msgid "Edit"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:96
+msgid "You have reported this as abuse, cancel the report"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:112
+msgid "Mark as spam/abuse"
+msgstr ""
+
 #: ckanext/issues/templates/issues/show.html:125
+msgid "Mark as NOT spam/abuse"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:127
 msgid "Not spam/abuse"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:174
-msgid "{number} comment"
-msgid_plural "{number} comments"
-msgstr[0] ""
-msgstr[1] ""
+#: ckanext/issues/templates/issues/show.html:135
+msgid "user reports this is spam/abuse"
+msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:208
+#: ckanext/issues/templates/issues/show.html:140
+msgid "Hidden from normal users"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:145
+msgid "Moderated: "
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:152
+msgid "Owner"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:157
+msgid "commented"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:175
+msgid "opened this issue"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comment"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comments"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:201
+msgid "Leave a comment"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:204
+msgid ""
+"You can use <a href=\"http://daringfireball.net/projects/markdown/syntax\" "
+"target=\"_blank\">Markdown formatting</a> here"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:210
 msgid "Are you sure you want to delete this issue?"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:209
+#: ckanext/issues/templates/issues/show.html:211
 msgid "Delete"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:214
+#: ckanext/issues/templates/issues/show.html:216
 msgid "Close"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:218
+#: ckanext/issues/templates/issues/show.html:220
 msgid "Re-open"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:224
+#: ckanext/issues/templates/issues/show.html:226
 msgid "Comment"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:231
+#: ckanext/issues/templates/issues/show.html:233
 msgid "Login to comment"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:256
-msgid "This issue has been assigned to an administrator for the publisher"
+#: ckanext/issues/templates/issues/show.html:251
+msgid "Assignee"
 msgstr ""
 
 #: ckanext/issues/templates/issues/show.html:258
+msgid "This issue has been assigned to an administrator for the publisher"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:260
 msgid "No one"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:279
+#: ckanext/issues/templates/issues/show.html:267
+msgid "Change Assignee"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:271
+msgid "Username"
+msgstr ""
+
+#: ckanext/issues/templates/issues/show.html:281
 msgid "Assign"
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:2
-msgid "{number} issue found for \"{query}\""
-msgid_plural "{number} issues found for \"{query}\""
-msgstr[0] ""
-msgstr[1] ""
-
 #: ckanext/issues/templates/snippets/search_result_text.html:3
+msgid "{number} issue found for \"{query}\""
+msgstr ""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:4
+msgid "{number} issues found for \"{query}\""
+msgstr ""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:6
 msgid "No issues found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:5
+#: ckanext/issues/templates/snippets/search_result_text.html:10
 msgid "No issues found"
 msgstr ""
 
