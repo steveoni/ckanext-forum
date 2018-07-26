@@ -5,11 +5,11 @@
         {% set reported_by_current_user = h.issues_user_has_reported_issue(current_user, issue.abuse_reports) %}
         {% if issue.visibility == 'hidden' %}
           <div class="issue-comment-label">
-            Spam/Abuse - hidden from normal users
+            {{ _('Spam/Abuse - hidden from normal users') }}
           </div>
         {% elif reported_by_current_user %}
           <div class="issue-comment-label">
-            <i class="{{ 'fa fa-flag' if ckan_28 else 'icon-flag' }}"></i>Reported by you to admins
+            <i class="{{ 'fa fa-flag' if ckan_28 else 'icon-flag' }}"></i>{{ _('Reported by you to admins') }}
           </div>
         {% endif%}
         <h4 class="list-group-item-name">
@@ -20,10 +20,10 @@
           </a>
         </h4>
         <ul class="list-group-item-meta">
-          <li>Opened by <a href="{{ h.url_for(controller='user',action='read', id=issue.user) if ckan_28 else h.url_for('user_datasets', id=issue.user) }}">{{issue.user}}</a></li>
+          <li>{{ _('Opened by ') }}<a href="{{ h.url_for(controller='user',action='read', id=issue.user) if ckan_28 else h.url_for('user_datasets', id=issue.user) }}">{{issue.user}}</a></li>
           <li>
             <i class="{{ 'fa fa-clock' if ckan_28 else 'icon-clock' }}"></i>
-            <span class="timeago" title="{{h.render_datetime(issue.created)}}"> updated {{ h.time_ago_from_timestamp(issue.created) }}</span>
+            <span class="timeago" title="{{h.render_datetime(issue.created)}}"> {{ _('updated') }} {{ h.time_ago_from_timestamp(issue.created) }}</span>
           </li>
           <li>
             <i class="{{ 'fa fa-comments' if ckan_28 else 'icon-comments' }}"></i>
@@ -40,7 +40,7 @@
   <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <i class="{{ 'fa fa-filter' if ckan_28 else 'icon-medium icon-filter' }}"></i>
-        Status
+        {{ _('Status') }}
     </h2>
     <ul class="unstyled nav nav-simple">
         {% for valid_status in ['open', 'closed'] %}
@@ -55,14 +55,14 @@
     {% if user_can_change_visibility %}
     <h2 class="module-heading">
         <i class="{{ 'fa fa-filter' if ckan_28 else 'icon-medium icon-filter' }}"></i>
-        Visibility
+        {{ _('Visibility') }}
     </h2>
     <ul class="unstyled nav nav-simple nav-facet">
         {% for valid_visibility in ['visible', 'hidden'] %}
         <li class="nav-item {% if visibility==valid_visibility%}active{% endif %}">
         {% set href = h.remove_url_param('visibility', extras=url_params) if visibility==valid_visibility else h.replace_url_param(new_params={'visibility': valid_visibility}, extras=url_params) %}
         <a id="{{ valid_visibility }}-filter" href="{{ href }}">
-        <span>{{_(valid_visibility.title())}}</span>
+        <span>{{_('Visible') if valid_visibility == 'visible' else _('Hidden') }}</span>
         </a>
         </li>
         {% endfor %}

@@ -1,8 +1,10 @@
 {% if type == 'issue' %}
   {% set count = count if count is defined else 0 %}
-  {% set text_query = ungettext('{number} issue found for "{query}"', '{number} issues found for "{query}"', count) %}
+  {% set text_query = ungettext(_('{number} issue found for "{query}"'), _('{number} issues found for "{query}"'), count) %}
   {% set text_query_none = _('No issues found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} issue found', '{number} issues found', count) %}
+  {% set number_issues_found = _('{number} issue found')%}
+  {% set number_issues_fount_pl = _('{number} issues found')%}
+  {% set text_no_query = ungettext(number_issues_found, number_issues_fount_pl, count) %}
   {% set text_no_query_none = _('No issues found') %}
 {% endif %}
 
