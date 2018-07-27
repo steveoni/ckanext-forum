@@ -5,7 +5,7 @@
 {% block subtitle %}{{ _('All Issues') }} - {{ super() }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for 'All Issues', named_route='all_issues_page' %}</li>
+  <li class="active">{% link_for _('All Issues'), named_route='all_issues_page' %}</li>
 {% endblock %}
 
 {% block page_heading %}
