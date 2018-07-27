@@ -282,7 +282,7 @@ msgstr "Наслов"
 #: ckanext/issues/templates/issues/add.html:28
 #: ckanext/issues/templates/issues/edit.html:26
 msgid "Description"
-msgstr "Опси"
+msgstr "Опис"
 
 #: ckanext/issues/templates/issues/add.html:28
 #: ckanext/issues/templates/issues/edit.html:26
