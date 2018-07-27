@@ -7,6 +7,7 @@ log = getLogger(__name__)
 import ckan.plugins as p
 from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins import implements, toolkit
+from ckan.lib.helpers import ckan_version
 
 # Imports are done in methods to speed up paster.
 # Please don't move back up to here.
@@ -57,12 +58,16 @@ class IssuesPlugin(p.SingletonPlugin, DefaultTranslation):
     def before_map(self, map):
         from ckan.config.routing import SubMapper
 
+        ckan_icon = 'warning-sign'
+        if ckan_version()[:3] >= '2.8':
+            ckan_icon = 'warning'
+
         controller_name = 'ckanext.issues.controller:IssueController'
         with SubMapper(map, controller=controller_name) as m:
             m.connect('issues_dataset',
                       '/dataset/:dataset_id/issues',
                       action='dataset',
-                      ckan_icon='warning-sign')
+                      ckan_icon=ckan_icon)
             m.connect('issues_new',
                       '/dataset/:dataset_id/issues/new',
                       action='new')
