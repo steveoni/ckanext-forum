@@ -9,7 +9,7 @@
 {% set errors = c.errors %}
 
 {% block ourform %}
-<form id="issue-new" class="dataset-form form-horizontal" method="post" data-module="basic-form">
+<form id="issue-new" class="dataset-form" method="post" data-module="basic-form">
   {% block error_summary %}
     {% if c.error_summary | count %}
       <div class="alert alert-error error-explanation">
@@ -31,7 +31,7 @@ set           {% for key, error in c.error_summary.items() %}
 
   <div class="form-actions">
     {{ h.nav_link(_('Cancel'), controller='related', action='list', id=c.id,
-    class_='btn') }}
+    class_='btn btn-danger pull-left') }}
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Create') }}</button>
   </div>
 </form>

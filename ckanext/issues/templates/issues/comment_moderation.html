@@ -54,7 +54,7 @@
       <input type="hidden" name="issue_number" value="{{ comment.issue_number }}">
       <input type="hidden" name="comment_id" value="{{ comment.id }}">
       <input type="hidden" name="abuse_status" value="abuse">
-      <button class="subtle-btn-active subtle-btn-abuse" type="submit" value="abuse" title="Report">
+      <button class="btn btn-sm btn-default" type="submit" value="abuse" title="Report">
         <i class="{{ 'fa fa-flag' if ckan_28 else 'icon-flag' }}"></i>
         {{ _('Abuse') }}
       </button>
@@ -65,7 +65,7 @@
       <input type="hidden" name="issue_number" value="{{ comment.issue_number }}">
       <input type="hidden" name="comment_id" value="{{ comment.id }}">
       <input type="hidden" name="abuse_status" value="not_abuse">
-      <button class="subtle-btn-active subtle-btn-abuse-active" type="submit" value="not_abuse" data-toggle="tooltip" title="Clear abuse reports">
+      <button class="btn btn-default" type="submit" value="not_abuse" data-toggle="tooltip" title="Clear abuse reports">
         <i class="{{ 'fa fa-trash' if ckan_28 else 'icon-remove' }}"></i>
         {{ _('Not abuse') }}
       </button>

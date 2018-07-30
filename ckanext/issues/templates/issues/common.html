@@ -72,9 +72,10 @@
 {%- endmacro %}
 
 {% macro page_selector(pagination, number_per_page, url_params={}) -%}
+<div class="row">
   {% if pagination.pages > 1 %}
-    <div class="pagination pagination-small span6" id="page">
-      <ul>
+    <div class="col-md-8 " id="page">
+      <ul class="pagination pagination-small">
       {% if pagination.has_previous %}
         <li>
           {% set href = h.replace_url_param(new_params={'page': pagination.page - 1}, extras=url_params) %}
@@ -126,8 +127,8 @@
       </ul>
     </div>
 
-    <div class="pagination pagination-small span3" id="per_page">
-      <ul>
+    <div class="col-md-4" id="per_page">
+      <ul class="pagination pagination-small">
         {% for per_page_option in number_per_page %}
           <li{% if per_page_option==pagination.per_page %} class="active"{% endif %}>
             {% set href = h.replace_url_param(new_params={'per_page': per_page_option, 'page': 1}, extras=url_params) %}
@@ -140,5 +141,5 @@
       </ul>
     </div>
   {% endif %}
-
+</div>
 {%- endmacro %}
