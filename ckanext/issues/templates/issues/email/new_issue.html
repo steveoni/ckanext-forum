@@ -1,4 +1,52 @@
-On {{ site_title }} a user has raised an issue with one of the datasets from organization '{{ recipient.organization_title }}', for which you are an {{ recipient.capacity }}.' for which you are an {{ capacity }}.
+На {{ site_title }} корисник пријави проблем со еден од податочните сетови во организацијата '{{ recipient.organization_title }}', во која што Вие сте {{ recipient.capacity }}.
+
+Податочниот сет е: {{ dataset.title }}
+Проблемот е:
+
+> {{ issue_subject|wordwrap(width=76)|replace('\n', '\n> '|safe) }}
+> {{ issue.description|wordwrap(width=76)|replace('\n', '\n> '|safe) }}
+
+Ве молиме корегирајте го проблемот или додадете коментар за проблемот на следиот линк: {{ h.url_for('issues_show', dataset_id=dataset.name, issue_number=issue.number, qualified=True) }}. Штом проблемот е разрешен, кликнете 'Затвори проблем'.
+
+Ви благодариме,
+
+Тимот на {{ site_title }}
+
+--
+
+Проблем: {{ h.url_for('issues_show', dataset_id=dataset.name, issue_number=issue.number, qualified=True) }}
+Податочен сет: {{ h.url_for('dataset_read', id=dataset.name, qualified=True) }}
+Корисник: {{ user.fullname or user.name }}
+
+---
+
+
+
+En {{ site_title }}, un usuario ha planteado un problema con uno de los conjuntos de datos de la organización '{{ recipient.organization_title }}', para la que usted es un {{ recipient.capacity }}.
+
+The dataset is: {{ dataset.title }}
+Problemi është: {{ h.url_for('dataset_read', id=dataset.name, qualified=True) }}
+Përdorues: {{ user.fullname or user.name }}
+
+> {{ issue_subject|wordwrap(width=76)|replace('\n', '\n> '|safe) }}
+> {{ issue.description|wordwrap(width=76)|replace('\n', '\n> '|safe) }}
+
+Korrigjoni problemin ose shtoni një koment fillestar për çështjen këtu: {{ h.url_for('issues_show', dataset_id=dataset.name, issue_number=issue.number, qualified=True) }}. Sapo çështja të jetë zgjidhur, klikoni butonin 'Mbyll problemin'.
+
+Faleminderit,
+
+{{ site_title }} ekip
+
+--
+
+Issue: {{ h.url_for('issues_show', dataset_id=dataset.name, issue_number=issue.number, qualified=True) }}
+Dataset: {{ h.url_for('dataset_read', id=dataset.name, qualified=True) }}
+User: {{ user.fullname or user.name }}
+
+---
+
+
+On {{ site_title }} a user has raised an issue with one of the datasets from organization '{{ recipient.organization_title }}', for which you are an {{ recipient.capacity }}.'
 
 The dataset is: {{ dataset.title }}
 The issue is:
