@@ -230,7 +230,7 @@ endfor %}">
           </form>
           {% else %}
           <div class="not-logged-in">
-            <a href="{{h.url_for('login', came_from=h.full_current_url())}}" class="btn btn-default">{{ _('Login to comment') }}</a>
+            <a href="{{h.url_for(controller='user', action='login', came_from=h.full_current_url())}}" class="btn btn-default">{{ _('Login to comment') }}</a>
           </div>
           {% endif %}
         </div>
