@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import collections
 from logging import getLogger
 import re
@@ -295,8 +296,8 @@ class IssueController(BaseController):
 
                 if notifications:
                     subject = get_issue_subject(issue)
-                    body = toolkit._('Assigned to {user}'.format(
-                        user=assignee['display_name']))
+                    body = u'Доделено на {user}.\n\n---\nCaktuar për {user}.\n\n---\nAssigned to {user}.'.format(
+                        user=assignee['display_name'])
 
                     user_obj = model.User.get(assignee_id)
                     try:
