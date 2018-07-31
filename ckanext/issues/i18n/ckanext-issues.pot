@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-26 16:19+0200\n"
+"POT-Creation-Date: 2018-07-31 12:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.6.0\n"
 
 #: ckanext/issues/auth.py:20
 msgid "User {0} not authorized for action on issue {1}"
@@ -29,144 +29,140 @@ msgstr ""
 msgid "User {user} not authorized for action on issue {issue}"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:48
+#: ckanext/issues/controller/controller.py:49
 msgid "Issues have not been enabled for this dataset"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:51
-#: ckanext/issues/controller/controller.py:69
+#: ckanext/issues/controller/controller.py:52
+#: ckanext/issues/controller/controller.py:70
 msgid "Dataset not found"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:54
+#: ckanext/issues/controller/controller.py:55
 msgid "Unauthorized to view issues for this dataset"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:66
+#: ckanext/issues/controller/controller.py:67
 msgid "Issues have not been enabled for this organization"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:72
+#: ckanext/issues/controller/controller.py:73
 msgid "Unauthorized to view issues for this organization"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:77
+#: ckanext/issues/controller/controller.py:78
 msgid "Please login to add a new issue"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:86
+#: ckanext/issues/controller/controller.py:87
 msgid "Not authorized to add a new issue"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:113
+#: ckanext/issues/controller/controller.py:114
 msgid "Your issue has been registered, thank you for the feedback"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:131
-#: ckanext/issues/controller/controller.py:134
+#: ckanext/issues/controller/controller.py:132
+#: ckanext/issues/controller/controller.py:135
 msgid "Issue not found: {0}"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:178
+#: ckanext/issues/controller/controller.py:179
 msgid "Invalid request"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:190
+#: ckanext/issues/controller/controller.py:191
 msgid "Not authorized"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:199
+#: ckanext/issues/controller/controller.py:200
 msgid "Comment cannot be empty"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:215
+#: ckanext/issues/controller/controller.py:216
 msgid "Issue closed"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:217
+#: ckanext/issues/controller/controller.py:218
 msgid "Issue re-opened"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:255
+#: ckanext/issues/controller/controller.py:256
 msgid "Unauthorized to delete issue {0}"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:260
+#: ckanext/issues/controller/controller.py:261
 msgid "Issue {0} has been deleted."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:278
+#: ckanext/issues/controller/controller.py:279
 msgid "User {0} does not exist"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:298
-msgid "Assigned to {user}"
-msgstr ""
-
-#: ckanext/issues/controller/controller.py:308
+#: ckanext/issues/controller/controller.py:309
 msgid "Unauthorized to assign users to issue"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:322
+#: ckanext/issues/controller/controller.py:323
 msgid "You must be logged in to report issues"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:333
-#: ckanext/issues/controller/controller.py:370
+#: ckanext/issues/controller/controller.py:334
+#: ckanext/issues/controller/controller.py:371
 msgid "Report acknowledged."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:336
-#: ckanext/issues/controller/controller.py:373
+#: ckanext/issues/controller/controller.py:337
+#: ckanext/issues/controller/controller.py:374
 msgid "Marked as abuse/spam."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:337
+#: ckanext/issues/controller/controller.py:338
 msgid "Issue is visible."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:339
+#: ckanext/issues/controller/controller.py:340
 msgid "Issue is invisible to normal users."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:342
+#: ckanext/issues/controller/controller.py:343
 msgid "Issue reported to an administrator"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:358
+#: ckanext/issues/controller/controller.py:359
 msgid "You must be logged in to report comments"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:374
+#: ckanext/issues/controller/controller.py:375
 msgid "Comment is visible."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:376
+#: ckanext/issues/controller/controller.py:377
 msgid "Comment is invisible to normal users."
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:379
+#: ckanext/issues/controller/controller.py:380
 msgid "Comment has been reported to an administrator"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:402
+#: ckanext/issues/controller/controller.py:403
 msgid "Issue report cleared"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:407
+#: ckanext/issues/controller/controller.py:408
 msgid "You must be logged in clear abuse reports"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:425
+#: ckanext/issues/controller/controller.py:426
 msgid "Spam/abuse report cleared"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:430
+#: ckanext/issues/controller/controller.py:431
 msgid "You must be logged in to clear abuse reports"
 msgstr ""
 
-#: ckanext/issues/controller/controller.py:447
-#: ckanext/issues/controller/controller.py:487
+#: ckanext/issues/controller/controller.py:448
+#: ckanext/issues/controller/controller.py:488
 msgid "Validation error: {0}"
 msgstr ""
 
@@ -286,7 +282,7 @@ msgid "Add a comment"
 msgstr ""
 
 #: ckanext/issues/templates/issues/add.html:33
-#: ckanext/issues/templates/issues/confirm_delete.html:14
+#: ckanext/issues/templates/issues/confirm_delete.html:12
 #: ckanext/issues/templates/issues/edit.html:34
 msgid "Cancel"
 msgstr ""
@@ -296,6 +292,7 @@ msgid "Create"
 msgstr ""
 
 #: ckanext/issues/templates/issues/all_issues.html:5
+#: ckanext/issues/templates/issues/all_issues.html:8
 #: ckanext/issues/templates/issues/all_issues.html:12
 msgid "All Issues"
 msgstr ""
@@ -313,7 +310,9 @@ msgid "What are issues?"
 msgstr ""
 
 #: ckanext/issues/templates/issues/base_form_page.html:17
-msgid " <p>Issues are ... .</p> "
+msgid ""
+" <p>Isses are problems reported per dataset and can be filled out by signed-"
+"in users.</p> "
 msgstr ""
 
 #: ckanext/issues/templates/issues/comment_moderation.html:10
@@ -410,11 +409,11 @@ msgid "Hidden"
 msgstr ""
 
 #: ckanext/issues/templates/issues/confirm_delete.html:3
-#: ckanext/issues/templates/issues/confirm_delete.html:15
+#: ckanext/issues/templates/issues/confirm_delete.html:13
 msgid "Confirm Delete"
 msgstr ""
 
-#: ckanext/issues/templates/issues/confirm_delete.html:11
+#: ckanext/issues/templates/issues/confirm_delete.html:9
 msgid "Are you sure you want to delete issue - {0}?"
 msgstr ""
 
@@ -423,15 +422,7 @@ msgstr ""
 msgid "Search issues..."
 msgstr ""
 
-#: ckanext/issues/templates/issues/dataset.html:28
-#: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:7
-msgid "{number} issue found"
-msgid_plural "{number} issues found"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/issues/templates/issues/dataset.html:38
+#: ckanext/issues/templates/issues/dataset.html:35
 msgid "No issues"
 msgstr ""
 
@@ -451,6 +442,11 @@ msgstr ""
 #: ckanext/issues/templates/issues/moderation.html:43
 #: ckanext/issues/templates/issues/moderation.html:45
 msgid "created issue"
+msgstr ""
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:7
+msgid "{number} issue found"
 msgstr ""
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
