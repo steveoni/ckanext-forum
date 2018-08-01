@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-08-01 12:01+0200\n"
+"POT-Creation-Date: 2018-08-01 11:59+0200\n"
 "PO-Revision-Date: 2018-07-25 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: mk\n"
@@ -330,21 +330,9 @@ msgid "There are currently no issues"
 msgstr "Нема проблеми во овој момент"
 
 #: ckanext/issues/templates/issues/base.html:9
-#, fuzzy
+#| msgid "Dataset"
 msgid "Datasets"
-msgstr "Податочен сет"
-
-#: ckanext/issues/templates/issues/base.html:11
-#: ckanext/issues/templates/issues/comment_moderation.html:32
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/moderation.html:31
-#: ckanext/issues/templates/issues/organization_issues.html:9
-#: ckanext/issues/templates/issues/organization_issues.html:14
-#: ckanext/issues/templates/issues/organization_issues.html:23
-#: ckanext/issues/templates/issues/show.html:15
-msgid "Issues"
-msgstr "Проблеми"
+msgstr "Податочни сетови"
 
 #: ckanext/issues/templates/issues/base_form_page.html:15
 msgid "What are issues?"
@@ -372,6 +360,17 @@ msgstr "Нема пријавени коментари."
 #: ckanext/issues/templates/issues/organization_issues.html:12
 msgid "Organizations"
 msgstr "Организации"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr "Проблеми"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:33
 #: ckanext/issues/templates/issues/moderation.html:32
