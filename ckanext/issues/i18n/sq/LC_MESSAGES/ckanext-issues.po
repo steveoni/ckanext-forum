@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-31 12:12+0200\n"
+"POT-Creation-Date: 2018-08-01 12:01+0200\n"
 "PO-Revision-Date: 2018-07-25 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: sq\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Babel 2.3.4\n"
 
 #: ckanext/issues/auth.py:20
 msgid "User {0} not authorized for action on issue {1}"
@@ -244,6 +244,32 @@ msgstr "Problemi nuk u gjet"
 msgid "Issue Comment not found"
 msgstr "Problem comment not found"
 
+#: ckanext/issues/model/__init__.py:131
+msgid "Newest"
+msgstr "Më të Rejat"
+
+#: ckanext/issues/model/__init__.py:133
+msgid "Oldest"
+msgstr "Më i vjetër"
+
+#: ckanext/issues/model/__init__.py:134
+#| msgid "commented"
+msgid "Most Commented"
+msgstr "Më komentoi"
+
+#: ckanext/issues/model/__init__.py:135
+#| msgid "commented"
+msgid "Least Commented"
+msgstr "Më së paku komentoi"
+
+#: ckanext/issues/model/__init__.py:136
+msgid "Most Recently Updated"
+msgstr "Përditësuar së Fundmi"
+
+#: ckanext/issues/model/__init__.py:137
+msgid "Least Recently Updated"
+msgstr "Më së paku përditësuar"
+
 #: ckanext/issues/public/scripts/autocomplete-action-api.js:31
 msgid "No matches found"
 msgstr "Komenti i problemit nuk u gjet"
@@ -307,6 +333,18 @@ msgstr "Aktualisht nuk ka probleme"
 msgid "Datasets"
 msgstr "Datasets"
 
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr "Problemet"
+
 #: ckanext/issues/templates/issues/base_form_page.html:15
 msgid "What are issues?"
 msgstr "Cilat janë problemet?"
@@ -315,8 +353,9 @@ msgstr "Cilat janë problemet?"
 msgid ""
 " <p>Isses are problems reported per dataset and can be filled out by "
 "signed-in users.</p> "
-msgstr " <p>Çështjet janë probleme të raportuara për grupin e të dhënave "
-"dhe mund të plotësohen nga përdorues të regjistruar.</p>"
+msgstr ""
+" <p>Çështjet janë probleme të raportuara për grupin e të dhënave dhe mund"
+" të plotësohen nga përdorues të regjistruar.</p>"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:10
 #: ckanext/issues/templates/issues/moderation.html:9
@@ -332,17 +371,6 @@ msgstr "Nuk ka komente të raportuara."
 #: ckanext/issues/templates/issues/organization_issues.html:12
 msgid "Organizations"
 msgstr "Organizatat"
-
-#: ckanext/issues/templates/issues/comment_moderation.html:32
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/moderation.html:31
-#: ckanext/issues/templates/issues/organization_issues.html:9
-#: ckanext/issues/templates/issues/organization_issues.html:14
-#: ckanext/issues/templates/issues/organization_issues.html:23
-#: ckanext/issues/templates/issues/show.html:15
-msgid "Issues"
-msgstr "Problemet"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:33
 #: ckanext/issues/templates/issues/moderation.html:32
@@ -448,13 +476,12 @@ msgid "created issue"
 msgstr "krijoi çështjen"
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:7
-#, fuzzy
+#: ckanext/issues/templates/snippets/search_result_text.html:37
 msgid "{number} issue found"
-msgstr "problemi i {number} u gjet"
+msgstr "{number} 1 problem u gjet"
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:8
+#: ckanext/issues/templates/snippets/search_result_text.html:38
 msgid "{number} issues found"
 msgstr "{number} problemet e gjetura"
 
@@ -604,19 +631,92 @@ msgstr "Emri i përdoruesit"
 msgid "Assign"
 msgstr "Caktoj"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:3
+#: ckanext/issues/templates/snippets/search_result_text.html:15
+#| msgid "{number} issue found for \"{query}\""
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number} problem i gjetur për \"{query}\""
+msgstr[1] "Datat e {number} gjenden për \ "{query} \""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:16
+#| msgid "No issues found for \"{query}\""
+msgid "No datasets found for \"{query}\""
+msgstr "Asnjë grup i të dhënave nuk u gjet për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:17
+#| msgid "{number} issue found"
+msgid "{number} dataset found"
+msgid_plural "{number} datasets found"
+msgstr[0] "{number} seti i të dhënave u gjet"
+msgstr[1] "{number} grupe të të dhënave u gjetën"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:18
+#| msgid "No matches found"
+msgid "No datasets found"
+msgstr "Asnjë grup i të dhënave nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:21
+#| msgid "{number} issue found for \"{query}\""
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} grup i gjetur për \"{query}"
+msgstr[1] "{number} grupe të gjetura për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:22
+
+#| msgid "No issues found for \"{query}\""
+msgid "No groups found for \"{query}\""
+msgstr "Nuk u gjet asnjë grup për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:23
+#| msgid "{number} issue found"
+msgid "{number} group found"
+msgid_plural "{number} groups found"
+msgstr[0] "{number} grup u gjet"
+msgstr[1] "U gjetën {number} grupe"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:24
+#| msgid "No issues found"
+msgid "No groups found"
+msgstr "Asnjë grup nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:27
+#| msgid "{number} issue found for \"{query}\""
+msgid "{number} organization found for \"{query}\""
+msgid_plural "{number} organizations found for \"{query}\""
+msgstr[0] "organizata {number} e gjetur për \"{query}\""
+msgstr[1] "{number} organizatave të gjetura për \"{query}\"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:28
+#| msgid "No issues found for \"{query}\""
+msgid "No organizations found for \"{query}\""
+msgstr "Nuk gjetën asnjë organizatë për \ "{query}""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:29
+#| msgid "Organization not found"
+msgid "{number} organization found"
+msgid_plural "{number} organizations found"
+msgstr[0] "{number} organizata u gjet"
+msgstr[1] "{number} organizata gjetën ""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:30
+#| msgid "Organization not found"
+msgid "No organizations found"
+msgstr "Asnjë organizatë nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:33
 msgid "{number} issue found for \"{query}\""
 msgstr "{number} problem i gjetur për \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:4
+#: ckanext/issues/templates/snippets/search_result_text.html:34
 msgid "{number} issues found for \"{query}\""
 msgstr "{number} probleme të gjetura për \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:6
+#: ckanext/issues/templates/snippets/search_result_text.html:36
 msgid "No issues found for \"{query}\""
 msgstr "Asnjë problem nuk është gjetur për \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:10
+#: ckanext/issues/templates/snippets/search_result_text.html:40
 msgid "No issues found"
 msgstr "Nuk gjetën probleme"
 

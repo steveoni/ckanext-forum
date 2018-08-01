@@ -22,9 +22,9 @@
 
 
 
-En {{ site_title }}, un usuario ha planteado un problema con uno de los conjuntos de datos de la organización '{{ recipient.organization_title }}', para la que usted es un {{ recipient.capacity }}.
+Përdoruesi {{site_title}} raporton një problem me një nga grupet e të dhënave në organizatën '{{recipient.organization_title}}', në të cilën jeni {{recipient.capacity}}
 
-The dataset is: {{ dataset.title }}
+Seti i të dhënave është: {{ dataset.title }}
 Problemi është: {{ h.url_for('dataset_read', id=dataset.name, qualified=True) }}
 Përdorues: {{ user.fullname or user.name }}
 
