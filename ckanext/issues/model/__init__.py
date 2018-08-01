@@ -129,7 +129,6 @@ def _user_dict(user):
 
 class IssueFilter(enum.Enum):
     newest = toolkit._('Newest')
-    print 'newest', newest
     oldest = toolkit._('Oldest')
     most_commented = toolkit._('Most Commented')
     least_commented = toolkit._('Least Commented')

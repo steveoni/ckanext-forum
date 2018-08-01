@@ -246,7 +246,7 @@ msgstr "Problem comment not found"
 
 #: ckanext/issues/model/__init__.py:131
 msgid "Newest"
-msgstr "Më të Rejat"
+msgstr "Më të rejat"
 
 #: ckanext/issues/model/__init__.py:133
 msgid "Oldest"
@@ -690,7 +690,7 @@ msgstr[1] "{number} organizatave të gjetura për \"{query}\"
 #: ckanext/issues/templates/snippets/search_result_text.html:28
 #| msgid "No issues found for \"{query}\""
 msgid "No organizations found for \"{query}\""
-msgstr "Nuk gjetën asnjë organizatë për \ "{query}""
+msgstr "Nuk gjetën asnjë organizatë për \"{query}\""
 
 #: ckanext/issues/templates/snippets/search_result_text.html:29
 #| msgid "Organization not found"
