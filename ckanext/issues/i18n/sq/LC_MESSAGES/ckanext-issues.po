@@ -337,7 +337,11 @@ msgstr "Aktualisht nuk ka probleme"
 
 #: ckanext/issues/templates/issues/base.html:9
 msgid "Datasets"
+<<<<<<< HEAD
 msgstr "Seti i të Dhënave"
+=======
+msgstr "Seti i të dhënave"
+>>>>>>> cc7a6939074933ac15b63a90b23962daa5eb48be
 
 #: ckanext/issues/templates/issues/base.html:11
 #: ckanext/issues/templates/issues/comment_moderation.html:32
