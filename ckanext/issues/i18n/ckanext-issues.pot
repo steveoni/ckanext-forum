@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-08-08 00:05+0200\n"
+"POT-Creation-Date: 2018-08-10 14:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,12 +470,12 @@ msgid "created issue"
 msgstr ""
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:37
+#: ckanext/issues/templates/snippets/search_result_text.html:44
 msgid "{number} issue found"
 msgstr ""
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:38
+#: ckanext/issues/templates/snippets/search_result_text.html:45
 msgid "{number} issues found"
 msgstr ""
 
@@ -629,79 +629,91 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:15
+#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:18
+msgid "{number} catalog found"
+msgid_plural "{number} catalogs found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:19
+msgid "No catalogs found"
+msgstr ""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:21
 msgid "{number} dataset found for \"{query}\""
 msgid_plural "{number} datasets found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:22
 msgid "No datasets found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:23
 msgid "{number} dataset found"
 msgid_plural "{number} datasets found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:18
+#: ckanext/issues/templates/snippets/search_result_text.html:24
 msgid "No datasets found"
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:21
+#: ckanext/issues/templates/snippets/search_result_text.html:28
 msgid "{number} group found for \"{query}\""
 msgid_plural "{number} groups found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:22
+#: ckanext/issues/templates/snippets/search_result_text.html:29
 msgid "No groups found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:23
+#: ckanext/issues/templates/snippets/search_result_text.html:30
 msgid "{number} group found"
 msgid_plural "{number} groups found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:24
+#: ckanext/issues/templates/snippets/search_result_text.html:31
 msgid "No groups found"
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:27
+#: ckanext/issues/templates/snippets/search_result_text.html:34
 msgid "{number} organization found for \"{query}\""
 msgid_plural "{number} organizations found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:28
+#: ckanext/issues/templates/snippets/search_result_text.html:35
 msgid "No organizations found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:29
+#: ckanext/issues/templates/snippets/search_result_text.html:36
 msgid "{number} organization found"
 msgid_plural "{number} organizations found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:37
 msgid "No organizations found"
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:33
+#: ckanext/issues/templates/snippets/search_result_text.html:40
 msgid "{number} issue found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:34
+#: ckanext/issues/templates/snippets/search_result_text.html:41
 msgid "{number} issues found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:36
+#: ckanext/issues/templates/snippets/search_result_text.html:43
 msgid "No issues found for \"{query}\""
 msgstr ""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:40
+#: ckanext/issues/templates/snippets/search_result_text.html:47
 msgid "No issues found"
 msgstr ""
 

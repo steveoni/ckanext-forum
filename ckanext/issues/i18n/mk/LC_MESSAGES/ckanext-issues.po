@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-08-01 11:59+0200\n"
+"POT-Creation-Date: 2018-08-10 14:09+0200\n"
 "PO-Revision-Date: 2018-07-25 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: mk\n"
@@ -250,23 +250,23 @@ msgstr "Коментарот на проблемот не е најден"
 msgid "Newest"
 msgstr "Најнови"
 
-#: ckanext/issues/model/__init__.py:133
+#: ckanext/issues/model/__init__.py:132
 msgid "Oldest"
 msgstr "Најстари"
 
-#: ckanext/issues/model/__init__.py:134
+#: ckanext/issues/model/__init__.py:133
 msgid "Most Commented"
 msgstr "Најкоментирани"
 
-#: ckanext/issues/model/__init__.py:135
+#: ckanext/issues/model/__init__.py:134
 msgid "Least Commented"
 msgstr "Најмалку коментирани"
 
-#: ckanext/issues/model/__init__.py:136
+#: ckanext/issues/model/__init__.py:135
 msgid "Most Recently Updated"
 msgstr "Најчесто ажурирани"
 
-#: ckanext/issues/model/__init__.py:137
+#: ckanext/issues/model/__init__.py:136
 msgid "Least Recently Updated"
 msgstr "Најмалку ажурирани"
 
@@ -330,9 +330,20 @@ msgid "There are currently no issues"
 msgstr "Нема проблеми во овој момент"
 
 #: ckanext/issues/templates/issues/base.html:9
-#| msgid "Dataset"
 msgid "Datasets"
 msgstr "Податочни сетови"
+
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr "Проблеми"
 
 #: ckanext/issues/templates/issues/base_form_page.html:15
 msgid "What are issues?"
@@ -360,17 +371,6 @@ msgstr "Нема пријавени коментари."
 #: ckanext/issues/templates/issues/organization_issues.html:12
 msgid "Organizations"
 msgstr "Организации"
-
-#: ckanext/issues/templates/issues/comment_moderation.html:32
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/moderation.html:31
-#: ckanext/issues/templates/issues/organization_issues.html:9
-#: ckanext/issues/templates/issues/organization_issues.html:14
-#: ckanext/issues/templates/issues/organization_issues.html:23
-#: ckanext/issues/templates/issues/show.html:15
-msgid "Issues"
-msgstr "Проблеми"
 
 #: ckanext/issues/templates/issues/comment_moderation.html:33
 #: ckanext/issues/templates/issues/moderation.html:32
@@ -476,12 +476,12 @@ msgid "created issue"
 msgstr "Креирани проблеми"
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:37
+#: ckanext/issues/templates/snippets/search_result_text.html:44
 msgid "{number} issue found"
 msgstr "{number} најден проблем"
 
 #: ckanext/issues/templates/issues/organization_issues.html:30
-#: ckanext/issues/templates/snippets/search_result_text.html:38
+#: ckanext/issues/templates/snippets/search_result_text.html:45
 msgid "{number} issues found"
 msgstr "{number} најдени проблеми"
 
@@ -631,79 +631,99 @@ msgstr "Корисничко име"
 msgid "Assign"
 msgstr "Додели"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:15
+#: ckanext/issues/templates/snippets/search_form.html:6
+msgid "Order by"
+msgstr "Редослед според"
+
+#: ckanext/issues/templates/snippets/search_form.html:15
+msgid "Go"
+msgstr "Оди"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:18
+msgid "{number} catalog found"
+msgid_plural "{number} catalogs found"
+msgstr[0] "{number} најден каталог"
+msgstr[1] "{number} најдени каталози"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:19
+msgid "No catalogs found"
+msgstr "Не се најдени каталози"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:21
 msgid "{number} dataset found for \"{query}\""
 msgid_plural "{number} datasets found for \"{query}\""
 msgstr[0] "{number} податочен сет пронајден за \"{query}\""
 msgstr[1] "{number} податочни сетови пронајдени за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:22
 msgid "No datasets found for \"{query}\""
 msgstr "Не се најдени податочни сетови за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:23
 msgid "{number} dataset found"
 msgid_plural "{number} datasets found"
 msgstr[0] "{number} најден податочен сет"
 msgstr[1] "{number} најдени податочни сетови"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:18
+#: ckanext/issues/templates/snippets/search_result_text.html:24
 msgid "No datasets found"
 msgstr "Не се најдени податочни сетови"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:21
+#: ckanext/issues/templates/snippets/search_result_text.html:28
 msgid "{number} group found for \"{query}\""
 msgid_plural "{number} groups found for \"{query}\""
 msgstr[0] "{number} најдена група за \"{query}\""
 msgstr[1] "{number} најдени групи за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:22
+#: ckanext/issues/templates/snippets/search_result_text.html:29
 msgid "No groups found for \"{query}\""
 msgstr "Не се најдени групи за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:23
+#: ckanext/issues/templates/snippets/search_result_text.html:30
 msgid "{number} group found"
 msgid_plural "{number} groups found"
 msgstr[0] "{number} најдена група"
 msgstr[1] "{number} најдени групи"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:24
+#: ckanext/issues/templates/snippets/search_result_text.html:31
 msgid "No groups found"
 msgstr "Не се најдени групи"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:27
+#: ckanext/issues/templates/snippets/search_result_text.html:34
 msgid "{number} organization found for \"{query}\""
 msgid_plural "{number} organizations found for \"{query}\""
 msgstr[0] "{number} најдена организација за \"{query}\""
 msgstr[1] "{number} најдени организации за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:28
+#: ckanext/issues/templates/snippets/search_result_text.html:35
 msgid "No organizations found for \"{query}\""
 msgstr "Не се најдени организации за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:29
+#: ckanext/issues/templates/snippets/search_result_text.html:36
 msgid "{number} organization found"
 msgid_plural "{number} organizations found"
 msgstr[0] "{number} најдена организацијата"
 msgstr[1] "{number} најдени организации"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:37
 msgid "No organizations found"
 msgstr "Не се пронајдени организации"
 
-#: ckanext/issues/templates/snippets/search_result_text.html:33
+#: ckanext/issues/templates/snippets/search_result_text.html:40
 msgid "{number} issue found for \"{query}\""
 msgstr "{number} најден проблем за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:34
+#: ckanext/issues/templates/snippets/search_result_text.html:41
 msgid "{number} issues found for \"{query}\""
 msgstr "{number} најдени проблеми за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:36
+#: ckanext/issues/templates/snippets/search_result_text.html:43
 msgid "No issues found for \"{query}\""
 msgstr "Не се најдени проблеми за \"{query}\""
 
-#: ckanext/issues/templates/snippets/search_result_text.html:40
+#: ckanext/issues/templates/snippets/search_result_text.html:47
 msgid "No issues found"
 msgstr "Не се најдени проблеми"
 

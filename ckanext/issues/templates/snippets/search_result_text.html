@@ -12,10 +12,17 @@ Example:
 
 #}
 {% if type == 'dataset' %}
-  {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
-  {% set text_query_none = _('No datasets found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
-  {% set text_no_query_none = _('No datasets found') %}
+  {% if query == 'extras_org_catalog_enabled:true' %}
+    {% set text_query = ungettext('{number} catalog found', '{number} catalogs found', count) %}
+    {% set text_query_none = _('No catalogs found') %}
+    {% set text_no_query = ungettext('{number} catalog found', '{number} catalogs found', count) %}
+    {% set text_no_query_none = _('No catalogs found') %}
+  {% else %}
+    {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
+    {% set text_query_none = _('No datasets found for "{query}"') %}
+    {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
+    {% set text_no_query_none = _('No datasets found') %}
+  {% endif %}
 
 {% elif type == 'group' %}
   {% set text_query = ungettext('{number} group found for "{query}"', '{number} groups found for "{query}"', count) %}
@@ -43,9 +50,9 @@ Example:
   {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
   {% set text_query_plural = '{number} ' + type + 's found for "{query}"' %}
   {% set text_query_none_plural = 'No ' + type + 's found for "{query}"' %}
-  {% set text_no_query_singular = '{number} ' + type + ' found' %}        
+  {% set text_no_query_singular = '{number} ' + type + ' found' %}
   {% set text_no_query_plural = '{number} ' + type + 's found' %}
-  {% set text_no_query_none_plural = 'No ' + type + 's found' %}      
+  {% set text_no_query_none_plural = 'No ' + type + 's found' %}
 
   {% set text_query = ungettext(text_query_singular, text_query_plural, count) %}
   {% set text_query_none = _(text_query_none_plural) %}
