@@ -704,7 +704,7 @@ msgstr "Не се најдени организации за \"{query}\""
 #: ckanext/issues/templates/snippets/search_result_text.html:36
 msgid "{number} organization found"
 msgid_plural "{number} organizations found"
-msgstr[0] "{number} најдена организацијата"
+msgstr[0] "{number} најдена организација"
 msgstr[1] "{number} најдени организации"
 
 #: ckanext/issues/templates/snippets/search_result_text.html:37
