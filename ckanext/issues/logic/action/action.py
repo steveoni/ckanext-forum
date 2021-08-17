@@ -17,7 +17,7 @@ try:
 except ImportError:
     import ckan.new_authz as authz
 
-from pylons import config
+from ckan.plugins.toolkit import config
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
 
@@ -210,7 +210,7 @@ def issue_create(context, data_dict):
                           user_obj.email, len(recipients) - 1, body)
             try:
                 mailer.mail_user(user_obj, subject, body)
-            except (mailer.MailerException, TypeError), e:
+            except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
                 log.debug(e.message)
 
@@ -476,7 +476,7 @@ def issue_comment_create(context, data_dict):
             user_obj = model.User.get(recipient['user_id'])
             try:
                 mailer.mail_user(user_obj, subject, body)
-            except (mailer.MailerException, TypeError), e:
+            except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
                 log.debug(e.message)
 

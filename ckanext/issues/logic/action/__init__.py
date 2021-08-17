@@ -1,4 +1,4 @@
-from action import (
+from .action import (
     issue_comment_create,
     issue_create,
     issue_delete,

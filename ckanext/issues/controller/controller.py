@@ -3,8 +3,9 @@ from logging import getLogger
 import re
 
 from sqlalchemy import func
-from pylons.i18n import _
-from pylons import request, config, tmpl_context as c
+from flask import Blueprint
+#from pylons.i18n import _
+#from pylons import request, tmpl_context as c
 
 from ckan.lib.base import BaseController, render, abort
 import ckan.lib.helpers as h
@@ -12,6 +13,7 @@ from ckan.lib import mailer
 import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins as p
+from ckan.plugins.toolkit import config, request, c, _
 from ckan.plugins import toolkit
 
 import ckanext.issues.model as issuemodel
@@ -23,6 +25,7 @@ from ckanext.issues.lib.helpers import (Pagination, get_issues_per_page,
                                         get_issue_subject)
 
 log = getLogger(__name__)
+issues = Blueprint('issues', __name__)
 
 AUTOCOMPLETE_LIMIT = 10
 VALID_CATEGORY = re.compile(r"[0-9a-z\-\._]+")
@@ -126,10 +129,10 @@ class IssueController(BaseController):
             extra_vars = show.show(issue_number,
                                    dataset_id,
                                    session=model.Session)
-        except toolkit.ValidationError, e:
+        except toolkit.ValidationError as e:
             p.toolkit.abort(
                 404, toolkit._('Issue not found: {0}'.format(e.error_summary)))
-        except toolkit.ObjectNotFound, e:
+        except toolkit.ObjectNotFound as e:
             p.toolkit.abort(
                 404, toolkit._('Issue not found: {0}'.format(e)))
         extra_vars['dataset'] = dataset
@@ -160,7 +163,7 @@ class IssueController(BaseController):
                 return p.toolkit.redirect_to('issues_show',
                                              issue_number=issue_number,
                                              dataset_id=dataset_id)
-            except p.toolkit.ValidationError, e:
+            except p.toolkit.ValidationError as e:
                 errors = e.error_dict
                 return p.toolkit.render(
                     'issues/edit.html',
@@ -169,7 +172,7 @@ class IssueController(BaseController):
                         'errors': errors,
                     },
                 )
-            except p.toolkit.NotAuthorized, e:
+            except p.toolkit.NotAuthorized as e:
                 p.toolkit.abort(401, e.message)
 
     def comments(self, dataset_id, issue_number):
@@ -234,7 +237,7 @@ class IssueController(BaseController):
         self._before_dataset(dataset_id)
         try:
             extra_vars = issues_for_dataset(dataset_id, request.GET)
-        except toolkit.ValidationError, e:
+        except toolkit.ValidationError as e:
             _dataset_handle_error(dataset_id, e)
         return render("issues/dataset.html", extra_vars=extra_vars)
 
@@ -301,14 +304,14 @@ class IssueController(BaseController):
                     user_obj = model.User.get(assignee_id)
                     try:
                         mailer.mail_user(user_obj, subject, body)
-                    except mailer.MailerException, e:
+                    except mailer.MailerException as e:
                         log.debug(e.message)
 
             except toolkit.NotAuthorized:
                 msg = _('Unauthorized to assign users to issue'.format(
                     issue_number))
                 toolkit.abort(401, msg)
-            except toolkit.ValidationError, e:
+            except toolkit.ValidationError as e:
                 toolkit.abort(404)
 
         return p.toolkit.redirect_to('issues_show',
@@ -344,7 +347,7 @@ class IssueController(BaseController):
                 toolkit.abort(404)
             except toolkit.ObjectNotFound:
                 toolkit.abort(404)
-            except ReportAlreadyExists, e:
+            except ReportAlreadyExists as e:
                 h.flash_error(e.message)
 
             p.toolkit.redirect_to('issues_show',
@@ -384,7 +387,7 @@ class IssueController(BaseController):
                 toolkit.abort(404)
             except toolkit.ObjectNotFound:
                 toolkit.abort(404)
-            except ReportAlreadyExists, e:
+            except ReportAlreadyExists as e:
                 h.flash_error(e.message)
             p.toolkit.redirect_to('issues_show', dataset_id=dataset_id,
                                   issue_number=issue_number)
@@ -443,7 +446,7 @@ class IssueController(BaseController):
         self._before_org(org_id)
         try:
             template_params = issues_for_org(org_id, request.GET)
-        except toolkit.ValidationError, e:
+        except toolkit.ValidationError as e:
             msg = toolkit._("Validation error: {0}".format(e.error_summary))
             log.warning(msg + ' - Issues for org: %s', org_id)
             h.flash(msg, category='alert-error')

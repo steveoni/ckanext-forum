@@ -71,8 +71,8 @@ def upgrade():
         ALTER TABLE issue DROP CONSTRAINT issue_user_id_fkey;
         '''
         model.Session.execute(remove_fkeys_sql)
-        print 'Migration 1 done: Problematic foreign key constraints to '\
-              'core ckan tables now removed'
+        print('Migration 1 done: Problematic foreign key constraints to '\
+              'core ckan tables now removed')
         model.Session.commit()
 
 
