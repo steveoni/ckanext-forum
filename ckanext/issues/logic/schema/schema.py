@@ -130,7 +130,7 @@ def issue_dataset_controller_schema():
 
 def issue_show_controller_schema():
     return {
-        'dataset_id': [not_missing, unicode, package_exists, as_package_id],
+        'dataset_id': [not_missing, str, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
     }

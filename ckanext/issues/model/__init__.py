@@ -41,7 +41,7 @@ def setup():
 
         # add default categories if they don't already exist
         session = model.meta.Session()
-        for category_name, category_desc in DEFAULT_CATEGORIES.iteritems():
+        for category_name, category_desc in DEFAULT_CATEGORIES.items():
             if not category_name:
                 continue
 
