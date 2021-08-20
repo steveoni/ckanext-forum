@@ -7,8 +7,8 @@ log = getLogger(__name__)
 import ckan.plugins as p
 from ckan.plugins import implements, toolkit
 
-from ckanext.issues.controller.issues import issues
-from ckanext.issues.controller.moderation import moderation
+from ckanext.issues.views.issues import issues
+from ckanext.issues.views.moderation import moderation
 
 # Imports are done in methods to speed up paster.
 # Please don't move back up to here.

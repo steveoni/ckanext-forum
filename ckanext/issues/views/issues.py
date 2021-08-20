@@ -15,10 +15,10 @@ from ckan.plugins.toolkit import config, request, _, c
 from ckan.plugins import toolkit
 
 import ckanext.issues.model as issuemodel
-from ckanext.issues.controller import show
+from ckanext.issues.views import show
 from ckanext.issues.exception import ReportAlreadyExists
 from ckanext.issues.lib import helpers as issues_helpers
-from ckanext.issues.logic import schema
+from ckanext.issues.logic import schema, action
 from ckanext.issues.lib.helpers import (Pagination, get_issues_per_page,
                                         get_issue_subject)
 
@@ -99,8 +99,8 @@ def new(dataset_id, resource_id=None):
         #            logic.tuplize_dict(
         #                logic.parse_params(request.params))))
         data_dict.update({
-            'title': request.POST.get('title'),
-            'description': request.POST.get('description')
+            'title': request.form.get('title'),
+            'description': request.form.get('description')
             })
 
         if not data_dict['title']:
@@ -114,7 +114,7 @@ def new(dataset_id, resource_id=None):
             h.flash_success(_('Your issue has been registered, '
                                 'thank you for the feedback'))
             p.toolkit.redirect_to(
-                'issues_show',
+                'issues.show',
                 dataset_id=dataset_dict['name'],
                 issue_number=issue_dict['number'])
 
@@ -158,7 +158,7 @@ def edit(dataset_id, issue_number):
         data_dict['dataset_id'] = dataset_id
         try:
             p.toolkit.get_action('issue_update')(data_dict=data_dict)
-            return p.toolkit.redirect_to('issues_show',
+            return p.toolkit.redirect_to('issues.show',
                                             issue_number=issue_number,
                                             dataset_id=dataset_id)
         except p.toolkit.ValidationError as e:
@@ -190,12 +190,12 @@ def comments(dataset_id, issue_number):
     except logic.NotAuthorized:
         abort(401, _('Not authorized'))
 
-    next_url = h.url_for('issues_show',
+    next_url = h.url_for('issues.show',
                             dataset_id=c.pkg['name'],
                             issue_number=issue_number)
 
     # TODO: (?) move validation somewhere better than controller
-    comment = request.POST.get('comment')
+    comment = request.form.get('comment')
     if not comment or comment.strip() == '':
         h.flash_error(_('Comment cannot be empty'))
         p.toolkit.redirect_to(next_url)
@@ -203,8 +203,8 @@ def comments(dataset_id, issue_number):
 
     # do this first because will error here if not allowed and do not want
     # comment created in that case
-    if 'close' in request.POST or 'reopen' in request.POST:
-        status = (issuemodel.ISSUE_STATUS.closed if 'close' in request.POST
+    if 'close' in request.form or 'reopen' in request.form:
+        status = (issuemodel.ISSUE_STATUS.closed if 'close' in request.form
                     else issuemodel.ISSUE_STATUS.open)
         issue_dict = {
             'issue_number': issue_number,
@@ -212,7 +212,7 @@ def comments(dataset_id, issue_number):
             'status': status
             }
         logic.get_action('issue_update')(context, issue_dict)
-        if 'close' in request.POST:
+        if 'close' in request.form:
             h.flash_success(_("Issue closed"))
         else:
             h.flash_success(_("Issue re-opened"))
@@ -234,7 +234,7 @@ def dataset(dataset_id):
     """
     _before_dataset(dataset_id)
     try:
-        extra_vars = issues_for_dataset(dataset_id, request.GET)
+        extra_vars = issues_for_dataset(dataset_id, request.args)
     except toolkit.ValidationError as e:
         _dataset_handle_error(dataset_id, e)
     return render("issues/dataset.html", extra_vars=extra_vars)
@@ -260,7 +260,7 @@ def delete(dataset_id, issue_number):
         h.flash_notice(
             _('Issue {0} has been deleted.'.format(issue_number))
         )
-        p.toolkit.redirect_to('issues_dataset', dataset_id=dataset_id)
+        p.toolkit.redirect_to('issues.dataset', dataset_id=dataset_id)
     else:
         return render('issues/confirm_delete.html',
                         extra_vars={
@@ -272,12 +272,12 @@ def assign(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
     if request.method == 'POST':
         try:
-            assignee_id = request.POST.get('assignee')
+            assignee_id = request.form.get('assignee')
             assignee = toolkit.get_action('user_show')(
                 data_dict={'id': assignee_id})
         except toolkit.ObjectNotFound:
             h.flash_error(_('User {0} does not exist'.format(assignee_id)))
-            return p.toolkit.redirect_to('issues_show',
+            return p.toolkit.redirect_to('issues.show',
                                             issue_number=issue_number,
                                             dataset_id=dataset_id)
 
@@ -312,7 +312,7 @@ def assign(dataset_id, issue_number):
         except toolkit.ValidationError as e:
             toolkit.abort(404)
 
-    return p.toolkit.redirect_to('issues_show',
+    return p.toolkit.redirect_to('issues.show',
                                     issue_number=issue_number,
                                     dataset_id=dataset_id)
 
@@ -348,7 +348,7 @@ def report(dataset_id, issue_number):
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
 
-        p.toolkit.redirect_to('issues_show',
+        p.toolkit.redirect_to('issues.show',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)
 
@@ -378,7 +378,7 @@ def report_comment(dataset_id, issue_number, comment_id):
                 h.flash_success(' '.join(msgs))
             else:
                 h.flash_success(_('Comment has been reported to an administrator'))
-            p.toolkit.redirect_to('issues_show',
+            p.toolkit.redirect_to('issues.show',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.ValidationError:
@@ -387,7 +387,7 @@ def report_comment(dataset_id, issue_number, comment_id):
             toolkit.abort(404)
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
-        p.toolkit.redirect_to('issues_show', dataset_id=dataset_id,
+        p.toolkit.redirect_to('issues.show', dataset_id=dataset_id,
                                 issue_number=issue_number)
 
 def report_clear(dataset_id, issue_number):
@@ -424,7 +424,7 @@ def comment_report_clear(dataset_id, issue_number, comment_id):
                             'dataset_id': dataset_id}
             )
             h.flash_success(_('Spam/abuse report cleared'))
-            p.toolkit.redirect_to('issues_show',
+            p.toolkit.redirect_to('issues.show',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.NotAuthorized:
@@ -443,7 +443,7 @@ def issues_for_organization(org_id):
     """
     _before_org(org_id)
     try:
-        template_params = issues_for_org(org_id, request.GET)
+        template_params = issues_for_org(org_id, request.args)
     except toolkit.ValidationError as e:
         msg = toolkit._("Validation error: {0}".format(e.error_summary))
         log.warning(msg + ' - Issues for org: %s', org_id)
@@ -480,14 +480,14 @@ def all_issues_page():
     """
     Display a page containing a list of all issues items
     """
-    template_params = all_issues(request.GET)
+    template_params = all_issues(request.args)
     return render("issues/all_issues.html", extra_vars=template_params)
 
 
 def _dataset_handle_error(dataset_id, exc):
     msg = toolkit._("Validation error: {0}".format(exc.error_summary))
     h.flash(msg, category='alert-error')
-    return p.toolkit.redirect_to('issues_dataset', dataset_id=dataset_id)
+    return p.toolkit.redirect_to('issues.dataset', dataset_id=dataset_id)
 
 
 def issues_for_dataset(dataset_id, get_query_dict):
@@ -554,11 +554,13 @@ def _search_issues(dataset_id=None,
         'offset': offset,
     })
 
+    print("===================", params)
     results_for_current_page = toolkit.get_action('issue_search')(
         data_dict=params
-    )
+        )
+    print("------------------", results_for_current_page)
     issues = results_for_current_page['results']
-
+    
     # fetch the total count of all the search results without dictizing
     params['include_count'] = True
     params['include_results'] = False
@@ -566,7 +568,7 @@ def _search_issues(dataset_id=None,
     params.pop('offset', None)
     all_search_results = toolkit.get_action('issue_search')(data_dict=params)
     issue_count = all_search_results['count']
-
+    
     pagination = Pagination(page, limit, issue_count)
 
     template_variables = {
@@ -578,9 +580,8 @@ def _search_issues(dataset_id=None,
     }
     if visibility:
         template_variables['visibility'] = visibility
+    print(template_variables)
     return template_variables
-
-##TO DO: Make all the links, and add dataset_ids and issues_ids !!!
 
 
 # Show all issues for a dataset

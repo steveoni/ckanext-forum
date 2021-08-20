@@ -99,7 +99,7 @@ def get_issues_per_page():
                            config['ckan.issues.issues_per_page']]
     except (ValueError, KeyError):
         issues_per_page = ISSUES_PER_PAGE
-    return issues_per_page
+    return [issues_per_page]
 
 
 def issues_enabled(dataset):
