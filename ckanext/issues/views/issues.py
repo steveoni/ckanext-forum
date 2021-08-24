@@ -11,7 +11,7 @@ from ckan.lib import mailer
 import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins as p
-from ckan.plugins.toolkit import config, request, _, c
+from ckan.plugins.toolkit import config, request, _, g
 from ckan.plugins import toolkit
 
 import ckanext.issues.model as issuemodel
@@ -24,11 +24,11 @@ from ckanext.issues.lib.helpers import (Pagination, get_issues_per_page,
 
 log = getLogger(__name__)
 
-issues = Blueprint(u'issues', __name__)
+issues = Blueprint('issues', __name__)
 
 AUTOCOMPLETE_LIMIT = 10
 VALID_CATEGORY = re.compile(r"[0-9a-z\-\._]+")
-ISSUES_PER_PAGE = (15, 30, 50)
+ISSUES_PER_PAGE = 15
 
 
 def _before_dataset(dataset_id):
@@ -38,9 +38,9 @@ def _before_dataset(dataset_id):
         pkg = logic.get_action('package_show')(context,
                                                 {'id': dataset_id})
         # need this as some templates in core explicitly reference
-        # c.pkg_dict
-        c.pkg = pkg
-        c.pkg_dict = c.pkg
+        # g.pkg_dict
+        g.pkg = pkg
+        g.pkg_dict = g.pkg
 
         # keep the above lines to keep current code working till it's all
         # refactored out, otherwise, we should pass pkg as an extra_var
@@ -73,13 +73,14 @@ def _before_org(org_id):
                         _('Unauthorized to view issues for this organization'))
 
 def new(dataset_id, resource_id=None):
+    context = {'for_view': True}
     dataset_dict = _before_dataset(dataset_id)
-    if not c.user:
+    if not g.user:
         abort(401, _('Please login to add a new issue'))
 
     data_dict = {
         'dataset_id': dataset_dict['id'],
-        'creator_id': c.userobj.id
+        'creator_id': g.userobj.id
     }
     try:
         logic.check_access('issue_create', context, data_dict)
@@ -90,7 +91,7 @@ def new(dataset_id, resource_id=None):
     if resource:
         data_dict['resource_id'] = resource.id
 
-    c.errors, c.error_summary = {}, {}
+    g.errors, g.error_summary = {}, {}
 
     if request.method == 'POST':
         # TODO: ? use dictization etc
@@ -104,29 +105,30 @@ def new(dataset_id, resource_id=None):
             })
 
         if not data_dict['title']:
-            c.error_summary['title'] = ["Please enter a title"]
-        c.errors = c.error_summary
+            g.error_summary['title'] = ["Please enter a title"]
+        g.errors = g.error_summary
 
-        if not c.error_summary:  # save and redirect
+        if not g.error_summary:  # save and redirect
             issue_dict = logic.get_action('issue_create')(
                 data_dict=data_dict
             )
             h.flash_success(_('Your issue has been registered, '
                                 'thank you for the feedback'))
             p.toolkit.redirect_to(
-                'issues.show',
+                'issues.show_issue',
                 dataset_id=dataset_dict['name'],
                 issue_number=issue_dict['number'])
 
-    c.data_dict = data_dict
+    g.data_dict = data_dict
     return render("issues/add.html")
 
-def show(issue_number, dataset_id):
+# RENAMED it conflicted with views.show.show
+def show_issue(issue_number, dataset_id):
     dataset = _before_dataset(dataset_id)
     try:
         extra_vars = show.show(issue_number,
                                 dataset_id,
-                                session=model.Session)
+                                session=model.Session)   
     except toolkit.ValidationError as e:
         p.toolkit.abort(
             404, toolkit._('Issue not found: {0}'.format(e.error_summary)))
@@ -134,6 +136,11 @@ def show(issue_number, dataset_id):
         p.toolkit.abort(
             404, toolkit._('Issue not found: {0}'.format(e)))
     extra_vars['dataset'] = dataset
+    # passing the user object as well, because it is needed in the HTML
+    user_issue = model.Session.query(model.User)\
+        .filter(model.User.id==extra_vars['issue']['user_id']).first()
+    extra_vars['issue']['user'] = vars(user_issue)
+
     return p.toolkit.render('issues/show.html', extra_vars=extra_vars)
 
 def edit(dataset_id, issue_number):
@@ -158,7 +165,7 @@ def edit(dataset_id, issue_number):
         data_dict['dataset_id'] = dataset_id
         try:
             p.toolkit.get_action('issue_update')(data_dict=data_dict)
-            return p.toolkit.redirect_to('issues.show',
+            return p.toolkit.redirect_to('issues.show_issue',
                                             issue_number=issue_number,
                                             dataset_id=dataset_id)
         except p.toolkit.ValidationError as e:
@@ -181,7 +188,7 @@ def comments(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
 
     auth_dict = {
-        'dataset_id': c.pkg['id'],
+        'dataset_id': g.pkg['id'],
         'issue_number': issue_number
         }
     # Are we not repeating stuff in logic ???
@@ -190,8 +197,8 @@ def comments(dataset_id, issue_number):
     except logic.NotAuthorized:
         abort(401, _('Not authorized'))
 
-    next_url = h.url_for('issues.show',
-                            dataset_id=c.pkg['name'],
+    next_url = h.url_for('issues.show_issue',
+                            dataset_id=g.pkg['name'],
                             issue_number=issue_number)
 
     # TODO: (?) move validation somewhere better than controller
@@ -218,7 +225,7 @@ def comments(dataset_id, issue_number):
             h.flash_success(_("Issue re-opened"))
 
     data_dict = {
-        'author_id': c.userobj.id,
+        'author_id': g.userobj.id,
         'comment': comment.strip(),
         'dataset_id': dataset['id'],
         'issue_number': issue_number,
@@ -232,9 +239,10 @@ def dataset(dataset_id):
     Display a page containing a list of all issues items for a dataset,
     sorted by category.
     """
-    _before_dataset(dataset_id)
+    pkg = _before_dataset(dataset_id)
     try:
         extra_vars = issues_for_dataset(dataset_id, request.args)
+        extra_vars['pkg_dict'] = pkg
     except toolkit.ValidationError as e:
         _dataset_handle_error(dataset_id, e)
     return render("issues/dataset.html", extra_vars=extra_vars)
@@ -242,7 +250,7 @@ def dataset(dataset_id):
 def delete(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
     if 'cancel' in request.params:
-        p.toolkit.redirect_to('issues_show',
+        p.toolkit.redirect_to('issues.show_issue',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)
 
@@ -277,7 +285,7 @@ def assign(dataset_id, issue_number):
                 data_dict={'id': assignee_id})
         except toolkit.ObjectNotFound:
             h.flash_error(_('User {0} does not exist'.format(assignee_id)))
-            return p.toolkit.redirect_to('issues.show',
+            return p.toolkit.redirect_to('issues.show_issue',
                                             issue_number=issue_number,
                                             dataset_id=dataset_id)
 
@@ -312,14 +320,14 @@ def assign(dataset_id, issue_number):
         except toolkit.ValidationError as e:
             toolkit.abort(404)
 
-    return p.toolkit.redirect_to('issues.show',
+    return p.toolkit.redirect_to('issues.show_issue',
                                     issue_number=issue_number,
                                     dataset_id=dataset_id)
 
 def report(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
     if request.method == 'POST':
-        if not c.user:
+        if not g.user:
             msg = _('You must be logged in to report issues')
             toolkit.abort(401, msg)
         try:
@@ -348,14 +356,14 @@ def report(dataset_id, issue_number):
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
 
-        p.toolkit.redirect_to('issues.show',
+        p.toolkit.redirect_to('issues.show_issue',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)
 
 def report_comment(dataset_id, issue_number, comment_id):
     dataset = _before_dataset(dataset_id)
     if request.method == 'POST':
-        if not c.user:
+        if not g.user:
             msg = _('You must be logged in to report comments')
             toolkit.abort(401, msg)
         try:
@@ -378,7 +386,7 @@ def report_comment(dataset_id, issue_number, comment_id):
                 h.flash_success(' '.join(msgs))
             else:
                 h.flash_success(_('Comment has been reported to an administrator'))
-            p.toolkit.redirect_to('issues.show',
+            p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.ValidationError:
@@ -387,7 +395,7 @@ def report_comment(dataset_id, issue_number, comment_id):
             toolkit.abort(404)
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
-        p.toolkit.redirect_to('issues.show', dataset_id=dataset_id,
+        p.toolkit.redirect_to('issues.show_issue', dataset_id=dataset_id,
                                 issue_number=issue_number)
 
 def report_clear(dataset_id, issue_number):
@@ -401,7 +409,7 @@ def report_clear(dataset_id, issue_number):
                 }
             )
             h.flash_success(_('Issue report cleared'))
-            p.toolkit.redirect_to('issues_show',
+            p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.NotAuthorized:
@@ -424,7 +432,7 @@ def comment_report_clear(dataset_id, issue_number, comment_id):
                             'dataset_id': dataset_id}
             )
             h.flash_success(_('Spam/abuse report cleared'))
-            p.toolkit.redirect_to('issues.show',
+            p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.NotAuthorized:
@@ -448,13 +456,13 @@ def issues_for_organization(org_id):
         msg = toolkit._("Validation error: {0}".format(e.error_summary))
         log.warning(msg + ' - Issues for org: %s', org_id)
         h.flash(msg, category='alert-error')
-        return p.toolkit.redirect_to('issues_for_organization',
+        return p.toolkit.redirect_to('issues.issues_for_organization',
                                         org_id=org_id)
     return render("issues/organization_issues.html",
                     extra_vars=template_params)
 
     # TO DELETE
-    c.org = model.Group.get(org_id)
+    g.org = model.Group.get(org_id)
 
     q = """
         SELECT table_id
@@ -462,7 +470,7 @@ def issues_for_organization(org_id):
         WHERE group_id='{gid}'
             AND table_name='package'
             AND state='active'
-    """.format(gid=c.org.id)
+    """.format(gid=g.org.id)
     results = model.Session.execute(q)
 
     dataset_ids = [x['table_id'] for x in results]
@@ -470,10 +478,10 @@ def issues_for_organization(org_id):
         .filter(issuemodel.Issue.dataset_id.in_(dataset_ids))\
         .order_by(issuemodel.Issue.created.desc())
 
-    c.results = collections.defaultdict(list)
+    g.results = collections.defaultdict(list)
     for issue in issues:
-        c.results[issue.package].append(issue)
-    c.package_set = sorted(set(c.results.keys()), key=lambda x: x.title)
+        g.results[issue.package].append(issue)
+    g.package_set = sorted(set(g.results.keys()), key=lambda x: x.title)
     return render("issues/organization_issues.html")
 
 def all_issues_page():
@@ -534,7 +542,7 @@ def _search_issues(dataset_id=None,
                    abuse_status=None,
                    q='',
                    page=1,
-                   per_page=get_issues_per_page()[0],
+                   per_page=get_issues_per_page(),
                    include_datasets=False,
                    include_reports=True):
     # use the function params to set default for our arguments to our
@@ -554,11 +562,10 @@ def _search_issues(dataset_id=None,
         'offset': offset,
     })
 
-    print("===================", params)
     results_for_current_page = toolkit.get_action('issue_search')(
         data_dict=params
         )
-    print("------------------", results_for_current_page)
+
     issues = results_for_current_page['results']
     
     # fetch the total count of all the search results without dictizing
@@ -580,48 +587,48 @@ def _search_issues(dataset_id=None,
     }
     if visibility:
         template_variables['visibility'] = visibility
-    print(template_variables)
+
     return template_variables
 
 
 # Show all issues for a dataset
-issues.add_url_rule(u'/dataset/<dataset_id>/issues', view_func=dataset, methods=[u'GET'])
+issues.add_url_rule('/dataset/<dataset_id>/issues', view_func=dataset, methods=['GET'])
 
 # New issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/new', view_func=new, methods=[u'GET', u'POST'])
-
-# Add issue with resources
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/new/<resource_id>', view_func=new, methods=[u'GET', u'POST'])
-
-# Edit an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/edit', view_func=edit, methods=[u'GET', u'POST'])
-
-# Delete an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/delete', view_func=delete, methods=[u'GET', u'POST'])
-
-# Assign an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/assign', view_func=assign, methods=[u'GET', u'POST'])
-
-# Comment on an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/comments', view_func=comments, methods=[u'POST'])
-
-# Report an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/report', view_func=report, methods=[u'GET', u'POST'])
-
-# Clear issue report
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/report_clear', view_func=report, methods=[u'GET', u'POST'])
-
-# Report comment
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/comment/<comment_id>/report', view_func=report_comment, methods=[u'GET', u'POST'])
-
-# Clear comment from report
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>/comment/<comment_id>/report_clear', view_func=comment_report_clear, methods=[u'GET', u'POST'])
+issues.add_url_rule('/dataset/<dataset_id>/issues/new', view_func=new, methods=['GET', 'POST'])
 
 # Shows an issue
-issues.add_url_rule(u'/dataset/<dataset_id>/issues/<int:issue_number>', view_func=show, methods=[u'GET'])
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>', view_func=show_issue, methods=['GET'])
+
+# Add issue with resources
+issues.add_url_rule('/dataset/<dataset_id>/issues/new/<resource_id>', view_func=new, methods=['GET', 'POST'])
+
+# Edit an issue
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/edit', view_func=edit, methods=['GET', 'POST'])
+
+# Delete an issue
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/delete', view_func=delete, methods=['GET', 'POST'])
+
+# Assign an issue
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/assign', view_func=assign, methods=['GET', 'POST'])
+
+# Comment on an issue
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/comments', view_func=comments, methods=['POST'])
+
+# Report an issue
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/report', view_func=report, methods=['GET', 'POST'])
+
+# Clear issue report
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/report_clear', view_func=report_clear, methods=['GET', 'POST'])
+
+# Report comment
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/comment/<comment_id>/report', view_func=report_comment, methods=['GET', 'POST'])
+
+# Clear comment from report
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/comment/<comment_id>/report_clear', view_func=comment_report_clear, methods=['GET', 'POST'])
 
 # Show all issues
-issues.add_url_rule(u'/issues', view_func=all_issues_page, methods=[u'GET'])
+issues.add_url_rule('/issues', view_func=all_issues_page, methods=['GET'])
 
 # All issues for an organization
-issues.add_url_rule(u'/organization/<org_id>/issues', view_func=issues_for_organization, methods=[u'GET'])
+issues.add_url_rule('/organization/<org_id>/issues', view_func=issues_for_organization, methods=['GET'])

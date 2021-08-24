@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/ckanext-issues/style.css" />
 {% endblock %}
 
-{% set pkg = c.pkg %}
+{% set pkg = pkg_dict %}
 {% set filters = h.get_issue_filter_types() %}
 {% set issues_per_page = h.get_issues_per_page() %}
 
@@ -19,7 +19,7 @@
       <h1 class="page-heading">
         {{ _('Issues') }}
         <div class="issues-actions">
-          {{ h.nav_link(_('New Issue'), named_route='issues_new', dataset_id=pkg.name, class_='btn btn-success') }}
+          <a class="btn btn-success" href="{{ h.url_for('issues.new', dataset_id=pkg_dict.name) }}">{{ _('New Issue') }}</a>
         </div>
       </h1>
    <div>
@@ -31,7 +31,7 @@
   {% if issues %}
     <ul id="issue-list" class="issue-list-group list-group">
       {% for issue in issues %}
-        {{ common.issue_item(issue, pkg, c.user) }}
+        {{ common.issue_item(issue, pkg, g.user) }}
       {% endfor %}
     </ul>
   {% else %}

@@ -3,7 +3,6 @@
 {% block content_primary_nav %}
   {{ super() }}
   {% if h.issues_enabled(pkg) %}
-  <a class="btn btn-default" href="{{ h.url_for('issues.dataset', dataset_id=pkg.name) }}">{{ _('Issues') }}</a>
-  
+    {{ h.build_nav_icon('issues.dataset', _('Issues'), dataset_id=pkg.name) }}
   {% endif %}
 {% endblock %}

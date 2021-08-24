@@ -7,7 +7,7 @@ from ckan.lib import helpers
 from ckanext.issues.model import IssueFilter
 from ckanext.issues import model as issuemodel
 
-ISSUES_PER_PAGE = (15, 30, 50)
+ISSUES_PER_PAGE = 15
 
 log = __import__('logging').getLogger(__name__)
 
@@ -94,12 +94,12 @@ def get_issue_filter_types():
 
 
 def get_issues_per_page():
-    try:
-        issues_per_page = [int(i) for i in
-                           config['ckan.issues.issues_per_page']]
-    except (ValueError, KeyError):
-        issues_per_page = ISSUES_PER_PAGE
-    return [issues_per_page]
+    # try:
+    #     issues_per_page = [int(i) for i in
+    #                        config['ckan.issues.issues_per_page']]
+    # except (ValueError, KeyError):
+    issues_per_page = ISSUES_PER_PAGE
+    return issues_per_page
 
 
 def issues_enabled(dataset):

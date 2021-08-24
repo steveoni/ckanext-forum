@@ -7,7 +7,7 @@ dataset - package object
 
 {% block styles %}
   {{ super() }}
-  {% resource 'ckanext_issues/autocomplete-action-api.js' %}
+  {% asset 'ckanext_issues/autocomplete-action-api.js' %}
 {% endblock %}
 
 {% block subtitle %}{{ '%s #%s - %s' % (issue.title, issue.number, _('Issues')) }} {% endblock %}
@@ -21,7 +21,7 @@ dataset - package object
   <meta property="og:image" content="{{ issue.user.gravatar_url }}">
 {% endblock -%}
 
-{% block breadcrumb_item %}{{ h.nav_link(issue.number, named_route='issues_show', dataset_id=dataset.name, issue_number=issue.number) }}
+{% block breadcrumb_item %}{{ h.nav_link(issue.number, named_route='issues.show_issue', dataset_id=dataset.name, issue_number=issue.number) }}
 {% endblock %}
  
 {% set can_edit_issue = h.check_access('issue_update', {'dataset_id': dataset.id, 'issue_number': issue.number }) %}
@@ -63,14 +63,14 @@ dataset - package object
       <div class="issue-comment-actions">
         {% if header_is_for_issue and can_edit_issue %}
           <div class="issue-comment-action" id="issue-edit-button">
-            <a id="issue-edit-link" href="{{h.url_for('issues_edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
+            <a id="issue-edit-link" href="{{h.url_for('issues.edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
               <i class="icon-pencil"></i>
             </a>
           </div>
         {% endif %}
-        {% if c.user and not can_edit_issue %}
+        {% if g.user and not can_edit_issue %}
           {# a normal user can report this comment/issue #}
-          {% set reported_by_current_user = h.issues_user_has_reported_issue(c.user, issue_or_comment.abuse_reports) %}
+          {% set reported_by_current_user = h.issues_user_has_reported_issue(g.user, issue_or_comment.abuse_reports) %}
           {% if not reported_by_current_user %}
             <div id="issue-report-abuse-button" class="issue-comment-action">
               {% if header_is_for_issue %}
@@ -97,7 +97,7 @@ dataset - package object
               </form>
             </div>
           {% endif %}
-        {% elif c.user %}
+        {% elif g.user %}
           {# i.e. an admin, so allow moderation #}
           {% set reports_by_users = issue_or_comment.abuse_reports|length %}
           {# always offer the "this is spam" button #}
@@ -185,10 +185,10 @@ endfor %}">
 
       <div class="issue-comment-new">
         <div class="issue-comment-wrapper">
-          {% if c.user %}
-          <a href="{{c.current_user.ckan_url}}"
+          {% if g.user %}
+          <a href="{{g.user.ckan_url}}"
             class="issue-comment-avatar">
-            {{c.current_user.gravatar}}
+            {{g.user.gravatar}}
           </a>
           <form id="issue-comment-form" class="dataset-form" method="post"
             data-module="basic-form"

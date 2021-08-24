@@ -26,7 +26,7 @@ def moderate(organization_id):
             msg = toolkit._('You must be logged in to moderate issues')
             toolkit.abort(401, msg)
 
-        data_dict = toolkit.request.POST.mixed()
+        data_dict = toolkit.request.form.mixed()
         try:
             if data_dict.get('abuse_status') == 'abuse':
                 toolkit.get_action('issue_report')(data_dict=data_dict)
@@ -55,7 +55,7 @@ def all_reported_issues(organization_id, include_sub_organizations=False):
         'visibility': 'hidden',
     })
 
-    return issues, organization
+    return [issues, organization]
 
 
 def reported_comments(organization_id):
@@ -85,7 +85,7 @@ def comment_moderate(organization_id):
             msg = toolkit._('You must be logged in to moderate comment')
             toolkit.abort(401, msg)
 
-        data_dict = toolkit.request.POST.mixed()
+        data_dict = toolkit.request.form.mixed()
         try:
             if data_dict.get('abuse_status') == 'abuse':
                 toolkit.get_action('issue_comment_report')(data_dict=data_dict)
@@ -103,13 +103,13 @@ def comment_moderate(organization_id):
 
 
 # Show all issues over max_strikes and are not moderated
-moderation.add_url_rule(u'/organization/<organization_id>/issues/reported', view_func=moderate_all_reported_issues, methods=[u'GET'])
+moderation.add_url_rule('/organization/<organization_id>/issues/reported', view_func=moderate_all_reported_issues, methods=['GET'])
 
 # Moderate issues
-moderation.add_url_rule(u'/organization/<organization_id>/issues/moderate', view_func=moderate, methods=[u'GET', u'POST'])
+moderation.add_url_rule('/organization/<organization_id>/issues/moderate', view_func=moderate, methods=['GET', 'POST'])
 
 # Reported comments
-moderation.add_url_rule(u'/organization/<organization_id>/issues/reported_comments', view_func=reported_comments, methods=[u'GET'])
+moderation.add_url_rule('/organization/<organization_id>/issues/reported_comments', view_func=reported_comments, methods=['GET'])
 
 # Reported comments
-moderation.add_url_rule(u'/organization/<organization_id>/issues/moderate_comment', view_func=comment_moderate, methods=[u'GET', u'POST'])
+moderation.add_url_rule('/organization/<organization_id>/issues/moderate_comment', view_func=comment_moderate, methods=['GET', 'POST'])

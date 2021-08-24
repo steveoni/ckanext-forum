@@ -52,6 +52,7 @@ def issue_show(context, data_dict):
 
     :rtype: dictionary
     '''
+    
     session = context['session']
     dataset_id = data_dict['dataset_id']
     issue_number = data_dict['issue_number']
@@ -61,10 +62,8 @@ def issue_show(context, data_dict):
         session=session)
     if not issue:
         raise p.toolkit.ObjectNotFound(p.toolkit._('Issue does not exist'))
-
     context['issue'] = issue
-    issue_dict = issue.as_dict()
-
+    issue_dict = vars(issue)
     user = context.get('user')
     if user:
         try:
@@ -177,6 +176,7 @@ def issue_create(context, data_dict):
     :returns: the newly created issue item
     :rtype: dictionary
     '''
+    print("TESTING!!!!!!!!")
     p.toolkit.check_access('issue_create', context, data_dict)
 
     user = context['user']
@@ -391,7 +391,7 @@ def issue_search(context, data_dict):
         results = [issue.as_plain_dict(u, comment_count_, updated,
                                        include_dataset=include_datasets,
                                        include_reports=include_reports)
-                   for (issue, u, comment_count_, updated) in query.all()]
+                   for issue, u, comment_count_, updated in query.all()]
     else:
         results = []
 

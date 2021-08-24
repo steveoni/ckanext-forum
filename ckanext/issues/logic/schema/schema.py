@@ -22,8 +22,8 @@ boolean_validator = toolkit.get_validator('boolean_validator')
 
 def issue_show_schema():
     return {
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
-        'include_reports': [ignore_missing, bool],
+        'dataset_id': [not_missing, package_exists, as_package_id],
+        'include_reports': [ignore_missing, boolean_validator],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
     }
@@ -31,21 +31,21 @@ def issue_show_schema():
 
 def issue_create_schema():
     return {
-        'title': [not_missing, str],
-        'description': [ignore_missing, str],
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'title': [not_missing],
+        'description': [ignore_missing],
+        'dataset_id': [not_missing, package_exists, as_package_id],
     }
 
 
 def issue_update_schema():
     return {
-        'assignee_id': [ignore_missing, str, user_exists],
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
-        'description': [ignore_missing, str],
+        'assignee_id': [ignore_missing, user_exists],
+        'dataset_id': [not_missing, package_exists, as_package_id],
+        'description': [ignore_missing],
         'issue_number': [not_missing, is_positive_integer],
-        'resource_id': [ignore_missing, str, resource_id_exists],
-        'status':  [ignore_missing, str],
-        'title': [ignore_missing, str],
+        'resource_id': [ignore_missing, resource_id_exists],
+        'status':  [ignore_missing],
+        'title': [ignore_missing],
         '__after': [issue_number_exists_for_dataset],
     }
 
@@ -53,50 +53,34 @@ def issue_update_schema():
 def issue_delete_schema():
     return {
         'issue_number': [not_missing, is_positive_integer],
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'dataset_id': [not_missing, package_exists, as_package_id],
         '__after': [issue_number_exists_for_dataset],
     }
 
 
 def issue_search_schema():
-    print({
-        'dataset_id': [ignore_missing, str, as_package_id],
-        'organization_id': [ignore_missing, str, as_org_id],
-        'status': [ignore_missing, str, is_valid_status],
-        'sort': [ignore_missing, str, is_valid_sort],
-        'limit': [ignore_missing, is_natural_number],
-        'offset': [ignore_missing, is_natural_number],
-        'q': [ignore_missing, str],
-        'visibility': [ignore_missing, str],
-        'include_count': [ignore_missing, bool],
-        'include_datasets': [ignore_missing, bool],
-        'include_reports': [ignore_missing, bool],
-        'include_results': [ignore_missing, bool],
-        'include_sub_organizations': [ignore_missing, bool],
-        'abuse_status': [ignore_missing, str, is_valid_abuse_status],
-    })
     return {
-        'dataset_id': [ignore_missing, str, as_package_id],
-        'organization_id': [ignore_missing, str, as_org_id],
-        'status': [ignore_missing, str, is_valid_status],
-        'sort': [ignore_missing, str, is_valid_sort],
+        'dataset_id': [ignore_missing, as_package_id],
+        'organization_id': [ignore_missing, as_org_id],
+        'status': [ignore_missing, is_valid_status],
+        'sort': [ignore_missing, is_valid_sort],
         'limit': [ignore_missing, is_natural_number],
         'offset': [ignore_missing, is_natural_number],
-        'q': [ignore_missing, str],
-        'visibility': [ignore_missing, str],
-        'include_count': [ignore_missing, bool],
-        'include_datasets': [ignore_missing, bool],
-        'include_reports': [ignore_missing, bool],
-        'include_results': [ignore_missing, bool],
-        'include_sub_organizations': [ignore_missing, bool],
-        'abuse_status': [ignore_missing, str, is_valid_abuse_status],
+        'q': [ignore_missing],
+        'visibility': [ignore_missing],
+        'include_count': [ignore_missing, boolean_validator],
+        'include_datasets': [ignore_missing, boolean_validator],
+        'include_reports': [ignore_missing, boolean_validator],
+        'include_results': [ignore_missing, boolean_validator],
+        'include_sub_organizations': [ignore_missing, boolean_validator],
+        'abuse_status': [ignore_missing, is_valid_abuse_status],
     }
 
 
 def issue_comment_schema():
     return {
-        'comment': [not_missing, str],
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'comment': [not_missing],
+        'dataset_id': [not_missing, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
     }
@@ -104,7 +88,7 @@ def issue_comment_schema():
 
 def issue_report_schema():
     return {
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'dataset_id': [not_missing, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
     }
@@ -112,40 +96,40 @@ def issue_report_schema():
 
 def issue_report_clear_schema():
     schema = issue_report_schema()
-    schema.update({'clear_abuse_status': [ignore_missing, bool]})
+    schema.update({'clear_abuse_status': [ignore_missing, boolean_validator]})
     return schema
 
 
 def issue_comment_report_schema():
     return {
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'dataset_id': [not_missing, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
-        'comment_id': [not_missing, str, issue_comment_exists],
+        'comment_id': [not_missingr, issue_comment_exists],
     }
 
 
 def issue_comment_report_clear_schema():
     schema = issue_report_schema()
-    schema.update({'clear_abuse_status': [ignore_missing, bool]})
+    schema.update({'clear_abuse_status': [ignore_missing, boolean_validator]})
     return schema
 
 
 def issue_dataset_controller_schema():
     return {
-        'status': [ignore_missing, str],
-        'sort': [ignore_missing, str],
+        'status': [ignore_missing],
+        'sort': [ignore_missing],
         'page': [ignore_missing, is_positive_integer],
         'per_page': [ignore_missing, is_positive_integer],
-        'q': [ignore_missing, str],
-        'visibility': [ignore_missing, str],
-        'abuse_status': [ignore_missing, str],
+        'q': [ignore_missing],
+        'visibility': [ignore_missing],
+        'abuse_status': [ignore_missing],
     }
 
 
 def issue_show_controller_schema():
     return {
-        'dataset_id': [not_missing, str, package_exists, as_package_id],
+        'dataset_id': [not_missing, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
     }
@@ -153,7 +137,7 @@ def issue_show_controller_schema():
 
 def organization_users_autocomplete_schema():
     return {
-        'q': [not_missing, str],
-        'organization_id': [not_missing, str],
+        'q': [not_missing],
+        'organization_id': [not_missing],
         'limit': [ignore_missing, is_positive_integer],
     }

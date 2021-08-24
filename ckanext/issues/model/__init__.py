@@ -157,7 +157,7 @@ class IssueFilter(enum.Enum):
             raise InvalidIssueFilterException()
 
 
-class InvalidIssueFilterException(object):
+class InvalidIssueFilterException(BaseException):
     pass
 
 
