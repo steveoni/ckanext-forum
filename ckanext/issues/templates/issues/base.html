@@ -2,7 +2,7 @@
 
 {% block styles %}
   {{ super() }}
-  <link rel="stylesheet" href="/ckanext-issues/style.css" />
+  {% asset 'issues/style' %}
 {% endblock %}
 
 {% block breadcrumb_content %}

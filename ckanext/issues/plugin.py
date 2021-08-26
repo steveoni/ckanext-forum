@@ -10,6 +10,8 @@ from ckan.plugins import implements, toolkit
 from ckanext.issues.views.issues import issues
 from ckanext.issues.views.moderation import moderation
 
+
+
 # Imports are done in methods to speed up paster.
 # Please don't move back up to here.
 
@@ -26,9 +28,8 @@ class IssuesPlugin(p.SingletonPlugin):
     # IConfigurer
     def update_config(self, config):
         toolkit.add_template_directory(config, 'templates')
-        toolkit.add_public_directory(config, 'public/css')
-        toolkit.add_resource('public/scripts', 'ckanext_issues')
-
+        toolkit.add_public_directory(config, 'public')
+        toolkit.add_resource('assets', 'issues')
 
     implements(p.IClick)
     # IClick
@@ -104,71 +105,3 @@ class IssuesPlugin(p.SingletonPlugin):
             'issue_comment_search': auth.issue_comment_search,
         }
 
-    # IRoutes
-
-    # def before_map(self, map):
-    #     from ckan.config.routing import SubMapper
-
-    #     controller_name = 'ckanext.issues.controller:IssueController'
-    #     with SubMapper(map, controller=controller_name) as m:
-    #         m.connect('issues_dataset',
-    #                   '/dataset/:dataset_id/issues',
-    #                   action='dataset',
-    #                   ckan_icon='warning-sign')
-    #         m.connect('issues_new',
-    #                   '/dataset/:dataset_id/issues/new',
-    #                   action='new')
-    #         m.connect('issues_edit',
-    #                   '/dataset/:dataset_id/issues/:issue_number/edit',
-    #                   action='edit')
-    #         m.connect('issues_delete',
-    #                   '/dataset/:dataset_id/issues/:issue_number/delete',
-    #                   action='delete')
-    #         m.connect('issues_assign',
-    #                   '/dataset/:dataset_id/issues/:issue_number/assign',
-    #                   action='assign')
-    #         m.connect('issues_comments',
-    #                   '/dataset/:dataset_id/issues/:issue_number/comments',
-    #                   action='comments')
-    #         m.connect('issues_report',
-    #                   '/dataset/:dataset_id/issues/:issue_number/report',
-    #                   action='report'),
-    #         m.connect('issues_report_clear',
-    #                   '/dataset/:dataset_id/issues/:issue_number/report_clear',
-    #                   action='report_clear'),
-    #         m.connect('issues_comment_report',
-    #                   '/dataset/:dataset_id/issues/:issue_number/comment/:comment_id/report',
-    #                   action='report_comment'),
-    #         m.connect('issues_comment_report_clear',
-    #                   '/dataset/:dataset_id/issues/:issue_number/comment/:comment_id/report_clear',
-    #                   action='comment_report_clear'),
-    #         m.connect('add_issue_with_resource',
-    #                   '/dataset/:dataset_id/issues/new/:resource_id',
-    #                   action='add')
-    #         m.connect('issues_show',
-    #                   '/dataset/:dataset_id/issues/:issue_number',
-    #                   action='show')
-    #         m.connect('all_issues_page', '/issues', action='all_issues_page')
-    #         m.connect('issues_for_organization',
-    #                   '/organization/:org_id/issues',
-    #                   action='issues_for_organization')
-
-    #     moderation = 'ckanext.issues.controller:ModerationController'
-    #     with SubMapper(map, controller=moderation) as m:
-    #         m.connect('issues_moderate_reported_issues',
-    #                   '/organization/:organization_id/issues/reported',
-    #                   action='all_reported_issues')
-    #         m.connect('issues_moderate',
-    #                   '/organization/:organization_id/issues/moderate',
-    #                   action='moderate')
-
-    #     moderation = 'ckanext.issues.controller:CommentModerationController'
-    #     with SubMapper(map, controller=moderation) as m:
-    #         m.connect('issues_moderate_reported_comments',
-    #                   '/organization/:organization_id/issues/reported_comments',
-    #                   action='reported_comments')
-    #         m.connect('issues_moderate_comment',
-    #                   '/organization/:organization_id/issues/moderate_comment',
-    #                   action='moderate')
-
-    #     return map

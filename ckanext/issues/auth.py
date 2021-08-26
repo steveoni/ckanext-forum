@@ -47,6 +47,7 @@ def issue_search(context, data_dict):
 
 def issue_create(context, data_dict):
     # Any logged in user
+    print('=======================', context)
     return {'success': bool(context['user'])}
 
 

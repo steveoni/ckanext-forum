@@ -105,7 +105,7 @@ def issue_comment_report_schema():
         'dataset_id': [not_missing, package_exists, as_package_id],
         'issue_number': [not_missing, is_positive_integer],
         '__after': [issue_number_exists_for_dataset],
-        'comment_id': [not_missingr, issue_comment_exists],
+        'comment_id': [not_missing, issue_comment_exists],
     }
 
 

@@ -176,7 +176,6 @@ def issue_create(context, data_dict):
     :returns: the newly created issue item
     :rtype: dictionary
     '''
-    print("TESTING!!!!!!!!")
     p.toolkit.check_access('issue_create', context, data_dict)
 
     user = context['user']

@@ -114,8 +114,7 @@ def new(dataset_id, resource_id=None):
             )
             h.flash_success(_('Your issue has been registered, '
                                 'thank you for the feedback'))
-            p.toolkit.redirect_to(
-                'issues.show_issue',
+            return p.toolkit.redirect_to('issues.show_issue',
                 dataset_id=dataset_dict['name'],
                 issue_number=issue_dict['number'])
 
@@ -182,6 +181,7 @@ def edit(dataset_id, issue_number):
 
 def comments(dataset_id, issue_number):
     # POST only
+    context = {'for_view': True}
     if request.method != 'POST':
         abort(500, _('Invalid request'))
 
@@ -205,8 +205,7 @@ def comments(dataset_id, issue_number):
     comment = request.form.get('comment')
     if not comment or comment.strip() == '':
         h.flash_error(_('Comment cannot be empty'))
-        p.toolkit.redirect_to(next_url)
-        return
+        return p.toolkit.redirect_to(next_url)
 
     # do this first because will error here if not allowed and do not want
     # comment created in that case
@@ -232,7 +231,7 @@ def comments(dataset_id, issue_number):
         }
     logic.get_action('issue_comment_create')(context, data_dict)
 
-    p.toolkit.redirect_to(next_url)
+    return p.toolkit.redirect_to(next_url)
 
 def dataset(dataset_id):
     """
@@ -250,7 +249,7 @@ def dataset(dataset_id):
 def delete(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
     if 'cancel' in request.params:
-        p.toolkit.redirect_to('issues.show_issue',
+        return p.toolkit.redirect_to('issues.show_issue',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)
 
@@ -268,7 +267,7 @@ def delete(dataset_id, issue_number):
         h.flash_notice(
             _('Issue {0} has been deleted.'.format(issue_number))
         )
-        p.toolkit.redirect_to('issues.dataset', dataset_id=dataset_id)
+        return p.toolkit.redirect_to('issues.dataset', dataset_id=dataset_id)
     else:
         return render('issues/confirm_delete.html',
                         extra_vars={
@@ -356,7 +355,7 @@ def report(dataset_id, issue_number):
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
 
-        p.toolkit.redirect_to('issues.show_issue',
+        return p.toolkit.redirect_to('issues.show_issue',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)
 
@@ -386,7 +385,7 @@ def report_comment(dataset_id, issue_number, comment_id):
                 h.flash_success(' '.join(msgs))
             else:
                 h.flash_success(_('Comment has been reported to an administrator'))
-            p.toolkit.redirect_to('issues.show_issue',
+            return p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.ValidationError:
@@ -395,7 +394,7 @@ def report_comment(dataset_id, issue_number, comment_id):
             toolkit.abort(404)
         except ReportAlreadyExists as e:
             h.flash_error(e.message)
-        p.toolkit.redirect_to('issues.show_issue', dataset_id=dataset_id,
+        return p.toolkit.redirect_to('issues.show_issue', dataset_id=dataset_id,
                                 issue_number=issue_number)
 
 def report_clear(dataset_id, issue_number):
@@ -409,7 +408,7 @@ def report_clear(dataset_id, issue_number):
                 }
             )
             h.flash_success(_('Issue report cleared'))
-            p.toolkit.redirect_to('issues.show_issue',
+            return p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.NotAuthorized:
@@ -432,7 +431,7 @@ def comment_report_clear(dataset_id, issue_number, comment_id):
                             'dataset_id': dataset_id}
             )
             h.flash_success(_('Spam/abuse report cleared'))
-            p.toolkit.redirect_to('issues.show_issue',
+            return p.toolkit.redirect_to('issues.show_issue',
                                     dataset_id=dataset_id,
                                     issue_number=issue_number)
         except toolkit.NotAuthorized:
@@ -458,6 +457,7 @@ def issues_for_organization(org_id):
         h.flash(msg, category='alert-error')
         return p.toolkit.redirect_to('issues.issues_for_organization',
                                         org_id=org_id)
+    print(template_params)
     return render("issues/organization_issues.html",
                     extra_vars=template_params)
 
@@ -482,7 +482,8 @@ def issues_for_organization(org_id):
     for issue in issues:
         g.results[issue.package].append(issue)
     g.package_set = sorted(set(g.results.keys()), key=lambda x: x.title)
-    return render("issues/organization_issues.html")
+    print(g.package_set)
+    return render("issues/organization_issues.html", extra_vars=template_params)
 
 def all_issues_page():
     """

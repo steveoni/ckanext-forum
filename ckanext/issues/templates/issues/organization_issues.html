@@ -10,7 +10,7 @@
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
   <li>{% link_for org.title|truncate(35), controller='organization', action='read', id=org.name %}</li>
-  <li class="active">{% link_for 'Issues', named_route='issues_for_organization', org_id=org.name %}</li>
+  <li class="active">{{ url_for('issues.issues_for_organization', org_id=org.name) }}</li>
 {% endblock %}
 
 {% block primary_content %}
@@ -45,15 +45,14 @@
             </thead>
             <tbody>
             {% for issue in issues %}
-             {% set issue_url = issue.ckan_url %}
               <tr class="{{'success' if issue.resolved else 'error'}}">
                 <td>
-                  <a href="{{ issue_url }}">
+                  <a href="{{ url_for('issues.show_issue', dataset_id=issue.dataset_id, issue_number=issue.number) }}">
                     <span class="list-group-item-number">#{{issue.id}}</span>
                   </a>
                 </td>
                 <td>
-                  <a href="{{ issue_url }}">
+                  <a href="{{ url_for('issues.show_issue', dataset_id=issue.dataset_id, issue_number=issue.number) }}">
                     {{issue.title}}
                   </a>
                   {% if issue.resource %}
