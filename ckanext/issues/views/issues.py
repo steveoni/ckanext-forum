@@ -5,7 +5,7 @@ import re
 from sqlalchemy import func
 from flask import Blueprint
 
-from ckan.lib.base import render, abort
+from ckan.lib.base import render
 import ckan.lib.helpers as h
 from ckan.lib import mailer
 import ckan.model as model
@@ -46,10 +46,10 @@ def _before_dataset(dataset_id):
         # refactored out, otherwise, we should pass pkg as an extra_var
         # directly that's returned from this function
         if not issues_helpers.issues_enabled(pkg):
-            abort(404, _('Issues have not been enabled for this dataset'))
+            p.toolkit.abort(404, _('Issues have not been enabled for this dataset'))
         return pkg
     except logic.NotFound:
-        abort(404, _('Dataset not found'))
+        p.toolkit.abort(404, _('Dataset not found'))
     except p.toolkit.NotAuthorized:
         p.toolkit.abort(401,
                         _('Unauthorized to view issues for this dataset'))
@@ -64,10 +64,10 @@ def _before_org(org_id):
         # we should pass org to the template as an extra_var
         # directly that's returned from this function
         if not issues_helpers.issues_enabled_for_organization(org):
-            abort(404, _('Issues have not been enabled for this organization'))
+            p.toolkit.abort(404, _('Issues have not been enabled for this organization'))
         return org
     except logic.NotFound:
-        abort(404, _('Dataset not found'))
+        p.toolkit.abort(404, _('Dataset not found'))
     except p.toolkit.NotAuthorized:
         p.toolkit.abort(401,
                         _('Unauthorized to view issues for this organization'))
@@ -76,7 +76,7 @@ def new(dataset_id, resource_id=None):
     context = {'for_view': True}
     dataset_dict = _before_dataset(dataset_id)
     if not g.user:
-        abort(401, _('Please login to add a new issue'))
+        p.toolkit.abort(401, _('Please login to add a new issue'))
 
     data_dict = {
         'dataset_id': dataset_dict['id'],
@@ -85,7 +85,7 @@ def new(dataset_id, resource_id=None):
     try:
         logic.check_access('issue_create', context, data_dict)
     except logic.NotAuthorized:
-        abort(401, _('Not authorized to add a new issue'))
+        p.toolkit.abort(403, _('Not authorized to add a new issue'))
     resource = model.Resource.get(resource_id) if resource_id else None
     if resource:
         data_dict['resource_id'] = resource.id
@@ -182,7 +182,7 @@ def comments(dataset_id, issue_number):
     # POST only
     context = {'for_view': True}
     if request.method != 'POST':
-        abort(500, _('Invalid request'))
+        p.toolkit.abort(500, _('Invalid request'))
 
     dataset = _before_dataset(dataset_id)
 
@@ -194,7 +194,7 @@ def comments(dataset_id, issue_number):
     try:
         logic.check_access('issue_create', context, auth_dict)
     except logic.NotAuthorized:
-        abort(401, _('Not authorized'))
+        p.toolkit.abort(403, _('Not authorized'))
 
     next_url = h.url_for('issues.show_issue',
                             dataset_id=g.pkg['name'],

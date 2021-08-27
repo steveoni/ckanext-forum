@@ -44,16 +44,14 @@ def issue_search(context, data_dict):
             )
         }
 
+@p.toolkit.auth_allow_anonymous_access
 def issue_create(context, data_dict):
     # Any logged in user
-    import sys
-    print("HERE!!!!", sys.stderr)
     return {'success': bool(context['user'])}
 
-
-@p.toolkit.auth_disallow_anonymous_access
+@p.toolkit.auth_allow_anonymous_access
 def issue_comment_create(context, data_dict):
-    return {'success': True}
+    return {'success': bool(context['user'])}
     # return issue_auth(context, data_dict, 'package_create')
 
 
