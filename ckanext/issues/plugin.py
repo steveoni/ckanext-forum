@@ -21,9 +21,10 @@ class IssuesPlugin(p.SingletonPlugin):
     """
     implements(p.IConfigurer, inherit=True)
     implements(p.ITemplateHelpers, inherit=True)
-    # implements(p.IRoutes, inherit=True)
     implements(p.IActions)
     implements(p.IAuthFunctions)
+    implements(p.IClick)
+    implements(p.IBlueprint)
 
     # IConfigurer
     def update_config(self, config):
@@ -31,7 +32,7 @@ class IssuesPlugin(p.SingletonPlugin):
         toolkit.add_public_directory(config, 'public')
         toolkit.add_resource('assets', 'issues')
 
-    implements(p.IClick)
+
     # IClick
     def get_commands(self):
         """CLI commands - Creates or Updated issues data tables"""       
@@ -75,11 +76,11 @@ class IssuesPlugin(p.SingletonPlugin):
                 helpers.issues_users_who_reported_issue,
         }
 
-
-    p.implements(p.IBlueprint)
+    
     # IBlueprint
     def get_blueprint(self):
         return [issues, moderation]
+
 
     # IActions
     def get_actions(self):
@@ -88,6 +89,7 @@ class IssuesPlugin(p.SingletonPlugin):
         return dict((name, function) for name, function
                     in action.__dict__.items()
                     if callable(function))
+
 
     # IAuthFunctions
     def get_auth_functions(self):
@@ -104,4 +106,4 @@ class IssuesPlugin(p.SingletonPlugin):
             'issue_report_clear': auth.issue_report_clear,
             'issue_comment_search': auth.issue_comment_search,
         }
-
+        

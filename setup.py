@@ -27,8 +27,5 @@ setup(
 	"""
     [ckan.plugins]
 	issues=ckanext.issues.plugin:IssuesPlugin
-
-    [paste.paster_command]
-    issues = ckanext.issues.commands:Issues
 	""",
 )

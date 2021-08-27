@@ -18,6 +18,7 @@ from ckanext.issues.tests.helpers import ClearOnTearDownMixin
 from lxml import etree
 from nose.tools import assert_equals, assert_in, assert_not_in
 
+import pytest
 
 class TestModeratedAbuseReport(helpers.FunctionalTestBase):
     def setup(self):

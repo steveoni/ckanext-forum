@@ -44,10 +44,10 @@ def issue_search(context, data_dict):
             )
         }
 
-
 def issue_create(context, data_dict):
     # Any logged in user
-    print('=======================', context)
+    import sys
+    print("HERE!!!!", sys.stderr)
     return {'success': bool(context['user'])}
 
 

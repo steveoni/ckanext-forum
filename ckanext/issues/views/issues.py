@@ -86,7 +86,6 @@ def new(dataset_id, resource_id=None):
         logic.check_access('issue_create', context, data_dict)
     except logic.NotAuthorized:
         abort(401, _('Not authorized to add a new issue'))
-
     resource = model.Resource.get(resource_id) if resource_id else None
     if resource:
         data_dict['resource_id'] = resource.id
