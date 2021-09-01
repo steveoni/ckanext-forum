@@ -149,6 +149,7 @@ def edit(dataset_id, issue_number):
             'dataset_id': dataset_id,
         }
     )
+
     if request.method == 'GET':
         return p.toolkit.render(
             'issues/edit.html',
@@ -158,9 +159,11 @@ def edit(dataset_id, issue_number):
             },
         )
     elif request.method == 'POST':
-        data_dict = dict(request.params)
+        print('=================', request.form)
+        data_dict = dict(request.form)
         data_dict['issue_number'] = issue_number
         data_dict['dataset_id'] = dataset_id
+        print(data_dict)
         try:
             p.toolkit.get_action('issue_update')(data_dict=data_dict)
             return p.toolkit.redirect_to('issues.show_issue',
@@ -247,7 +250,7 @@ def dataset(dataset_id):
 
 def delete(dataset_id, issue_number):
     dataset = _before_dataset(dataset_id)
-    if 'cancel' in request.params:
+    if 'cancel' in request.form:
         return p.toolkit.redirect_to('issues.show_issue',
                                 dataset_id=dataset_id,
                                 issue_number=issue_number)

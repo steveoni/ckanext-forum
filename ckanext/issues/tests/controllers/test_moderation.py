@@ -1,10 +1,6 @@
 from ckan.plugins import toolkit
-try:
-    from ckan.tests import helpers
-    from ckan.tests import factories
-except ImportError:
-    from ckan.new_tests import helpers
-    from ckan.new_tests import factories
+from ckan.tests import helpers
+from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
 from ckanext.issues import model

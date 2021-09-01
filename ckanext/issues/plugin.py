@@ -39,20 +39,19 @@ class IssuesPlugin(p.SingletonPlugin):
         import click
 
         @click.command()
-        def init_db():
+        def issuesdb():
             """Creates issues data tables"""
             from ckanext.issues.model import setup
             setup()
 
         @click.command()
-        def upgrade_db():
+        def issuesupgrade():
             """Updates issues data tables"""
             from ckanext.issues.model import upgrade
             upgrade()
             print('Issues tables are up to date')
 
-        return [init_db, upgrade_db]
-
+        return [issuesdb, issuesupgrade]
     
     # ITemplateHelpers
     def get_helpers(self):

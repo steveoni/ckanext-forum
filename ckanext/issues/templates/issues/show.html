@@ -64,7 +64,7 @@ dataset - package object
         {% if header_is_for_issue and can_edit_issue %}
           <div class="issue-comment-action" id="issue-edit-button">
             <a id="issue-edit-link" href="{{h.url_for('issues.edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
-              <i class="icon-pencil"></i>
+              <i class="icon-pencil"></i>EDIT
             </a>
           </div>
         {% endif %}

@@ -2,10 +2,9 @@ from ckanext.issues.tests.helpers import ClearOnTearDownMixin
 from ckanext.issues.tests import factories as issue_factories
 from ckanext.issues.model import Issue, IssueComment, AbuseStatus
 from ckanext.issues.lib.util import issue_count, issue_comments, issue_comment_count
-try:
-    from ckan.tests import factories, helpers
-except ImportError:
-    from ckan.new_tests import factories, helpers
+
+from ckan.tests import factories, helpers
+
 
 from nose.tools import assert_equals, assert_raises, assert_not_in
 

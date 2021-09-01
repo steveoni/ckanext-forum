@@ -1,9 +1,7 @@
 from ckan import model
 from ckan.lib import search
-try:
-    from ckan.new_tests import factories, helpers
-except ImportError:
-    from ckan.tests import factories, helpers
+from ckan.tests import factories, helpers
+
 from ckanext.issues.tests import factories as issue_factories
 from ckanext.issues.logic import validators
 from ckanext.issues.tests.helpers import ClearOnTearDownMixin

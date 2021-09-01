@@ -8,7 +8,9 @@ import factory
 
 
 class Issue(factory.Factory):
-    FACTORY_FOR = model.Issue
+    class Meta:
+        model = model.Issue
+        abstract = False
 
     title  = factory.Sequence(lambda n: 'Test Issue [{n}]'.format(n=n))
     description = 'Some description'

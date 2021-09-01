@@ -2,14 +2,10 @@ from math import ceil
 from bs4 import BeautifulSoup
 
 from ckan.plugins import toolkit
-try:
-    from ckan.tests import helpers
-    from ckan.tests import factories
-except ImportError:
-    from ckan.new_tests import helpers
-    from ckan.new_tests import factories
+from ckan.tests import helpers
+from ckan.tests import factories
 
-from ckanext.issues.controller.controller import ISSUES_PER_PAGE
+from ckanext.issues.views.issues import ISSUES_PER_PAGE
 from ckanext.issues.tests import factories as issue_factories
 from nose.tools import (assert_is_not_none, assert_equals, assert_in,
                         assert_not_in)
