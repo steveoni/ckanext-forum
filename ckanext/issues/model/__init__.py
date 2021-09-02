@@ -393,7 +393,7 @@ class IssueComment(domain_object.DomainObject):
     def get_comments_for_issue(cls, issue_id):
         """ Gets all comments for a given issue """
         return model.Session.query(cls).\
-            filter(cls.issue_id == issue_id).order_by("-created")
+            filter(cls.issue_id == issue_id)
 
     @classmethod
     def get_comment_count_for_issue(cls, issue_id):

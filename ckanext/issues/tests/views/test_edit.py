@@ -6,7 +6,7 @@ from ckan.tests import helpers
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
-from .fixtures import issues_setup
+from ckanext.issues.tests.fixtures import issues_setup
 
 class TestIssueEdit(object):
 # Tests edit function

@@ -38,7 +38,9 @@ class Issue(factory.Factory):
 
 
 class IssueComment(factory.Factory):
-    FACTORY_FOR = model.IssueComment
+    class Meta:
+        model = model.IssueComment
+        abstract = False
     comment = 'some comment'
 
     @classmethod

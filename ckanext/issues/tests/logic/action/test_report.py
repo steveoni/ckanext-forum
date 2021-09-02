@@ -1,28 +1,18 @@
-from ckan import model
-from ckan.lib import search
-try:
-    from ckan.tests import factories, helpers
-except ImportError:
-    from ckan.new_tests import factories, helpers
-
-from ckanext.issues.tests import factories as issue_factories
-from ckanext.issues.model import (
-    Issue,
-    IssueComment,
-)
-from ckanext.issues.exception import ReportAlreadyExists
-from ckanext.issues.tests.helpers import (
-    ClearOnTearDownMixin,
-    ClearOnSetupClassMixin,
-)
-
-from nose.tools import assert_equals, assert_raises
+import pytest
 import mock
 
+from ckan import model
+from ckan.tests import factories, helpers
 
-class TestReportAnIssue(ClearOnTearDownMixin):
-    def test_report_an_issue(self):
-        owner = factories.User()
+from ckanext.issues.tests import factories as issue_factories
+from ckanext.issues.model import Issue, IssueComment
+from ckanext.issues.exception import ReportAlreadyExists
+from ckanext.issues.tests.fixtures import issues_setup, owner, user
+
+
+class TestReportAnIssue(object):
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_report_an_issue(self, owner):
         org = factories.Organization(user=owner)
         dataset = factories.Dataset(owner_org=org['name'])
         issue = issue_factories.Issue(user_id=owner['id'],
@@ -41,12 +31,12 @@ class TestReportAnIssue(ClearOnTearDownMixin):
         )
 
         issue_obj = Issue.get(issue['id'])
-        assert_equals(len(issue_obj.abuse_reports), 1)
-        assert_equals(issue_obj.visibility, 'visible')
+        assert len(issue_obj.abuse_reports) == 1
+        assert issue_obj.visibility == 'visible'
 
-    def test_publisher_reports_an_issue(self):
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_publisher_reports_an_issue(self, owner):
         '''this should immediately hide the issue'''
-        owner = factories.User()
         org = factories.Organization(user=owner)
         dataset = factories.Dataset(owner_org=org['name'])
         issue = issue_factories.Issue(user=owner, user_id=owner['id'],
@@ -68,12 +58,12 @@ class TestReportAnIssue(ClearOnTearDownMixin):
             dataset_id=dataset['id'],
             issue_number=issue['number'],
         )
-        assert_equals('hidden', result['visibility'])
+        assert 'hidden' == result['visibility']
 
     @mock.patch.dict('ckanext.issues.logic.action.action.config',
                      {'ckanext.issues.max_strikes': '0'})
-    def test_max_strikes_hides_issues(self):
-            owner = factories.User()
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_max_strikes_hides_issues(self, owner):
             org = factories.Organization(user=owner)
             dataset = factories.Dataset(owner_org=org['name'])
             issue = issue_factories.Issue(user_id=owner['id'],
@@ -104,50 +94,53 @@ class TestReportAnIssue(ClearOnTearDownMixin):
             )
 
             issue_obj = Issue.get(issue['id'])
-            assert_equals(len(issue_obj.abuse_reports), 2)
-            assert_equals('hidden', issue_obj.visibility)
+            assert len(issue_obj.abuse_reports) == 2
+            assert 'hidden' == issue_obj.visibility
 
 
-#class TestReportAnIssueTwice(object):
-#    def setup(self):
-#        model.Session.close_all()
-#
-#    def teardown(self):
-#        helpers.reset_db()
-#        search.clear()
-#
-#    def test_report_twice(self):
-#        owner = factories.User()
-#        org = factories.Organization(user=owner)
-#        dataset = factories.Dataset(owner_org=org['name'])
-#        issue = issue_factories.Issue(user_id=owner['id'],
-#                                      dataset_id=dataset['id'])
-#
-#        user = factories.User(name='unauthed')
-#        context = {
-#            'user': user['name'],
-#            'model': model,
-#        }
-#        model.Session.begin_nested()
-#        helpers.call_action(
-#            'issue_report',
-#            context=context,
-#            dataset_id=dataset['id'],
-#            issue_number=issue['number']
-#        )
-#        assert_raises(
-#            ReportAlreadyExists,
-#            helpers.call_action,
-#            'issue_report',
-#            context=context,
-#            dataset_id=dataset['id'],
-#            issue_number=issue['number']
-#        )
+class TestReportAnIssueTwice(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
+
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+    
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        return issue_factories.Issue(user=owner,
+                                    user_id=owner['id'],
+                                    dataset_id=dataset['id'])
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_report_twice(self, owner, org, dataset, issue):
+        user = factories.User(name='unauthed')
+        context = {
+            'user': user['name'],
+            'model': model,
+        }
+        model.Session.begin_nested()
+        helpers.call_action(
+                'issue_report',
+                context=context,
+                dataset_id=dataset['id'],
+                issue_number=issue['number']
+        )
+        pytest.raises(
+                ReportAlreadyExists,
+                helpers.call_action,
+                'issue_report',
+                context=context,
+                dataset_id=dataset['id'],
+                issue_number=issue['number']
+        )
 
 
-class TestIssueReportClear(ClearOnTearDownMixin):
-    def test_clear_as_publisher(self):
-        owner = factories.User()
+class TestIssueReportClear(object):
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_clear_as_publisher(self, owner):
         org = factories.Organization(user=owner)
         dataset = factories.Dataset(owner_org=org['name'])
         issue = issue_factories.Issue(user_id=owner['id'],
@@ -168,13 +161,13 @@ class TestIssueReportClear(ClearOnTearDownMixin):
             dataset_id=dataset['id'],
             issue_number=issue['number'],
         )
-        assert_equals('visible', result['visibility'])
+        assert 'visible' == result['visibility']
 
         issue_obj = Issue.get(issue['id'])
-        assert_equals(len(issue_obj.abuse_reports), 0)
+        assert len(issue_obj.abuse_reports) == 0
 
-    def test_clear_as_user(self):
-        owner = factories.User()
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_clear_as_user(self, owner):
         org = factories.Organization(user=owner)
         dataset = factories.Dataset(owner_org=org['name'])
         issue = issue_factories.Issue(user_id=owner['id'],
@@ -196,65 +189,80 @@ class TestIssueReportClear(ClearOnTearDownMixin):
         result = helpers.call_action('issue_show',
                                      dataset_id=dataset['id'],
                                      issue_number=issue['number'])
-        assert_equals('visible', result['visibility'])
+        assert 'visible' == result['visibility']
 
         issue_obj = Issue.get(issue['id'])
-        assert_equals(len(issue_obj.abuse_reports), 0)
+        assert len(issue_obj.abuse_reports) == 0
 
 
-class TestIssueReportShow(ClearOnTearDownMixin, ClearOnSetupClassMixin):
-    def setup(self):
-        self.owner = factories.User()
-        self.org = factories.Organization(user=self.owner)
-        self.dataset = factories.Dataset(owner_org=self.org['name'])
-        self.issue = issue_factories.Issue(user_id=self.owner['id'],
-                                           dataset_id=self.dataset['id'])
+class TestIssueReportShow(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
 
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        issue = issue_factories.Issue(user_id=owner['id'],
+                                    dataset_id=dataset['id'])
         context = {
-            'user': self.owner['name'],
+            'user': owner['name'],
             'model': model,
         }
         helpers.call_action('issue_report',
                             context=context,
-                            dataset_id=self.dataset['id'],
-                            issue_number=self.issue['number'])
+                            dataset_id=dataset['id'],
+                            issue_number=issue['number'])
+        return issue
 
-        self.user_0 = factories.User()
+
+    @pytest.fixture
+    def user_0(self, dataset, issue):
+        user_0 = factories.User()
         context = {
-            'user': self.user_0['name'],
+            'user': user_0['name'],
             'model': model,
         }
         helpers.call_action('issue_report', context=context,
-                            dataset_id=self.dataset['id'],
-                            issue_number=self.issue['number'])
+                            dataset_id=dataset['id'],
+                            issue_number=issue['number'])
+        return user_0
 
-    def test_issue_report_show_for_publisher(self):
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_report_show_for_publisher(self, owner, user_0, dataset, issue):
         context = {
-            'user': self.owner['name'],
+            'user': owner['name'],
             'model': model,
         }
         result = helpers.call_action(
             'issue_report_show',
             context=context,
-            dataset_id=self.dataset['id'],
-            issue_number=self.issue['number'],
+            dataset_id=dataset['id'],
+            issue_number=issue['number'],
         )
-        assert_equals(set([self.owner['id'], self.user_0['id']]), set(result))
+        print(result)
+        assert set([owner['id'], user_0['id']]) == set(result)
 
-    def test_issue_report_show_for_user(self):
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_report_show_for_user(self, user_0, dataset, issue):
         context = {
-            'user': self.user_0['name'],
+            'user': user_0['name'],
             'model': model,
         }
         result = helpers.call_action(
             'issue_report_show',
             context=context,
-            dataset_id=self.dataset['id'],
-            issue_number=self.issue['number'],
+            dataset_id=dataset['id'],
+            issue_number=issue['number'],
         )
-        assert_equals([self.user_0['id']], result)
+        assert [user_0['id']] == result
 
-    def test_issue_report_show_for_other(self):
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_report_show_for_other(self, dataset, issue):
         context = {
             'user': factories.User()['name'],
             'model': model,
@@ -262,24 +270,32 @@ class TestIssueReportShow(ClearOnTearDownMixin, ClearOnSetupClassMixin):
         result = helpers.call_action(
             'issue_report_show',
             context=context,
-            dataset_id=self.dataset['id'],
-            issue_number=self.issue['number'],
+            dataset_id=dataset['id'],
+            issue_number=issue['number'],
         )
-        assert_equals([], result)
+        assert [] == result
 
 
-class TestReportComment(ClearOnSetupClassMixin, ClearOnTearDownMixin):
-    def test_report_comment(self):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(owner_org=org['name'])
-        issue = issue_factories.Issue(user_id=owner['id'],
-                                      dataset_id=dataset['id'])
+class TestReportComment(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
+
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+    
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        return issue_factories.Issue(user=owner,
+                                    user_id=owner['id'],
+                                    dataset_id=dataset['id'])
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_report_comment(self, owner, dataset, issue):
         comment = issue_factories.IssueComment(user_id=owner['id'],
                                                dataset_id=dataset['id'],
                                                issue_number=issue['number'])
-
-
         user = factories.User(name='unauthed')
         context = {
             'user': user['name'],
@@ -292,20 +308,14 @@ class TestReportComment(ClearOnSetupClassMixin, ClearOnTearDownMixin):
                             comment_id=comment['id'])
 
         comment_obj = IssueComment.get(comment['id'])
-        assert_equals(len(comment_obj.abuse_reports), 1)
-        assert_equals(comment_obj.visibility, 'visible')
+        assert len(comment_obj.abuse_reports) == 1
+        assert comment_obj.visibility == 'visible'
 
-    def test_publisher_reports_a_comment(self):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(owner_org=org['name'])
-        issue = issue_factories.Issue(user=owner, user_id=owner['id'],
-                                      dataset_id=dataset['id'])
-
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_publisher_reports_a_comment(self, owner, org, dataset, issue):
         comment = issue_factories.IssueComment(user_id=owner['id'],
                                                dataset_id=dataset['id'],
                                                issue_number=issue['number'])
-
         context = {
             'user': owner['name'],
             'model': model,
@@ -318,16 +328,12 @@ class TestReportComment(ClearOnSetupClassMixin, ClearOnTearDownMixin):
         result = helpers.call_action('issue_show',
                                      issue_number=issue['number'],
                                      dataset_id=dataset['id'])
-        assert_equals('hidden', result['comments'][0]['visibility'])
+        assert 'hidden' == result['comments'][0]['visibility']
 
     @mock.patch.dict('ckanext.issues.logic.action.action.config',
                      {'ckanext.issues.max_strikes': '0'})
-    def test_max_strikes_hides_comment(self):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(owner_org=org['name'])
-        issue = issue_factories.Issue(user_id=owner['id'],
-                                      dataset_id=dataset['id'])
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_max_strikes_hides_comment(self, owner, org, dataset, issue):
         comment = issue_factories.IssueComment(user_id=owner['id'],
                                                dataset_id=dataset['id'],
                                                issue_number=issue['number'])
@@ -345,60 +351,70 @@ class TestReportComment(ClearOnSetupClassMixin, ClearOnTearDownMixin):
                                      dataset_id=dataset['id'],
                                      issue_number=issue['number'])
         comment_obj = IssueComment.get(comment['id'])
-        assert_equals(len(comment_obj.abuse_reports), 1)
-        assert_equals('hidden', result['comments'][0]['visibility'])
+        assert len(comment_obj.abuse_reports) == 1
+        assert 'hidden' == result['comments'][0]['visibility']
 
 
-#class TestReportCommentTwice(object):
-#    def setup(self):
-#        helpers.reset_db()
-#
-#    def teardown(self):
-#        helpers.reset_db()
-#        search.clear()
-#
-#    def test_report_twice(self):
-#        model.Session.begin_nested()
-#        owner = factories.User()
-#        org = factories.Organization(user=owner)
-#        dataset = factories.Dataset(owner_org=org['name'])
-#        issue = issue_factories.Issue(user_id=owner['id'],
-#                                      dataset_id=dataset['id'])
-#
-#        comment = issue_factories.IssueComment(user_id=owner['id'],
-#                                               dataset_id=dataset['id'],
-#                                               issue_number=issue['number'])
-#
-#        user = factories.User(name='unauthed')
-#        context = {
-#            'user': user['name'],
-#            'model': model,
-#        }
-#        helpers.call_action('issue_comment_report',
-#                            context=context,
-#                            dataset_id=dataset['id'],
-#                            issue_number=issue['number'],
-#                            comment_id=comment['id'])
-#
-#        assert_raises(
-#            ReportAlreadyExists,
-#            helpers.call_action,
-#            'issue_comment_report',
-#            context=context,
-#            dataset_id=dataset['id'],
-#            issue_number=issue['number'],
-#            comment_id=comment['id'],
-#        )
+class TestReportCommentTwice(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
+
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+    
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        return issue_factories.Issue(user=owner,
+                                    user_id=owner['id'],
+                                    dataset_id=dataset['id'])
+    
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_report_twice(self, owner, org, dataset, issue):
+        comment = issue_factories.IssueComment(user_id=owner['id'],
+                                              dataset_id=dataset['id'],
+                                              issue_number=issue['number'])
+
+        user = factories.User(name='unauthed')
+        context = {
+           'user': user['name'],
+           'model': model,
+        }
+        helpers.call_action('issue_comment_report',
+                           context=context,
+                           dataset_id=dataset['id'],
+                           issue_number=issue['number'],
+                           comment_id=comment['id'])
+
+        pytest.raises(
+                    ReportAlreadyExists,
+                    helpers.call_action,
+                    'issue_comment_report',
+                    context=context,
+                    dataset_id=dataset['id'],
+                    issue_number=issue['number'],
+                    comment_id=comment['id'],
+        )
 
 
-class TestCommentReportClearAsPublisher(ClearOnTearDownMixin,
-                                        ClearOnSetupClassMixin):
-    def test_clear_as_publisher(self):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(owner_org=org['name'])
-        issue = issue_factories.Issue(user_id=owner['id'],
-                                      dataset_id=dataset['id'])
+class TestCommentReportClearAsPublisher(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
+
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+    
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        return issue_factories.Issue(user=owner,
+                                    user_id=owner['id'],
+                                    dataset_id=dataset['id'])
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_clear_as_publisher(self, owner, org, dataset, issue):
         comment = issue_factories.IssueComment(user_id=owner['id'],
                                                dataset_id=dataset['id'],
                                                issue_number=issue['number'],
@@ -417,20 +433,29 @@ class TestCommentReportClearAsPublisher(ClearOnTearDownMixin,
         result = helpers.call_action('issue_show',
                                      issue_number=issue['number'],
                                      dataset_id=dataset['id'])
-        assert_equals('visible', result['comments'][0]['visibility'])
+        assert 'visible' == result['comments'][0]['visibility']
         comment_obj = IssueComment.get(comment['id'])
         model.Session.refresh(comment_obj)
-        assert_equals(len(comment_obj.abuse_reports), 0)
+        assert len(comment_obj.abuse_reports) == 0
 
 
-class TestCommentReportClearAsUser(ClearOnSetupClassMixin,
-                                   ClearOnTearDownMixin):
-    def test_clear_as_user(self):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(owner_org=org['name'])
-        issue = issue_factories.Issue(user_id=owner['id'],
-                                      dataset_id=dataset['id'])
+class TestCommentReportClearAsUser(object):
+    @pytest.fixture
+    def org(self, owner):
+        return factories.Organization(user=owner)
+
+    @pytest.fixture
+    def dataset(self, org):
+        return factories.Dataset(owner_org=org['name'])
+    
+    @pytest.fixture
+    def issue(self, owner, dataset):
+        return issue_factories.Issue(user=owner,
+                                    user_id=owner['id'],
+                                    dataset_id=dataset['id'])
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")    
+    def test_clear_as_user(self, owner, org, dataset, issue):
         comment = issue_factories.IssueComment(user_id=owner['id'],
                                                dataset_id=dataset['id'],
                                                issue_number=issue['number'])
@@ -449,5 +474,5 @@ class TestCommentReportClearAsUser(ClearOnSetupClassMixin,
                             comment_id=comment['id'])
 
         comment_obj = IssueComment.get(comment['id'])
-        assert_equals(len(comment_obj.abuse_reports), 0)
-        assert_equals('visible', comment_obj.visibility)
+        assert len(comment_obj.abuse_reports) == 0
+        assert 'visible' == comment_obj.visibility

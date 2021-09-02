@@ -1,58 +1,64 @@
-from ckanext.issues.tests.helpers import ClearOnTearDownMixin
+import pytest
+
+from ckan.tests import factories
+
 from ckanext.issues.tests import factories as issue_factories
 from ckanext.issues.model import Issue, IssueComment, AbuseStatus
 from ckanext.issues.lib.util import issue_count, issue_comments, issue_comment_count
+from ckanext.issues.tests.fixtures import issues_setup
 
-from ckan.tests import factories, helpers
+@pytest.fixture
+def org():
+    return factories.Organization()
 
+@pytest.fixture
+def dataset(org):
+    return factories.Dataset(owner_org=org['id'])
 
-from nose.tools import assert_equals, assert_raises, assert_not_in
+@pytest.fixture
+def issue(dataset):
+    return issue_factories.Issue(dataset_id=dataset['id'])
 
-
-class TestUtils(ClearOnTearDownMixin):
-    def setup(self):
-        # Organization 1
-        self.organization = factories.Organization()
-        self.dataset = factories.Dataset(owner_org=self.organization['id'])
-        self.issue = issue_factories.Issue(dataset_id=self.dataset['id'])
-
-        self.comment1 = issue_factories.IssueComment(
-            issue_number=self.issue['number'],
-            dataset_id=self.issue['dataset_id'],
+@pytest.fixture
+def comment1(issue):
+    comment1 = issue_factories.IssueComment(
+                issue_number=issue['number'],
+                dataset_id=issue['dataset_id'],
         )
+    return comment1
 
-        self.comment2 = issue_factories.IssueComment(
-            issue_number=self.issue['number'],
-            dataset_id=self.issue['dataset_id'],
+@pytest.fixture
+def comment2(issue):
+    comment2 = issue_factories.IssueComment(
+                issue_number=issue['number'],
+                dataset_id=issue['dataset_id'],
         )
+    return comment2
 
-        self.comment3 = issue_factories.IssueComment(
-            issue_number=self.issue['number'],
-            dataset_id=self.issue['dataset_id'],
+@pytest.fixture
+def comment3(issue):
+    comment3 = issue_factories.IssueComment(
+                issue_number=issue['number'],
+                dataset_id=issue['dataset_id'],
         )
+    return comment3
 
-        # Organization 2
-        self.organization2 = factories.Organization()
-        dataset2 = factories.Dataset(owner_org=self.organization2['id'])
-        issue2 = issue_factories.Issue(dataset_id=dataset2['id'])
+@pytest.fixture
+def comments(issue, comment1, comment2, comment3):
+    return [comment1, comment2, comment3]
 
-        self.comment4 = issue_factories.IssueComment(
-            issue_number=issue2['number'],
-            dataset_id=issue2['dataset_id'],
-        )
+class TestUtils(object):
 
-        self.comment5 = issue_factories.IssueComment(  # unreported comment
-            issue_number=issue2['number'],
-            dataset_id=issue2['dataset_id'],
-        )
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_count(self, org, dataset, issue):
+        assert issue_count(dataset) == 1
 
-    def test_issue_count(self):
-        assert_equals(issue_count(self.dataset), 1)
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_comment_count(self, issue, comments):
+        assert issue_comment_count(issue) == 3
 
-    def test_issue_comment_count(self):
-        assert_equals(issue_comment_count(self.issue), 3)
-
-    def test_issue_comments(self):
-        comments = issue_comments(self.issue)
-        assert_equals([self.comment1['id'], self.comment2['id'], self.comment3['id']],
-                      [comment.id for comment in comments])
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_comments(self, issue, comment1, comment2, comment3):
+        comments_is = issue_comments(issue)
+        assert [comment1['id'], comment2['id'], comment3['id']] ==\
+               [comment.id for comment in comments_is]
