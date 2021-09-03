@@ -138,7 +138,7 @@ endfor %}">
               Hidden from normal users
             </div>
           {% endif %}
-          {% if issue_or_comment.abuse_status != 'unmoderated'  %}
+          {% if issue_or_comment.abuse_status != 0  %}
             <div class="issue-comment-label">
               Moderated: {{ issue_or_comment.abuse_status }}
             </div>

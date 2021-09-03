@@ -6,16 +6,21 @@ from ckan.tests import helpers
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
-from ckanext.issues.tests.fixtures import issues_setup
+from ckanext.issues.tests.fixtures import issues_setup, owner
+
+
+@pytest.fixture
+def org(owner):
+    return factories.Organization(user=owner)
+
+@pytest.fixture
+def dataset(owner, org):
+    return factories.Dataset(user=owner, owner_org=org['name'])
 
 class TestCreateNewIssue(object):
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_create_new_issue(self, app):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(user=owner,
-                                    owner_org=org['name'])
+    def test_create_new_issue(self, app, owner, org, dataset):
         env = {'REMOTE_USER': owner['name'].encode('ascii')}
         response = app.get(
             url=toolkit.url_for('issues.new', dataset_id=dataset['id']),
@@ -48,11 +53,7 @@ class TestCreateNewIssue(object):
 class TestCreateNewIssueComment(object):
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_create_new_comment(self, app):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(user=owner,
-                                    owner_org=org['name'])
+    def test_create_new_comment(self, app, owner, org, dataset):
         issue = issue_factories.Issue(user=owner,
                                       user_id=owner['id'],
                                       dataset_id=dataset['id'])

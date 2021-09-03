@@ -6,18 +6,24 @@ from ckan.tests import helpers
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
-from ckanext.issues.tests.fixtures import issues_setup
+from ckanext.issues.tests.fixtures import issues_setup, user, owner
+
+@pytest.fixture
+def org(owner):
+    return factories.Organization(user=owner)
+
+@pytest.fixture
+def dataset(owner, org):
+    return factories.Dataset(user=owner, owner_org=org['name'])
+
+@pytest.fixture
+def issue(owner, dataset):
+    return issue_factories.Issue(user=owner, dataset_id=dataset['id'])
 
 class TestIssueEdit(object):
 # Tests edit function
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_edit_issue(self, app):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(user=owner,
-                                    owner_org=org['name'])
-        issue = issue_factories.Issue(user=owner,
-                                      dataset_id=dataset['id'])
+    def test_edit_issue(self, app, owner, org, dataset, issue):
         # goto issue show page
         env = {'REMOTE_USER': owner['name'].encode('ascii')}
         response = app.get(
@@ -47,14 +53,7 @@ class TestIssueEdit(object):
 class TestEditButton(object):
 # Tests edit button in show.html
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_edit_button_appears_for_authorized_user(self, app):
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(user=owner,
-                                    owner_org=org['name'])
-        issue = issue_factories.Issue(user=owner,
-                                dataset_id=dataset['id'])
-
+    def test_edit_button_appears_for_authorized_user(self, app, owner, org, dataset, issue):
         env = {'REMOTE_USER': owner['name'].encode('ascii')}
 
         response = app.get(
@@ -69,14 +68,8 @@ class TestEditButton(object):
         assert edit_button is not None
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_edit_button_does_not_appear_for_unauthorized_user(self, app):
-        user = factories.User()
-        owner = factories.User()
-        org = factories.Organization(user=owner)
-        dataset = factories.Dataset(user=owner,
-                                    owner_org=org['name'])
-        issue = issue_factories.Issue(user=owner,
-                                dataset_id=dataset['id'])
+    def test_edit_button_does_not_appear_for_unauthorized_user(self, app, user,
+                                                owner, dataset, org, issue):
         env = {'REMOTE_USER': user['name'].encode('ascii')}
 
         response = app.get(

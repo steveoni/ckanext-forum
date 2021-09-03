@@ -27,7 +27,7 @@
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
   <li>{% link_for organization.display_name|truncate(35), controller='organization', action='read', id=organization.name %}</li>
-  <li>{% link_for 'Issues', named_route='issues_for_organization', org_id=organization.name %}</li>
+  <li>{% link_for 'Issues', named_route='issues.issues_for_organization', org_id=organization.name %}</li>
   <li class="active">Reported Issues</li>
 {% endblock %}
 
@@ -39,16 +39,16 @@
     <span class="actor">{{ h.gravatar(issue.user.email_hash, 30) }}
         <a href="{{ h.url_for(controller='user', action='read', id=issue.user) }}">{{ issue.user }}</a>
     </span>
-    <span>created issue <a href="{{ h.url_for('issues_show', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a></span>
+    <span>created issue <a href="{{ h.url_for('issues.show_issue', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a></span>
     <span>
       created issue
-      <a href="{{ h.url_for('issues_show', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a>.
+      <a href="{{ h.url_for('issues.show_issue', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a>.
     </span>
 
     <span class="date" title="{{ issue.created }}"> {{ h.time_ago_from_timestamp(issue.created) }}</span>
-      <a href="{{h.url_for(controller='package', action='read', id=issue.dataset_id )}}">See dataset</a>
+      <a href="{{h.url_for(controller='dataset', action='read', id=issue.dataset_id )}}">See dataset</a>
 
-    <form id="issue-report-form" class="pull-right" method="post" action="{{h.url_for('issues_moderate', organization_id=organization.id)}}">
+    <form id="issue-report-form" class="pull-right" method="post" action="{{h.url_for('moderation.moderate', organization_id=organization.id)}}">
       <input type="hidden" name="dataset_id" value="{{ issue.dataset_id }}">
       <input type="hidden" name="issue_number" value="{{ issue.number }}">
       <input type="hidden" name="comment_id" value="{{ issue.id }}">
@@ -59,7 +59,7 @@
       </button>
     </form>
 
-    <form id="issue-not-abuse-button" class="pull-right" method="post" action="{{h.url_for('issues_moderate', organization_id=organization.id)}}">
+    <form id="issue-not-abuse-button" class="pull-right" method="post" action="{{h.url_for('moderation.moderate', organization_id=organization.id)}}">
       <input type="hidden" name="dataset_id" value="{{ issue.dataset_id }}">
       <input type="hidden" name="issue_number" value="{{ issue.number }}">
       <input type="hidden" name="comment_id" value="{{ issue.id }}">

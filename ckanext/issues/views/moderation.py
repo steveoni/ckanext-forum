@@ -38,7 +38,7 @@ def moderate(organization_id):
         except toolkit.ValidationError:
             toolkit.abort(404)
 
-    h.redirect_to('issues_moderate_reported_issues',
+    h.redirect_to('moderation.moderate_all_reported_issues',
                     organization_id=organization_id)
 
 
@@ -78,8 +78,8 @@ def reported_comments(organization_id):
     except toolkit.ObjectNotFound:
         toolkit.abort(404, toolkit._('Organization not found'))
 
-# renamed 
-def comment_moderate(organization_id):
+
+def moderate_comment(organization_id):
     if toolkit.request.method == 'POST':
         if not toolkit.c.user:
             msg = toolkit._('You must be logged in to moderate comment')
@@ -97,7 +97,7 @@ def comment_moderate(organization_id):
         except toolkit.ValidationError:
             toolkit.abort(404)
 
-    h.redirect_to('issues_moderate_reported_comments',
+    h.redirect_to('moderation.moderate_all_reported_issues',
                     organization_id=organization_id)
 
 
@@ -112,4 +112,4 @@ moderation.add_url_rule('/organization/<organization_id>/issues/moderate', view_
 moderation.add_url_rule('/organization/<organization_id>/issues/reported_comments', view_func=reported_comments, methods=['GET'])
 
 # Reported comments
-moderation.add_url_rule('/organization/<organization_id>/issues/moderate_comment', view_func=comment_moderate, methods=['GET', 'POST'])
+moderation.add_url_rule('/organization/<organization_id>/issues/moderate_comment', view_func=moderate_comment, methods=['GET', 'POST'])

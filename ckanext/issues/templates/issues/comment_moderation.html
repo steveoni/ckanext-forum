@@ -27,7 +27,7 @@
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
   <li>{% link_for organization.display_name|truncate(35), controller='organization', action='read', id=organization.name %}</li>
-  <li>{% link_for 'Issues', named_route='issues_for_organization', org_id=organization.name %}</li>
+  <li>{% link_for 'Issues', named_route='issues.issues_for_organization', org_id=organization.name %}</li>
   <li class="active">Reported Issues</li>
 {% endblock %}
 
@@ -41,13 +41,13 @@
     </span>
     <span>
       created comment
-      <a href="{{ h.url_for('issues_show', dataset_id=comment.dataset_id, issue_number=comment.number) }}">{{ comment.title }}</a>.
+      <a href="{{ h.url_for('issues.show_issue', dataset_id=comment.dataset_id, issue_number=comment.id) }}">{{ comment.title }}</a>.
     </span>
 
     <span class="date" title="{{ comment.created }}"> {{ h.time_ago_from_timestamp(comment.created) }}</span>
-      <a href="{{h.url_for(controller='package', action='read', id=comment.dataset_id )}}">See dataset</a>
+      <a href="{{h.url_for(controller='dataset', action='read', id=comment.dataset_id )}}">See dataset</a>
 
-    <form id="issue-report-form" class="pull-right" method="post" action="{{h.url_for('issues_moderate_comment', organization_id=organization.id)}}">
+    <form id="issue-report-form" class="pull-right" method="post" action="{{h.url_for('moderation.moderate_comment', organization_id=organization.id)}}">
       <input type="hidden" name="dataset_id" value="{{ comment.dataset_id }}">
       <input type="hidden" name="issue_number" value="{{ comment.issue_number }}">
       <input type="hidden" name="comment_id" value="{{ comment.id }}">
@@ -58,7 +58,7 @@
       </button>
     </form>
 
-    <form id="issue-not-abuse-button" class="pull-right" method="post" action="{{h.url_for('issues_moderate_comment', organization_id=organization.id)}}">
+    <form id="issue-not-abuse-button" class="pull-right" method="post" action="{{h.url_for('moderation.moderate_comment', organization_id=organization.id)}}">
       <input type="hidden" name="dataset_id" value="{{ comment.dataset_id }}">
       <input type="hidden" name="issue_number" value="{{ comment.issue_number }}">
       <input type="hidden" name="comment_id" value="{{ comment.id }}">

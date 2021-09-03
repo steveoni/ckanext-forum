@@ -326,11 +326,11 @@ def assign(dataset_id, issue_number):
                                     dataset_id=dataset_id)
 
 def report(dataset_id, issue_number):
-    dataset = _before_dataset(dataset_id)
+    _before_dataset(dataset_id)
+    if not g.user:
+        msg = _('You must be logged in to report issues')
+        toolkit.abort(403, msg)
     if request.method == 'POST':
-        if not g.user:
-            msg = _('You must be logged in to report issues')
-            toolkit.abort(401, msg)
         try:
             report_info = toolkit.get_action('issue_report')(
                 data_dict={
@@ -342,7 +342,7 @@ def report(dataset_id, issue_number):
                 # we have this info if it is an admin
                 msgs = [_('Report acknowledged.')]
                 if report_info['abuse_status'] == \
-                        issuemodel.AbuseStatus.abuse.value:
+                    issuemodel.AbuseStatus.abuse.value:
                     msgs.append(_('Marked as abuse/spam.'))
                 msgs.append(_('Issue is visible.')
                             if report_info['visibility'] == 'visible' else
@@ -366,7 +366,7 @@ def report_comment(dataset_id, issue_number, comment_id):
     if request.method == 'POST':
         if not g.user:
             msg = _('You must be logged in to report comments')
-            toolkit.abort(401, msg)
+            toolkit.abort(403, msg)
         try:
             report_info = toolkit.get_action('issue_comment_report')(
                 data_dict={
@@ -417,7 +417,7 @@ def report_clear(dataset_id, issue_number):
             msg = _('You must be logged in clear abuse reports').format(
                 issue_number
             )
-            toolkit.abort(401, msg)
+            toolkit.abort(403, msg)
         except toolkit.ValidationError:
             toolkit.abort(404)
         except toolkit.ObjectNotFound:

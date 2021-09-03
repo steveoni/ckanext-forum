@@ -1,8 +1,6 @@
 import pytest
 
 from ckan.plugins import toolkit
-from ckan.config import environment
-from ckan.tests import helpers
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories

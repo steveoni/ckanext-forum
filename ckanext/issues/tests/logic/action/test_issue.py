@@ -31,19 +31,19 @@ class TestIssueShow(object):
         assert 'Test Issue' == issue['title']
         assert 'Some description' == issue['description']
         
-    # @pytest.mark.usefixtures("clean_db", "issues_setup")
-    # def test_issue_user_dictization(self, issue1):
-    #     issue = helpers.call_action(
-    #         'issue_show',
-    #         dataset_id=issue1['dataset_id'],
-    #         issue_number=issue1['number'],
-    #     )
-    #     user = issue['user']
-    #     assert 'test.ckan.net' == user['name']
-    #     assert 'apikey' == user.keys()
-    #     assert 'reset_key' == user.keys()
-    #     assert 'password' == user.keys()
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_user_dictization(self, issue1):
+        issue = helpers.call_action(
+            'issue_show',
+            dataset_id=issue1['dataset_id'],
+            issue_number=issue1['number'],
+        )
+        user_id = issue['user_id']
+        user = model.Session.query(model.User).\
+            filter(model.User.id==user_id).first()
+        user = vars(user)
 
+        assert 'test.ckan.net' == user['name']
 
 class TestIssueNewWithEmailing(object):
     @classmethod

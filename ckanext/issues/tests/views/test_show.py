@@ -5,13 +5,12 @@ from ckan.tests import helpers
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
-from ckanext.issues.tests.fixtures import issues_setup
+from ckanext.issues.tests.fixtures import issues_setup, user
 
 class TestIssuesShowController(object):
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_show_issue(self, app):
-        user = factories.User()
+    def test_show_issue(self, app, user):
         org = factories.Organization(user=user)
         dataset = factories.Dataset(user=user, owner_org=org['id'])
 

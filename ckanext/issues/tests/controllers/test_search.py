@@ -101,6 +101,7 @@ class TestSearchFilters(helpers.FunctionalTestBase):
                                 dataset_id=self.dataset['id']),
             extra_environ=env,
         )
+        print(response)
         # visible and hidden should be shown, but not closed
         assert_in('2 issues found', response)
         assert_in('visible_issue', response)
