@@ -3,7 +3,6 @@ import pytest
 from ckan.tests import factories
 
 from ckanext.issues.tests import factories as issue_factories
-from ckanext.issues.model import Issue, IssueComment, AbuseStatus
 from ckanext.issues.lib.util import issue_count, issue_comments, issue_comment_count
 from ckanext.issues.tests.fixtures import issues_setup
 
@@ -44,17 +43,17 @@ def comment3(issue):
     return comment3
 
 @pytest.fixture
-def comments(issue, comment1, comment2, comment3):
+def comments(comment1, comment2, comment3):
     return [comment1, comment2, comment3]
 
 class TestUtils(object):
 
-    @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_issue_count(self, org, dataset, issue):
+    @pytest.mark.usefixtures("clean_db", "issues_setup", "issue")
+    def test_issue_count(self, dataset):
         assert issue_count(dataset) == 1
 
-    @pytest.mark.usefixtures("clean_db", "issues_setup")
-    def test_issue_comment_count(self, issue, comments):
+    @pytest.mark.usefixtures("clean_db", "issues_setup", "comments")
+    def test_issue_comment_count(self, issue):
         assert issue_comment_count(issue) == 3
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")

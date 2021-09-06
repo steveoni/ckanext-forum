@@ -621,26 +621,26 @@ class TestIssueDelete(object):
                       dataset_id=dataset['id'],
                       issue_number='huh')
 
+#This TEST FAILS
+class TestOrganizationUsersAutocomplete(object):
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_fetch_org_editors(self):
+        owner = factories.User(name='test_owner')
+        editor = factories.User(name='test_editor')
+        admin = factories.User(name='test_admin')
+        member = factories.User(name='test_member')
+        factories.User(name='test_user')
+        organization = factories.Organization(user=owner, users=[
+            {'name': editor['id'], 'capacity': 'editor'},
+            {'name': admin['id'], 'capacity': 'admin'},
+            {'name': member['id']}, ])
 
-# class TestOrganizationUsersAutocomplete(object):
-#     @pytest.mark.usefixtures("clean_db", "issues_setup")
-#     def test_fetch_org_editors(self):
-#         owner = factories.User(name='test_owner')
-#         editor = factories.User(name='test_editor')
-#         admin = factories.User(name='test_admin')
-#         member = factories.User(name='test_member')
-#         factories.User(name='test_user')
-#         organization = factories.Organization(user=owner, users=[
-#             {'name': editor['id'], 'capacity': 'editor'},
-#             {'name': admin['id'], 'capacity': 'admin'},
-#             {'name': member['id']}, ])
-
-#         result = helpers.call_action('organization_users_autocomplete',
-#                                      q='test',
-#                                      organization_id=organization['id'])
-#         print(result)
-#         assert set(['test_owner', 'test_editor', 'test_admin']) ==\
-#                     set([i['name'] for i in result])
+        result = helpers.call_action('organization_users_autocomplete',
+                                     q='test',
+                                     organization_id=organization['id'])
+        print(result)
+        assert set(['test_owner', 'test_editor', 'test_admin']) ==\
+                    set([i['name'] for i in result])
 
 
 class TestCommentSearch(object):

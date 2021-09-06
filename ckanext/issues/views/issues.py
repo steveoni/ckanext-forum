@@ -28,7 +28,6 @@ issues = Blueprint('issues', __name__)
 
 AUTOCOMPLETE_LIMIT = 10
 VALID_CATEGORY = re.compile(r"[0-9a-z\-\._]+")
-ISSUES_PER_PAGE = 15
 
 
 def _before_dataset(dataset_id):
@@ -545,7 +544,7 @@ def _search_issues(dataset_id=None,
                    abuse_status=None,
                    q='',
                    page=1,
-                   per_page=get_issues_per_page(),
+                   per_page=get_issues_per_page()[0],
                    include_datasets=False,
                    include_reports=True):
     # use the function params to set default for our arguments to our

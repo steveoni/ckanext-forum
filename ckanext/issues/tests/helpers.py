@@ -1,12 +1,6 @@
-try:
-    from ckan.lib.search import clear_all
-except ImportError:
-    # clear_all is clear() < 2.5
-    from ckan.lib.search import clear as clear_all
-try:
-    from ckan.tests import helpers
-except ImportError:
-    from ckan.new_tests import helpers
+from ckan.lib.search import clear_all
+from ckan.tests import helpers
+
 
 
 class ClearOnSetupClassMixin(object):
