@@ -64,7 +64,7 @@ dataset - package object
         {% if header_is_for_issue and can_edit_issue %}
           <div class="issue-comment-action" id="issue-edit-button">
             <a id="issue-edit-link" href="{{h.url_for('issues.edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
-              <i class="icon-pencil"></i>EDIT
+              <i class="fa fa-pencil"></i>
             </a>
           </div>
         {% endif %}
@@ -79,7 +79,7 @@ dataset - package object
                 <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues.report_comment', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse" type="submit" title="Report">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                   Report abuse
                 </button>
               </form>
@@ -92,7 +92,7 @@ dataset - package object
                 <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse-active" type="submit" data-toggle="tooltip" title="You have reported this as abuse, cancel the report">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                 </button>
               </form>
             </div>
@@ -108,7 +108,7 @@ dataset - package object
                 <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues.report_comment', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse" type="submit" title="Mark as spam/abuse">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                 </button>
               </form>
             </div>
@@ -121,7 +121,7 @@ dataset - package object
                 <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active" type="submit" data-toggle="tooltip" title="Mark as NOT spam/abuse">
-                  <i class="icon-ok"></i>
+                  <i class="fa fa-check"></i>
                   {{ _('Not spam/abuse') }}
                 </button>
               </form>
@@ -168,7 +168,7 @@ endfor %}">
         </h1>
         <div class="issue-header-meta">
           <span class="issue-header-status {{issue.status}}">
-            <i class="icon-exclamation-sign"></i> {{issue.status.title()}}
+            <i class="fa fa-exclamation-circle"></i> {{issue.status.title()}}
           </span>
           <a href="{{issue.user.ckan_url}}">{{issue.user.name}}</a> opened this issue {{issue.time_ago}} &middot;
           {{ ungettext('{number} comment', '{number} comments', comment_count).format(number=comment_count) }}
@@ -245,7 +245,7 @@ endfor %}">
     </div>
   </div>
   <h2 class="module-heading">
-    <i class="icon-medium icon-user"></i>
+    <i class="fa fa-user"></i>
     Assignee
   </h2>
   <div id='ckanext-issues-assignee'>
@@ -261,7 +261,7 @@ endfor %}">
   {% block assignee_form %}
     {% if is_publisher %}
     <h2 class="module-heading">
-      <i class="icon-medium icon-edit"></i>
+      <i class="fa fa-edit"></i>
       Change Assignee
     </h2>
     <form id='ckanext-issues-assign' class="dataset-form form-horizontal add-member-form" method='post' action="{{ h.url_for('issues.assign', issue_number=issue.number, dataset_id=dataset.id) }}">
