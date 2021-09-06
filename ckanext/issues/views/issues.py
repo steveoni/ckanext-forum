@@ -317,10 +317,12 @@ def assign(dataset_id, issue_number):
             msg = _('Unauthorized to assign users to issue'.format(
                 issue_number))
             toolkit.abort(401, msg)
+        except toolkit.ObjectNotFound as e:
+            toolkit.abort(404)
         except toolkit.ValidationError as e:
             toolkit.abort(404)
 
-    return p.toolkit.redirect_to('issues.show_issue',
+        return p.toolkit.redirect_to('issues.show_issue',
                                     issue_number=issue_number,
                                     dataset_id=dataset_id)
 
@@ -612,7 +614,7 @@ issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/edit', view
 issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/delete', view_func=delete, methods=['GET', 'POST'])
 
 # Assign an issue
-issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/assign', view_func=assign, methods=['GET', 'POST'])
+issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/assign', view_func=assign, methods=['POST'])
 
 # Comment on an issue
 issues.add_url_rule('/dataset/<dataset_id>/issues/<int:issue_number>/comments', view_func=comments, methods=['POST'])
