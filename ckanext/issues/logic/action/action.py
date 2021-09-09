@@ -211,7 +211,7 @@ def issue_create(context, data_dict):
                 mailer.mail_user(user_obj, subject, body)
             except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
-                log.debug(e.message)
+                log.debug(e)
 
     log.debug('Created issue %s (%s)' % (issue.title, issue.id))
     return issue.as_dict()
@@ -477,7 +477,7 @@ def issue_comment_create(context, data_dict):
                 mailer.mail_user(user_obj, subject, body)
             except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
-                log.debug(e.message)
+                log.debug(e)
 
     log.debug('Created issue comment %s' % (issue.id))
     return issue_comment.as_dict()
@@ -505,8 +505,15 @@ def organization_users_autocomplete(context, data_dict):
 
     users = []
     for user in query.all():
-        user_dict = dict(user.__dict__)
-        user_dict.pop('_labels', None)
+        if isinstance(user, tuple):
+            user_dict = {
+                'id': user[0],
+                'name': user[1],
+                'fullname': user[2],
+            }
+        else:
+            user_dict = dict(user.__dict__)
+            user_dict.pop('_labels', None)
         users.append(user_dict)
     return users
 

@@ -205,7 +205,6 @@ class TestReportIssue(object):
             extra_environ=env,
         )
         soup = bs4.BeautifulSoup(response.body)
-        print(soup)
         flash_messages = soup.find('div', {'class': 'flash-messages'}).text
         assert 'Issue reported to an administrator' in flash_messages
 
@@ -219,13 +218,11 @@ class TestReportIssue(object):
                                 issue_number=issue['number']),
             extra_environ=env,
         )
-        print(dir(response))
         #response = response.follow(extra_environ=env)
         soup = bs4.BeautifulSoup(response.body)
-        print(soup)
         #flash_messages = soup.find('div', {'class': 'flash-messages'}).text
         assert 'Report acknowledged. Marked as abuse/spam. Issue is invisible to normal users.'\
-            in soup.text
+            in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_report_as_anonymous_user(self, app, dataset, issue):

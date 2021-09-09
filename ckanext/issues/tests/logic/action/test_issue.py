@@ -3,12 +3,10 @@ import pytest
 
 from ckan import model
 from ckan.tests import factories, helpers
-from ckan.tests.helpers import FunctionalTestBase
 from ckan.plugins import toolkit
 
 from ckanext.issues.tests import factories as issue_factories
 from ckanext.issues.model import Issue, IssueComment
-from ckanext.issues.tests.helpers import ClearOnTearDownMixin
 from ckanext.issues.logic.action.action import _get_recipients
 from ckanext.issues.tests.fixtures import issues_setup, user
 
@@ -42,19 +40,15 @@ class TestIssueShow(object):
         user = model.Session.query(model.User).\
             filter(model.User.id==user_id).first()
         user = vars(user)
-
         assert 'test.ckan.net' == user['name']
 
 class TestIssueNewWithEmailing(object):
-    @classmethod
-    def _apply_config_changes(cls, cfg):
-        # Mock out the emailer
-        from ckan.lib import mailer
-        cls.mock_mailer = mock.MagicMock()
-        mailer.mail_user = cls.mock_mailer
-        cfg['ckanext.issues.send_email_notifications'] = True
+    @pytest.fixture
+    def config(self, ckan_config):
+        ckan_config['ckanext.issues.send_email_notifications'] = 'True'
+        return ckan_config
 
-    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    @pytest.mark.usefixtures("clean_db", "issues_setup", "config")
     def test_issue_create(self):
         creator = factories.User(name='creator')
         admin = factories.User(name='admin')
@@ -80,8 +74,9 @@ class TestIssueNewWithEmailing(object):
         assert 'Description' == issue_object.description
         assert 1 == issue_object.number
         # some test user for the org called 'test.ckan.net' gets emailed too
-        # users_emailed = [call[1]['extra_vars']['recipient']['user_id']
-        #                  for call in render_mock.call_args]
+        # users_emailed = [call for call in render_mock.call_args]
+        # print(users_emailed)
+        # users_emailed = users_emailed[1]['extra_vars']['recipient']['user_id']
         # assert admin['id'] in users_emailed
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
@@ -621,7 +616,7 @@ class TestIssueDelete(object):
                       dataset_id=dataset['id'],
                       issue_number='huh')
 
-#This TEST FAILS
+
 class TestOrganizationUsersAutocomplete(object):
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_fetch_org_editors(self):
@@ -638,7 +633,6 @@ class TestOrganizationUsersAutocomplete(object):
         result = helpers.call_action('organization_users_autocomplete',
                                      q='test',
                                      organization_id=organization['id'])
-        print(result)
         assert set(['test_owner', 'test_editor', 'test_admin']) ==\
                     set([i['name'] for i in result])
 

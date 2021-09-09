@@ -48,7 +48,7 @@ To install the plugin, enter your virtualenv and install the source::
 
 Create the necessary tables:
 
-    paster --plugin=ckanext-issues issues init_db -c ckan.ini
+    ckan -c path-to/ckan.ini issuesdb
 
 This will also register a plugin entry point, so you now should be
 able to add the following to your CKAN .ini file::
@@ -62,7 +62,7 @@ should be available.
 
 When upgrading ckanext-issues from older code versions, you should run the issues upgrade command, in case there are any model migrations (e.g. 11th Jan 2016):
 
-    paster --plugin=ckanext-issues issues upgrade_db -c test-core.ini
+    ckan -c path-to/ckan.ini issuesupdate
 
 ## Configuration
 
@@ -107,9 +107,5 @@ its dev requirements). Contributions welcome.
 ### Testing with Postgres
 To run full production tests on postgres run. These are the tests that the travis build will run
 
-    nosetests --ckan --with-pylons=test.ini -v --with-id ckanext/issues --with-coverage --cover-package=ckanext.issues --nologcapture
-
-### Testing with sqlite
-For quick development tests run. --reset-db is necessary when running sqlite tests in memory
-
-    nosetests --reset-db --ckan --with-pylons=test-sqlite.ini -v --with-id ckanext/issues --with-coverage --cover-package=ckanext.issues --nologcapture
+    pytest --ckan-ini=test.ini ckanext/issues/tests
+    

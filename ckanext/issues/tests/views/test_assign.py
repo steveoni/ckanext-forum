@@ -129,7 +129,6 @@ class TestAssign(object):
     def test_issue_creator_cannot_assign_if_they_cannot_package_update(self,
                                                         app, dataset, issue):
         user = factories.User()
-        print(user['name'])
         issue = issue_factories.Issue(user=user,
                                       user_id=user['id'],
                                       dataset_id=dataset['id'])
@@ -139,7 +138,6 @@ class TestAssign(object):
                             issue_number=issue['number']),
             params={'assignee': user['name']},
             extra_environ=env,
-            expect_errors=True
         )
-
+        
         assert 401 == response.status_code

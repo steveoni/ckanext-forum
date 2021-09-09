@@ -45,13 +45,13 @@ class IssuesPlugin(p.SingletonPlugin):
             setup()
 
         @click.command()
-        def issuesupgrade():
+        def issuesupdate():
             """Updates issues data tables"""
             from ckanext.issues.model import upgrade
             upgrade()
             print('Issues tables are up to date')
 
-        return [issuesdb, issuesupgrade]
+        return [issuesdb, issuesupdate]
     
     # ITemplateHelpers
     def get_helpers(self):

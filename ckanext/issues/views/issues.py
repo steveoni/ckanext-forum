@@ -1,6 +1,7 @@
 import collections
 from logging import getLogger
 import re
+from click.core import Context
 
 from sqlalchemy import func
 from flask import Blueprint
@@ -18,7 +19,7 @@ import ckanext.issues.model as issuemodel
 from ckanext.issues.views import show
 from ckanext.issues.exception import ReportAlreadyExists
 from ckanext.issues.lib import helpers as issues_helpers
-from ckanext.issues.logic import schema, action
+from ckanext.issues.logic import schema
 from ckanext.issues.lib.helpers import (Pagination, get_issues_per_page,
                                         get_issue_subject)
 
@@ -158,7 +159,6 @@ def edit(dataset_id, issue_number):
             },
         )
     elif request.method == 'POST':
-        print('=================', request.form)
         data_dict = dict(request.form)
         data_dict['issue_number'] = issue_number
         data_dict['dataset_id'] = dataset_id
@@ -218,7 +218,11 @@ def comments(dataset_id, issue_number):
             'dataset_id': dataset['id'],
             'status': status
             }
-        logic.get_action('issue_update')(context, issue_dict)
+        try:
+            logic.get_action('issue_update')(context, issue_dict)
+        except logic.NotAuthorized:
+            p.toolkit.abort(403, _('Not authorized'))
+
         if 'close' in request.form:
             h.flash_success(_("Issue closed"))
         else:
@@ -290,11 +294,16 @@ def assign(dataset_id, issue_number):
                                             dataset_id=dataset_id)
 
         try:
+            if dataset['isopen']:
+                status = 'open'
+            else:
+                status = 'closed'
             issue = toolkit.get_action('issue_update')(
                 data_dict={
                     'issue_number': issue_number,
                     'assignee_id': assignee['id'],
-                    'dataset_id': dataset_id
+                    'dataset_id': dataset_id,
+                    'status': status
                 }
             )
 
@@ -327,7 +336,7 @@ def assign(dataset_id, issue_number):
                                     dataset_id=dataset_id)
 
 def report(dataset_id, issue_number):
-    _before_dataset(dataset_id)
+    pkg = _before_dataset(dataset_id)
     if not g.user:
         msg = _('You must be logged in to report issues')
         toolkit.abort(403, msg)
