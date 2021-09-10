@@ -27,6 +27,7 @@ def issue_auth(context, data_dict, privilege='package_update'):
 
 @p.toolkit.auth_allow_anonymous_access
 def issue_show(context, data_dict):
+    print(context, data_dict)
     return issue_auth(context, data_dict, 'package_show')
 
 
@@ -56,7 +57,7 @@ def issue_comment_create(context, data_dict):
     # return issue_auth(context, data_dict, 'package_create')
 
 
-@p.toolkit.auth_disallow_anonymous_access
+@p.toolkit.auth_allow_anonymous_access
 def issue_update(context, data_dict):
     '''Checks that we can update the issue.
 
@@ -65,9 +66,7 @@ def issue_update(context, data_dict):
 
     Updating issue status is only dataset 'editors'
     '''
-    print(data_dict)
-    if data_dict.get('assignee_id'):
-        print("HERE!!!")
+    if data_dict.get('assignee_id') or data_dict.get('can_edit'):
         out = issue_auth(context, data_dict, 'package_update')
         if out['success']:
             return out
