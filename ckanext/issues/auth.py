@@ -8,6 +8,7 @@ def issue_auth(context, data_dict, privilege='package_update'):
     '''Returns whether the current user is allowed to do the action
     (privilege).'''
     auth_data_dict = dict(data_dict)
+    print(context, auth_data_dict)
     # we're checking package access so it is dataset/package id
     auth_data_dict['id'] = auth_data_dict['dataset_id']
     try:
@@ -103,6 +104,14 @@ def issue_update(context, data_dict):
 
 @p.toolkit.auth_disallow_anonymous_access
 def issue_delete(context, data_dict):
+    issue = issue_model.Issue.get_by_number(
+        issue_number=data_dict['issue_number'],
+        dataset_id=data_dict['dataset_id'],
+    )
+    user = context['user']
+    user_obj = model.User.get(user)
+    if (issue.user_id == user_obj.id):
+        return {'success': True}
     return issue_auth(context, data_dict)
 
 
