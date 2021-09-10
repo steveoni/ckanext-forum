@@ -1,3 +1,4 @@
+from ckanext.issues.tests.logic.action.test_issue import dataset
 from ckan import model
 import ckan.plugins as p
 from ckanext.issues import model as issue_model
@@ -64,6 +65,14 @@ def issue_update(context, data_dict):
 
     Updating issue status is only dataset 'editors'
     '''
+    print(data_dict)
+    if data_dict.get('assignee_id'):
+        print("HERE!!!")
+        out = issue_auth(context, data_dict, 'package_update')
+        if out['success']:
+            return out
+        else:
+            return {'success': False}
     # let's check if we're allowed to do everything
     out = issue_auth(context, data_dict, 'package_update')
     if out['success']:

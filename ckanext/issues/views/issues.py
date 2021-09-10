@@ -294,16 +294,12 @@ def assign(dataset_id, issue_number):
                                             dataset_id=dataset_id)
 
         try:
-            if dataset['isopen']:
-                status = 'open'
-            else:
-                status = 'closed'
             issue = toolkit.get_action('issue_update')(
                 data_dict={
                     'issue_number': issue_number,
                     'assignee_id': assignee['id'],
                     'dataset_id': dataset_id,
-                    'status': status
+                    'assignee': assignee_id
                 }
             )
 
