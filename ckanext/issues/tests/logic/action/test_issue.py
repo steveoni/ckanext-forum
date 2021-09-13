@@ -1,3 +1,4 @@
+from bs4.builder import TreeBuilder
 import mock
 import pytest
 

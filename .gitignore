@@ -8,3 +8,4 @@ test-custom.ini
 custom-test-sqlite.ini
 issue-test.db
 migration/
+.pytest_cache/
