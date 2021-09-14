@@ -209,7 +209,7 @@ class TestReportIssue(object):
         assert 'Issue reported to an administrator' in flash_messages
 
 
-    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    @pytest.mark.usefixtures("clean_db", "issues_setup", "with_request_context")
     def test_report_as_admin(self, app, owner, dataset, issue):
         # NOT WORKING 
         env = {'REMOTE_USER': owner['name'].encode('ascii')}
@@ -217,10 +217,9 @@ class TestReportIssue(object):
                                 dataset_id=dataset['id'],
                                 issue_number=issue['number']),
             extra_environ=env,
+            follow_redirects=True
         )
-        #response = response.follow(extra_environ=env)
-        soup = bs4.BeautifulSoup(response.body)
-        #flash_messages = soup.find('div', {'class': 'flash-messages'}).text
+        
         assert 'Report acknowledged. Marked as abuse/spam. Issue is invisible to normal users.'\
             in response.body
 

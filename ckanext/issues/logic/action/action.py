@@ -52,7 +52,6 @@ def issue_show(context, data_dict):
 
     :rtype: dictionary
     '''
-    
     session = context['session']
     dataset_id = data_dict['dataset_id']
     issue_number = data_dict['issue_number']
