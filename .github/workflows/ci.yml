@@ -86,7 +86,7 @@ jobs:
           bash bin/setup-ckan.bash
       - name: Test with pytest
         run: |
-          pytest --ckan-ini=subdir/test.ini --cov=ckanext.issues --disable-warnings ckanext/issues/tests
+          pytest --ckan-ini=test.ini --cov=ckanext.issues --disable-warnings ckanext/issues/tests
       - name: Coveralls
         uses: AndreMiras/coveralls-python-action@develop
         with:
