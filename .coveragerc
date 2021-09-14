@@ -1,6 +1,8 @@
+ [run]
+relative_files = True
+
 [report]
 omit =
     */site-packages/*
     */python?.?/*
     ckan/*
-    ckanext/issues/tests/*
