@@ -1,5 +1,4 @@
 import pytest
-import bs4
 
 from ckan import model
 from ckan.plugins import toolkit
@@ -18,7 +17,7 @@ class TestModeratedAbuseReport(object):
     @pytest.fixture
     def org(self, owner):
         return factories.Organization(user=owner)
-    
+
     @pytest.fixture
     def dataset(self, owner, org):
         return factories.Dataset(user=owner, owner_org=org['name'])
@@ -43,14 +42,12 @@ class TestModeratedAbuseReport(object):
                                 issue_number=issue_abuse['number']),
             extra_environ=env,
         )
-    
-        soup = bs4.BeautifulSoup(response.body)
 
-        assert 'Test Issue' in soup.text
-        assert 'Hidden from normal users' in soup.text
-        assert 'Moderated: 1' in soup.text
-        assert '1 user reports this is spam/abus' in soup.text
-        #assert reporter['name'] in soup.text
+        assert 'Test Issue' in response.body
+        assert 'Hidden from normal users' in response.body
+        assert 'Moderated: 1' in response.body
+        assert '1 user reports this is spam/abus' in response.body
+
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_abuse")
     def test_reported_as_abuse_appears_in_search_as_admin(self, app, owner, dataset):
@@ -59,11 +56,10 @@ class TestModeratedAbuseReport(object):
                                 dataset_id=dataset['id']),
             extra_environ=env,
         )
-        soup = bs4.BeautifulSoup(response.body)
 
-        assert '1 issue found' in soup.text
-        assert 'Test Issue' in soup.text
-        assert 'Spam/Abuse - hidden from normal users' in soup.text
+        assert '1 issue found' in response.body
+        assert 'Test Issue' in response.body
+        assert 'Spam/Abuse - hidden from normal users' in response.body
 
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_abuse")
@@ -74,8 +70,7 @@ class TestModeratedAbuseReport(object):
             extra_environ=env,
         )
 
-        soup = bs4.BeautifulSoup(response.body)
-        assert '0 issues found' in soup.text
+        assert '0 issues found' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_abuse")
     def test_reported_as_abuse_does_not_appear_as_non_admin(self, app, user, dataset):
@@ -85,9 +80,8 @@ class TestModeratedAbuseReport(object):
             extra_environ=env,
         )
 
-        soup = bs4.BeautifulSoup(response.body)
-        assert '0 issues found' in soup.text
-        assert 'Spam' not in soup.text
+        assert '0 issues found' in response.body
+        assert 'Spam' not in response.body
 
 
 class TestUnmoderatedAbuseReport(object):
@@ -127,13 +121,10 @@ class TestUnmoderatedAbuseReport(object):
             extra_environ=env,
         )
 
-        soup = bs4.BeautifulSoup(response.body)
-
-        assert 'Test Issue' in soup.text
-        assert 'Hidden from normal users' not in soup.text
-        assert 'Moderated' not in soup.text
-        assert '1 user reports this is spam/abuse' in soup.text
-        #assert reporter['name'] in soup.text
+        assert 'Test Issue' in response.body
+        assert 'Hidden from normal users' not in response.body
+        assert 'Moderated' not in response.body
+        assert '1 user reports this is spam/abuse' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_reported")
     def test_reported_as_abuse_appears_in_search_as_admin(self, app, owner, dataset):
@@ -142,12 +133,10 @@ class TestUnmoderatedAbuseReport(object):
                                         dataset_id=dataset['id']),
             extra_environ=env,
         )
-        #res_chunks = parse_issues_dataset(response)
-        soup = bs4.BeautifulSoup(response.body)
-        assert '1 issue found' in soup.text
-        assert 'Test Issue' in soup.text
-        assert 'Spam/Abuse' not in soup.text
-        # Would be good if it said it had reports though
+
+        assert '1 issue found' in response.body
+        assert 'Test Issue' in response.body
+        assert 'Spam/Abuse' not in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_reported")
     def test_reported_as_abuse_appears_in_search_to_user_who_reported_it(self,
@@ -157,11 +146,10 @@ class TestUnmoderatedAbuseReport(object):
                                 dataset_id=dataset['id']),
             extra_environ=env,
         )
-        #res_chunks = parse_issues_dataset(response)
-        soup = bs4.BeautifulSoup(response.body)
-        assert '1 issue found' in soup.text
-        assert 'Test Issue' in soup.text
-        assert 'Reported by you to admins' in soup.text
+
+        assert '1 issue found' in response.body
+        assert 'Test Issue' in response.body
+        assert 'Reported by you to admins' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_reported")
     def test_reported_as_abuse_appears_as_non_admin(self, app, user, dataset):
@@ -170,11 +158,10 @@ class TestUnmoderatedAbuseReport(object):
                                 dataset_id=dataset['id']),
             extra_environ=env,
         )
-        #res_chunks = parse_issues_dataset(response)
-        soup = bs4.BeautifulSoup(response.body)
-        assert '1 issue found' in soup.text
-        assert 'Test Issue' in soup.text
-        assert 'Spam' not in soup.text
+
+        assert '1 issue found' in response.body
+        assert 'Test Issue' in response.body
+        assert 'Spam' not in response.body
 
 
 class TestReportIssue(object):
@@ -204,14 +191,12 @@ class TestReportIssue(object):
                                 issue_number=issue['number']),
             extra_environ=env,
         )
-        soup = bs4.BeautifulSoup(response.body)
-        flash_messages = soup.find('div', {'class': 'flash-messages'}).text
-        assert 'Issue reported to an administrator' in flash_messages
+
+        assert 'Issue reported to an administrator' in response.body
 
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "with_request_context")
     def test_report_as_admin(self, app, owner, dataset, issue):
-        # NOT WORKING 
         env = {'REMOTE_USER': owner['name'].encode('ascii')}
         response = app.post(toolkit.url_for('issues.report',
                                 dataset_id=dataset['id'],
@@ -219,7 +204,7 @@ class TestReportIssue(object):
             extra_environ=env,
             follow_redirects=True
         )
-        
+
         assert 'Report acknowledged. Marked as abuse/spam. Issue is invisible to normal users.'\
             in response.body
 
@@ -229,9 +214,8 @@ class TestReportIssue(object):
                                 dataset_id=dataset['id'],
                                 issue_number=issue['number']),
         )
-        soup = bs4.BeautifulSoup(response.body)
-        message = soup.find('div', {'class': 'module-content'}).text
-        assert 'You must be logged in to report issues' in message
+
+        assert 'You must be logged in to report issues' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_report_an_issue_that_does_not_exist(self, app, owner, dataset):
@@ -268,7 +252,7 @@ class TestReportIssue(object):
             extra_environ=env,
             expect_errors=True
         )
-        #response = response.follow()
+
         assert 'Issue report cleared' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
@@ -280,6 +264,7 @@ class TestReportIssue(object):
             extra_environ=env,
             expect_errors=True
         )
+
         assert response.status_code == 404
 
 
@@ -318,10 +303,8 @@ class TestReportComment(object):
                                 comment_id=comment['id']),
             extra_environ=env,
         )
-        #response = response.follow()
-        soup = bs4.BeautifulSoup(response.body)
-        flash_messages = soup.find('div', {'class': 'flash-messages'}).text
-        assert 'Comment has been reported to an administrator' in flash_messages
+
+        assert 'Comment has been reported to an administrator' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_report_as_admin(self, app, owner, dataset, issue, comment):
@@ -333,11 +316,9 @@ class TestReportComment(object):
                                 comment_id=comment['id']),
             extra_environ=env,
         )
-        #response = response.follow()
-        soup = bs4.BeautifulSoup(response.body)
-        flash_messages = soup.find('div', {'class': 'flash-messages'}).text
+
         assert 'Report acknowledged. Marked as abuse/spam. Comment is invisible to normal users.'\
-             in flash_messages
+             in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_report_not_logged_in(self, app, dataset, issue, comment):
@@ -346,9 +327,8 @@ class TestReportComment(object):
                                 issue_number=issue['number'],
                                 comment_id=comment['id']),
         )
-        #response = response.follow()
-        soup = bs4.BeautifulSoup(response.body)
-        assert 'You must be logged in to report comments' in soup.text
+
+        assert 'You must be logged in to report comments' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_report_an_issue_that_does_not_exist(self, app, owner, dataset, comment):
@@ -360,6 +340,7 @@ class TestReportComment(object):
             extra_environ=env,
             expect_errors=True
         )
+
         assert response.status_code == 404
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
@@ -372,7 +353,7 @@ class TestReportComment(object):
                                 comment_id=comment['id']),
             extra_environ=env,
         )
-        #response = response.follow()
+
         assert 'Spam/abuse report cleared' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
@@ -388,7 +369,7 @@ class TestReportComment(object):
                                 comment_id=comment['id']),
             extra_environ=env,
         )
-        #response = response.follow()
+
         assert 'Spam/abuse report cleared' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup")
@@ -401,4 +382,5 @@ class TestReportComment(object):
             extra_environ=env,
             expect_errors=True
         )
+
         assert response.status_code == 404

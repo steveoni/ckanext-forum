@@ -85,8 +85,8 @@ def issue_update(context, data_dict):
     if not issue:
         return {'success': False}
     user_obj = model.User.get(user)
-    if ((issue.user_id == user_obj.id)  # we're the creator
-       and  # we are not trying to change status
+    if ((issue.user_id == user_obj.id) and # we're the creator
+        # we are not trying to change status
        not (data_dict.get('status')
             and (issue.status != data_dict['status']))):
         return {'success': True}
