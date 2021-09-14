@@ -6,7 +6,7 @@ on:
     tags:
       - 'v*'
   # pull_request:
-  #   branches: main
+  #   branches: master
 
 env:
   CKANVERSION: 2.9
@@ -86,6 +86,8 @@ jobs:
           bash bin/setup-ckan.bash
       - name: Test with pytest
         run: |
+          python -m pip install --upgrade pip
+          pip install pytest-ckan 
           pytest --ckan-ini=test.ini --cov=ckanext.issues --disable-warnings ckanext/issues/tests
       - name: Coveralls
         uses: AndreMiras/coveralls-python-action@develop
