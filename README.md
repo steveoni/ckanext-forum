@@ -1,6 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/keitaroinc/ckanext-issues/badge.svg?branch=master)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=migrate-2.9)
-
-[![CI Actions Status](https://github.com/keitaroinc/ckanext-issues/workflows/CI/badge.svg)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=migrate-2.9)
+[![Coverage Status](https://coveralls.io/repos/github/keitaroinc/ckanext-issues/badge.svg?branch=migrate-2.9)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=migrate-2.9) [![CI Actions Status](https://github.com/keitaroinc/ckanext-issues/workflows/CI/badge.svg)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=migrate-2.9)
 
 # CKAN Issues Extension
 
