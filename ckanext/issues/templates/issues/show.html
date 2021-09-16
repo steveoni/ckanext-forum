@@ -7,7 +7,7 @@ dataset - package object
 
 {% block styles %}
   {{ super() }}
-  {% resource 'ckanext_issues/autocomplete-action-api.js' %}
+  {% asset 'issues/autocomplete-action-api' %}
 {% endblock %}
 
 {% block subtitle %}{{ '%s #%s - %s' % (issue.title, issue.number, _('Issues')) }} {% endblock %}
@@ -21,10 +21,10 @@ dataset - package object
   <meta property="og:image" content="{{ issue.user.gravatar_url }}">
 {% endblock -%}
 
-{% block breadcrumb_item %}{{ h.nav_link(issue.number, named_route='issues_show', dataset_id=dataset.name, issue_number=issue.number) }}
+{% block breadcrumb_item %}{{ h.nav_link(issue.number, named_route='issues.show_issue', dataset_id=dataset.name, issue_number=issue.number) }}
 {% endblock %}
  
-{% set can_edit_issue = h.check_access('issue_update', {'dataset_id': dataset.id, 'issue_number': issue.number }) %}
+{% set can_edit_issue = h.check_access('issue_update', {'can_edit': True, 'dataset_id': dataset.id, 'issue_number': issue.number }) %}
 {% set is_publisher = h.check_access('package_update', {'id': dataset.id }) %}
 {% import 'macros/form.html' as form %}
 
@@ -63,23 +63,23 @@ dataset - package object
       <div class="issue-comment-actions">
         {% if header_is_for_issue and can_edit_issue %}
           <div class="issue-comment-action" id="issue-edit-button">
-            <a id="issue-edit-link" href="{{h.url_for('issues_edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
-              <i class="icon-pencil"></i>
+            <a id="issue-edit-link" href="{{h.url_for('issues.edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
+              <i class="fa fa-pencil"></i>
             </a>
           </div>
         {% endif %}
-        {% if c.user and not can_edit_issue %}
+        {% if g.user and not can_edit_issue %}
           {# a normal user can report this comment/issue #}
-          {% set reported_by_current_user = h.issues_user_has_reported_issue(c.user, issue_or_comment.abuse_reports) %}
+          {% set reported_by_current_user = h.issues_user_has_reported_issue(g.user, issue_or_comment.abuse_reports) %}
           {% if not reported_by_current_user %}
             <div id="issue-report-abuse-button" class="issue-comment-action">
               {% if header_is_for_issue %}
-                <form id="issue-report-form" method="post" action="{{h.url_for('issues_report', dataset_id=dataset.name, issue_number=issue.number)}}">
+                <form id="issue-report-form" method="post" action="{{h.url_for('issues.report', dataset_id=dataset.name, issue_number=issue.number)}}">
               {% else %}
-                <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues_comment_report', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
+                <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues.report_comment', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse" type="submit" title="Report">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                   Report abuse
                 </button>
               </form>
@@ -87,28 +87,28 @@ dataset - package object
           {% else %}
             <div id="issue-not-abuse-button" class="issue-comment-action">
               {% if header_is_for_issue %}
-                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues_report_clear', dataset_id=dataset.name, issue_number=issue.number)}}">
+                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.report_clear', dataset_id=dataset.name, issue_number=issue.number)}}">
               {% else %}
-                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues_comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
+                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse-active" type="submit" data-toggle="tooltip" title="You have reported this as abuse, cancel the report">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                 </button>
               </form>
             </div>
           {% endif %}
-        {% elif c.user %}
+        {% elif g.user %}
           {# i.e. an admin, so allow moderation #}
           {% set reports_by_users = issue_or_comment.abuse_reports|length %}
           {# always offer the "this is spam" button #}
             <div id="issue-report-abuse-button" class="issue-comment-action">
               {% if header_is_for_issue %}
-                <form id="issue-report-form" method="post" action="{{h.url_for('issues_report', dataset_id=dataset.name, issue_number=issue.number)}}">
+                <form id="issue-report-form" method="post" action="{{h.url_for('issues.report', dataset_id=dataset.name, issue_number=issue.number)}}">
               {% else %}
-                <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues_comment_report', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
+                <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues.report_comment', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active subtle-btn-abuse" type="submit" title="Mark as spam/abuse">
-                  <i class="icon-flag"></i>
+                  <i class="fa fa-flag"></i>
                 </button>
               </form>
             </div>
@@ -116,12 +116,12 @@ dataset - package object
           {% if (reports_by_users or issue_or_comment.visibility != 'visible') %}
             <div id="issue-not-abuse-button" class="issue-comment-action">
               {% if header_is_for_issue %}
-                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues_report_clear', dataset_id=dataset.name, issue_number=issue.number)}}">
+                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.report_clear', dataset_id=dataset.name, issue_number=issue.number)}}">
               {% else %}
-                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues_comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
+                <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
                 <button class="subtle-btn-active" type="submit" data-toggle="tooltip" title="Mark as NOT spam/abuse">
-                  <i class="icon-ok"></i>
+                  <i class="fa fa-check"></i>
                   {{ _('Not spam/abuse') }}
                 </button>
               </form>
@@ -138,9 +138,9 @@ endfor %}">
               Hidden from normal users
             </div>
           {% endif %}
-          {% if issue_or_comment.abuse_status != 'unmoderated'  %}
+          {% if issue_or_comment.abuse_status != 0  %}
             <div class="issue-comment-label">
-              Moderated: {{ issue_or_comment.abuse_status }}
+              {{ _('Moderated: ') }}{{ issue_or_comment.abuse_status }}
             </div>
           {% endif %}
         {% endif %}
@@ -168,7 +168,7 @@ endfor %}">
         </h1>
         <div class="issue-header-meta">
           <span class="issue-header-status {{issue.status}}">
-            <i class="icon-exclamation-sign"></i> {{issue.status.title()}}
+            <i class="fa fa-exclamation-circle"></i> {{issue.status.title()}}
           </span>
           <a href="{{issue.user.ckan_url}}">{{issue.user.name}}</a> opened this issue {{issue.time_ago}} &middot;
           {{ ungettext('{number} comment', '{number} comments', comment_count).format(number=comment_count) }}
@@ -185,14 +185,14 @@ endfor %}">
 
       <div class="issue-comment-new">
         <div class="issue-comment-wrapper">
-          {% if c.user %}
-          <a href="{{c.current_user.ckan_url}}"
+          {% if g.user %}
+          <a href="{{g.user.ckan_url}}"
             class="issue-comment-avatar">
-            {{c.current_user.gravatar}}
+            {{g.user.gravatar}}
           </a>
           <form id="issue-comment-form" class="dataset-form" method="post"
             data-module="basic-form"
-            action="{{h.url_for('issues_comments', issue_number=issue.number, dataset_id=dataset.id)}}">
+            action="{{h.url_for('issues.comments', issue_number=issue.number, dataset_id=dataset.id)}}">
             <div class="control-group control-full">
               <div class="controls editor">
                 <textarea id="comment" name="comment" cols="20" rows="5"
@@ -206,7 +206,7 @@ endfor %}">
             <div class="form-actions" style="border-top: none;">
               {% if h.check_access('issue_delete', {'issue_number': issue.number, 'dataset_id': dataset.id}) %}
                 {% set locale = h.dump_json({'content': _('Are you sure you want to delete this issue?')}) %}
-                <a class="btn btn-danger pull-left" href="{% url_for 'issues_delete', dataset_id=dataset.id, issue_number=issue.number %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
+                <a class="btn btn-danger pull-left" href="{% url_for 'issues.delete', dataset_id=dataset.id, issue_number=issue.number %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
               {% endif %}
               {% if can_edit_issue %}
                 {% if issue.status == 'open' %}
@@ -228,7 +228,7 @@ endfor %}">
           </form>
           {% else %}
           <div class="not-logged-in">
-            <a href="{{h.url_for('login', came_from=h.full_current_url())}}" class="btn">{{ _('Login to comment') }}</a>
+            <a href="{{h.url_for('user.login', came_from=h.full_current_url())}}" class="btn">{{ _('Login to comment') }}</a>
           </div>
           {% endif %}
         </div>
@@ -245,7 +245,7 @@ endfor %}">
     </div>
   </div>
   <h2 class="module-heading">
-    <i class="icon-medium icon-user"></i>
+    <i class="fa fa-user"></i>
     Assignee
   </h2>
   <div id='ckanext-issues-assignee'>
@@ -261,10 +261,10 @@ endfor %}">
   {% block assignee_form %}
     {% if is_publisher %}
     <h2 class="module-heading">
-      <i class="icon-medium icon-edit"></i>
+      <i class="fa fa-edit"></i>
       Change Assignee
     </h2>
-    <form id='ckanext-issues-assign' class="dataset-form form-horizontal add-member-form" method='post' action="{{ h.url_for('issues_assign', issue_number=issue.number, dataset_id=dataset.id) }}">
+    <form id='ckanext-issues-assign' class="dataset-form form-horizontal add-member-form" method='post' action="{{ h.url_for('issues.assign', issue_number=issue.number, dataset_id=dataset.id) }}">
         <div class="controls">
           <input id="assignee" type="text" name="assignee" placeholder="Username"
           value="" class="control-medium" data-module="autocomplete-action-api"
@@ -283,3 +283,4 @@ endfor %}">
      {% endif %}
   {% endblock %}
 {% endblock %}
+n

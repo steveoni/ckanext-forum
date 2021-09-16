@@ -1,0 +1,10 @@
+
+style:
+  output: issues/%(version)s_style.css
+  contents:
+    - css/style.css
+
+visualize_main_style:
+  output: issues/%(version)s_autocomplete-action-api.js
+  contents: 
+    - js/autocomplete-action-api.js

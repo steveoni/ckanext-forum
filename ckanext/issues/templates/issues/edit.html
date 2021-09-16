@@ -31,7 +31,7 @@ set           {% for key, error in errors.items() %}
 
   {% block form_actions %}
   <div class="form-actions">
-    {{ h.nav_link(_('Cancel'), controller='ckanext.issues.controller:IssueController', named_route='issues_show', dataset_id=c.pkg.id, issue_number=issue.number,
+    {{ h.nav_link(_('Cancel'), controller='ckanext.issues.controller:IssueController', named_route='issues.show_issue', dataset_id=c.pkg.id, issue_number=issue.number,
     class_='btn') }}
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Update') }}</button>
   </div>

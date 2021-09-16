@@ -1,3 +1,4 @@
+from ckanext.issues.tests.logic.action.test_issue import dataset
 from ckan import model
 import ckan.plugins as p
 from ckanext.issues import model as issue_model
@@ -26,6 +27,7 @@ def issue_auth(context, data_dict, privilege='package_update'):
 
 @p.toolkit.auth_allow_anonymous_access
 def issue_show(context, data_dict):
+    print(context, data_dict)
     return issue_auth(context, data_dict, 'package_show')
 
 
@@ -44,19 +46,18 @@ def issue_search(context, data_dict):
             )
         }
 
-
+@p.toolkit.auth_allow_anonymous_access
 def issue_create(context, data_dict):
     # Any logged in user
     return {'success': bool(context['user'])}
 
-
-@p.toolkit.auth_disallow_anonymous_access
+@p.toolkit.auth_allow_anonymous_access
 def issue_comment_create(context, data_dict):
-    return {'success': True}
+    return {'success': bool(context['user'])}
     # return issue_auth(context, data_dict, 'package_create')
 
 
-@p.toolkit.auth_disallow_anonymous_access
+@p.toolkit.auth_allow_anonymous_access
 def issue_update(context, data_dict):
     '''Checks that we can update the issue.
 
@@ -65,6 +66,12 @@ def issue_update(context, data_dict):
 
     Updating issue status is only dataset 'editors'
     '''
+    if data_dict.get('assignee_id') or data_dict.get('can_edit'):
+        out = issue_auth(context, data_dict, 'package_update')
+        if out['success']:
+            return out
+        else:
+            return {'success': False}
     # let's check if we're allowed to do everything
     out = issue_auth(context, data_dict, 'package_update')
     if out['success']:
@@ -78,8 +85,8 @@ def issue_update(context, data_dict):
     if not issue:
         return {'success': False}
     user_obj = model.User.get(user)
-    if ((issue.user_id == user_obj.id)  # we're the creator
-       and  # we are not trying to change status
+    if ((issue.user_id == user_obj.id) and # we're the creator
+        # we are not trying to change status
        not (data_dict.get('status')
             and (issue.status != data_dict['status']))):
         return {'success': True}
@@ -96,6 +103,21 @@ def issue_update(context, data_dict):
 
 @p.toolkit.auth_disallow_anonymous_access
 def issue_delete(context, data_dict):
+    try:
+        issue_number = data_dict['issue_number']
+    except KeyError:
+        issue_number = data_dict['issue_id']
+
+    issue = issue_model.Issue.get_by_number(
+        issue_number=issue_number,
+        dataset_id=data_dict['dataset_id'],
+    )
+    if issue is None:
+        return issue_auth(context, data_dict)
+    user = context['user']
+    user_obj = model.User.get(user)
+    if (issue.user_id == user_obj.id):
+        return {'success': True}
     return issue_auth(context, data_dict)
 
 

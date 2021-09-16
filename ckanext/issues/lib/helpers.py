@@ -1,9 +1,8 @@
 from math import ceil
 
-from pylons import config
-
 from ckan import model
 from ckan.plugins import toolkit
+from ckan.plugins.toolkit import config
 from ckan.lib import helpers
 from ckanext.issues.model import IssueFilter
 from ckanext.issues import model as issuemodel

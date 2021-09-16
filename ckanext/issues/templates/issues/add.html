@@ -5,17 +5,17 @@
 {% block page_heading %}{{ _('New Issue') }} {% endblock %}
 
 {% import 'macros/form.html' as form %}
-{% set data = c.data_dict %}
-{% set errors = c.errors %}
+{% set data = g.data_dict %}
+{% set errors = g.errors %}
 
 {% block ourform %}
 <form id="issue-new" class="dataset-form form-horizontal" method="post" data-module="basic-form">
   {% block error_summary %}
-    {% if c.error_summary | count %}
+    {% if g.error_summary | count %}
       <div class="alert alert-error error-explanation">
         <p>{{ _('The form contains invalid entries:') }}</p>
         <ul>
-set           {% for key, error in c.error_summary.items() %}
+set           {% for key, error in g.error_summary.items() %}
             <li>{{ key }}: {{ error[0] }}</li>
           {% endfor %}
         </ul>
@@ -30,8 +30,6 @@ set           {% for key, error in c.error_summary.items() %}
   {% endblock %}
 
   <div class="form-actions">
-    {{ h.nav_link(_('Cancel'), controller='related', action='list', id=c.id,
-    class_='btn') }}
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Create') }}</button>
   </div>
 </form>

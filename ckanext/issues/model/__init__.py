@@ -41,7 +41,7 @@ def setup():
 
         # add default categories if they don't already exist
         session = model.meta.Session()
-        for category_name, category_desc in DEFAULT_CATEGORIES.iteritems():
+        for category_name, category_desc in DEFAULT_CATEGORIES.items():
             if not category_name:
                 continue
 
@@ -71,8 +71,8 @@ def upgrade():
         ALTER TABLE issue DROP CONSTRAINT issue_user_id_fkey;
         '''
         model.Session.execute(remove_fkeys_sql)
-        print 'Migration 1 done: Problematic foreign key constraints to '\
-              'core ckan tables now removed'
+        print('Migration 1 done: Problematic foreign key constraints to '\
+              'core ckan tables now removed')
         model.Session.commit()
 
 
@@ -119,7 +119,7 @@ class IssueCategory(object):
 # make a nice user dict object
 def _user_dict(user):
     out = model_dictize.user_dictize(user, context={'model': model})
-    out['ckan_url'] = h.url_for('user_datasets', id=user.name)
+    out['ckan_url'] = h.url_for('user.read', id=user.name)
     out['gravatar'] = h.gravatar(user.email_hash, size=48)
     out['gravatar_url'] = '''//gravatar.com/avatar/%s?s=%d''' % (user.email_hash, 48)
     return out
@@ -157,7 +157,7 @@ class IssueFilter(enum.Enum):
             raise InvalidIssueFilterException()
 
 
-class InvalidIssueFilterException(object):
+class InvalidIssueFilterException(BaseException):
     pass
 
 
@@ -344,7 +344,7 @@ class Issue(domain_object.DomainObject):
         out['user'] = _user_dict(self.user)
         # some cases dataset not yet set ...
         if self.dataset:
-            out['ckan_url'] = h.url_for('issues_show',
+            out['ckan_url'] = h.url_for('issues.show_issue',
                                         dataset_id=self.dataset.name,
                                         issue_number=self.number)
         return out
@@ -393,7 +393,7 @@ class IssueComment(domain_object.DomainObject):
     def get_comments_for_issue(cls, issue_id):
         """ Gets all comments for a given issue """
         return model.Session.query(cls).\
-            filter(cls.issue_id == issue_id).order_by("-created")
+            filter(cls.issue_id == issue_id)
 
     @classmethod
     def get_comment_count_for_issue(cls, issue_id):

@@ -14,7 +14,7 @@ def show(issue_number, dataset_id, session):
             'include_reports': True,
         }
     )
-
+    
     issue['comment'] = issue['description'] or toolkit._(
         'No description provided')
 

@@ -17,7 +17,7 @@ try:
 except ImportError:
     import ckan.new_authz as authz
 
-from pylons import config
+from ckan.plugins.toolkit import config
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
 
@@ -61,10 +61,8 @@ def issue_show(context, data_dict):
         session=session)
     if not issue:
         raise p.toolkit.ObjectNotFound(p.toolkit._('Issue does not exist'))
-
     context['issue'] = issue
-    issue_dict = issue.as_dict()
-
+    issue_dict = vars(issue)
     user = context.get('user')
     if user:
         try:
@@ -210,9 +208,9 @@ def issue_create(context, data_dict):
                           user_obj.email, len(recipients) - 1, body)
             try:
                 mailer.mail_user(user_obj, subject, body)
-            except (mailer.MailerException, TypeError), e:
+            except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
-                log.debug(e.message)
+                log.debug(e)
 
     log.debug('Created issue %s (%s)' % (issue.title, issue.id))
     return issue.as_dict()
@@ -391,7 +389,7 @@ def issue_search(context, data_dict):
         results = [issue.as_plain_dict(u, comment_count_, updated,
                                        include_dataset=include_datasets,
                                        include_reports=include_reports)
-                   for (issue, u, comment_count_, updated) in query.all()]
+                   for issue, u, comment_count_, updated in query.all()]
     else:
         results = []
 
@@ -476,9 +474,9 @@ def issue_comment_create(context, data_dict):
             user_obj = model.User.get(recipient['user_id'])
             try:
                 mailer.mail_user(user_obj, subject, body)
-            except (mailer.MailerException, TypeError), e:
+            except (mailer.MailerException, TypeError) as e:
                 # TypeError occurs when we're running command from ckanapi
-                log.debug(e.message)
+                log.debug(e)
 
     log.debug('Created issue comment %s' % (issue.id))
     return issue_comment.as_dict()
@@ -506,8 +504,15 @@ def organization_users_autocomplete(context, data_dict):
 
     users = []
     for user in query.all():
-        user_dict = dict(user.__dict__)
-        user_dict.pop('_labels', None)
+        if isinstance(user, tuple):
+            user_dict = {
+                'id': user[0],
+                'name': user[1],
+                'fullname': user[2],
+            }
+        else:
+            user_dict = dict(user.__dict__)
+            user_dict.pop('_labels', None)
         users.append(user_dict)
     return users
 
