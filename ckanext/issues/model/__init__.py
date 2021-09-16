@@ -224,7 +224,7 @@ class Issue(domain_object.DomainObject):
                 query = query.filter(model.Package.owner_org == org.id)
 
         if q:
-            if isinstance(q, unicode):
+            if isinstance(q, str):
                 search_expr = u'%{0}%'.format(q)
             else:
                 search_expr = '%{0}%'.format(q)

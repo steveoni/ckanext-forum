@@ -11,11 +11,7 @@
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
   <li>{% link_for org.title|truncate(35), controller='organization', action='read', id=org.name %}</li>
-<<<<<<< HEAD
-  <li class="active">{{ url_for('issues.issues_for_organization', org_id=org.name) }}</li>
-=======
   <li class="active">{% link_for _('Issues'), named_route='issues.issues_for_organization', org_id=org.name %}</li>
->>>>>>> origin/dgm-stable
 {% endblock %}
 
 {% block primary_content %}
@@ -76,13 +72,8 @@
                 <td>{% if issue.resolved %}<span title="Closed by {{issue.resolver}} on {{issue.resolved}}">{{ _('closed') }}</span>{% else %}{{ _('open') }}{% endif %}</td>
                 <td>
                   {% if issue.comment_count %}
-<<<<<<< HEAD
                     <i class="fa fa-comment"></i>
                     {{ issue.comment_count }}
-=======
-                    <i class="{{ 'fa fa-comments' if ckan_28 else 'icon-comments' }}"></i>
-                    {{ _('%s comments') % (issue.comment_count) }}
->>>>>>> origin/dgm-stable
                   {% endif %}
                 </td>
               </tr>

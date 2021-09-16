@@ -31,13 +31,8 @@ set           {% for key, error in errors.items() %}
 
   {% block form_actions %}
   <div class="form-actions">
-<<<<<<< HEAD
-    {{ h.nav_link(_('Cancel'), controller='ckanext.issues.controller:IssueController', named_route='issues.show_issue', dataset_id=c.pkg.id, issue_number=issue.number,
-    class_='btn') }}
-=======
     {{ h.nav_link(_('Cancel'), controller='ckanext.issues.controller:IssueController', named_route='issues.show_issue', dataset_id=c.pkg.id, issue_number=issue.number,
     class_='btn btn-danger pull-left') }}
->>>>>>> origin/dgm-stable
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Update') }}</button>
   </div>
   {% endblock %}

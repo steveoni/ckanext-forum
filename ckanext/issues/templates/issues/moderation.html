@@ -40,7 +40,6 @@
     <span class="actor">{{ h.gravatar(issue.user.email_hash, 30) }}
         <a href="{{ h.url_for(controller='user', action='read', id=issue.user) }}">{{ issue.user }}</a>
     </span>
-<<<<<<< HEAD
     <span>{{ _('created issue') }} <a href="{{ h.url_for('issues.show_issue', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a></span>
     <span>
       {{ _('created issue') }}
@@ -49,31 +48,15 @@
 
     <span class="date" title="{{ issue.created }}"> {{ h.time_ago_from_timestamp(issue.created) }}</span>
       <a href="{{h.url_for(controller='dataset', action='read', id=issue.dataset_id )}}">See dataset</a>
-=======
-    <span>{{ _('created issue') }} <a href="{{ h.url_for('issues_show', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a></span>
-    <span>
-      {{ _('created issue') }}
-      <a href="{{ h.url_for('issues_show', dataset_id=issue.dataset_id, issue_number=issue.number) }}">{{ issue.title }}</a>.
-    </span>
-
-    <span class="date" title="{{ issue.created }}"> {{ h.time_ago_from_timestamp(issue.created) }}</span>
-      <a href="{{h.url_for(controller='package', action='read', id=issue.dataset_id )}}">{{ _('See dataset') }}</a>
->>>>>>> origin/dgm-stable
 
     <form id="issue-report-form" class="pull-right" method="post" action="{{h.url_for('moderation.moderate', organization_id=organization.id)}}">
       <input type="hidden" name="dataset_id" value="{{ issue.dataset_id }}">
       <input type="hidden" name="issue_number" value="{{ issue.number }}">
       <input type="hidden" name="comment_id" value="{{ issue.id }}">
       <input type="hidden" name="abuse_status" value="abuse">
-<<<<<<< HEAD
       <button class="subtle-btn-active subtle-btn-abuse" type="submit" value="abuse" title="Report">
         <i class="fa fa-flag"></i>
-        Abuse
-=======
-      <button class="btn btn-default" type="submit" value="abuse" title="Report">
-        <i class="{'fa fa-flag' if ckan_28 else 'icon-flag' }}"></i>
         {{ _('Abuse') }}
->>>>>>> origin/dgm-stable
       </button>
     </form>
 
@@ -82,13 +65,8 @@
       <input type="hidden" name="issue_number" value="{{ issue.number }}">
       <input type="hidden" name="comment_id" value="{{ issue.id }}">
       <input type="hidden" name="abuse_status" value="not_abuse">
-<<<<<<< HEAD
       <button class="subtle-btn-active subtle-btn-abuse-active" type="submit" value="not_abuse" data-toggle="tooltip" title="Clear abuse reports">
         <i class="fa fa-trash"></i>
-=======
-      <button class="btn btn-danger" type="submit" value="not_abuse" data-toggle="tooltip" title="Clear abuse reports">
-        <i class="{{ 'fa fa-trash' if ckan_28 else 'icon-remove' }}"></i>
->>>>>>> origin/dgm-stable
         {{ _('Not abuse') }}
       </button>
     </form>

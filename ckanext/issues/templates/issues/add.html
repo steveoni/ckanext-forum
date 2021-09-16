@@ -30,8 +30,7 @@ set           {% for key, error in g.error_summary.items() %}
   {% endblock %}
 
   <div class="form-actions">
-    {{ h.nav_link(_('Cancel'), controller='related', action='list', id=c.id,
-    class_='btn btn-danger pull-left') }}
+
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Create') }}</button>
   </div>
 </form>
