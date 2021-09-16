@@ -1,4 +1,4 @@
-[![CI Actions Status](https://github.com/keitaroinc/ckanext-issues/workflows/CI/badge.svg)](https://coveralls.io/github/keitaroinc/ckanext-issues) [![Coverage Status](https://coveralls.io/repos/github/keitaroinc/ckanext-issues/badge.svg?branch=migrate-2.9)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=migrate-2.9) [![Python](https://img.shields.io/badge/python-3.8-blue)](https://www.python.org) [![CKAN](https://img.shields.io/badge/ckan-2.9-red)](https://www.ckan.org)
+[![CI Actions Status](https://github.com/keitaroinc/ckanext-issues/workflows/CI/badge.svg)](https://coveralls.io/github/keitaroinc/ckanext-issues) [![Coverage Status](https://coveralls.io/repos/github/keitaroinc/ckanext-issues/badge.svg?branch=master)](https://coveralls.io/github/keitaroinc/ckanext-issues?branch=master) [![Python](https://img.shields.io/badge/python-3.8-blue)](https://www.python.org) [![CKAN](https://img.shields.io/badge/ckan-2.9-red)](https://www.ckan.org)
 # CKAN Issues Extension
 
 This extension allows users to to report issues with datasets in a CKAN
