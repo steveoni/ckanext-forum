@@ -1,0 +1,748 @@
+# Macedonian translations for ckanext-issues.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the ckanext-issues
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-issues 0.3\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-08-10 14:09+0200\n"
+"PO-Revision-Date: 2018-07-25 17:28+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: mk\n"
+"Language-Team: mk <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/issues/auth.py:20
+msgid "User {0} not authorized for action on issue {1}"
+msgstr "Корисникот {0} не е авторизиран за акција врз проблемот {1}"
+
+#: ckanext/issues/auth.py:42
+msgid "User {0} not authorized for action"
+msgstr "Корисникот {0} не е авторизиран за акција"
+
+#: ckanext/issues/auth.py:91
+msgid "User {user} not authorized for action on issue {issue}"
+msgstr "Корисникот {user} не е авторизиран за акција врз проблемот {issue}"
+
+#: ckanext/issues/controller/controller.py:49
+msgid "Issues have not been enabled for this dataset"
+msgstr "Пријавување на проблеми не е овозможено за овој податочен сет"
+
+#: ckanext/issues/controller/controller.py:52
+#: ckanext/issues/controller/controller.py:70
+msgid "Dataset not found"
+msgstr "Податочниот сет не е најден"
+
+#: ckanext/issues/controller/controller.py:55
+msgid "Unauthorized to view issues for this dataset"
+msgstr "Неавторизиран за преглед на проблеми од овој податочен сет"
+
+#: ckanext/issues/controller/controller.py:67
+msgid "Issues have not been enabled for this organization"
+msgstr "Пријавуање на проблеми не е овозможено за оваа организација"
+
+#: ckanext/issues/controller/controller.py:73
+msgid "Unauthorized to view issues for this organization"
+msgstr "Неавторизиран за преглед на проблеми од оваа организација"
+
+#: ckanext/issues/controller/controller.py:78
+msgid "Please login to add a new issue"
+msgstr "Ве молиме најавете се за да пријавите проблем"
+
+#: ckanext/issues/controller/controller.py:87
+msgid "Not authorized to add a new issue"
+msgstr "Неавторизиран за да пријави проблем"
+
+#: ckanext/issues/controller/controller.py:114
+msgid "Your issue has been registered, thank you for the feedback"
+msgstr ""
+"Проблемот што го пријавивте е регистриран, Ви благодариме за повратните "
+"информации"
+
+#: ckanext/issues/controller/controller.py:132
+#: ckanext/issues/controller/controller.py:135
+msgid "Issue not found: {0}"
+msgstr "Проблемот не беше најден: {0}"
+
+#: ckanext/issues/controller/controller.py:179
+msgid "Invalid request"
+msgstr "Невалидно барање"
+
+#: ckanext/issues/controller/controller.py:191
+msgid "Not authorized"
+msgstr "Не е авторизиран"
+
+#: ckanext/issues/controller/controller.py:200
+msgid "Comment cannot be empty"
+msgstr "Коментарот мора да биде пополнет"
+
+#: ckanext/issues/controller/controller.py:216
+msgid "Issue closed"
+msgstr "Проблемот е затворен"
+
+#: ckanext/issues/controller/controller.py:218
+msgid "Issue re-opened"
+msgstr "Проблемот е отворен повторно"
+
+#: ckanext/issues/controller/controller.py:256
+msgid "Unauthorized to delete issue {0}"
+msgstr "Неавторизиран за да избрише проблем: {0}"
+
+#: ckanext/issues/controller/controller.py:261
+msgid "Issue {0} has been deleted."
+msgstr "Проблемот {0} беше избришан."
+
+#: ckanext/issues/controller/controller.py:279
+msgid "User {0} does not exist"
+msgstr "Корисникот {0} не постои"
+
+#: ckanext/issues/controller/controller.py:309
+msgid "Unauthorized to assign users to issue"
+msgstr "Не е авторизиран за да додели проблем на корисник."
+
+#: ckanext/issues/controller/controller.py:323
+msgid "You must be logged in to report issues"
+msgstr "Мора да се најавите за да можете да пријавувате проблеми"
+
+#: ckanext/issues/controller/controller.py:334
+#: ckanext/issues/controller/controller.py:371
+msgid "Report acknowledged."
+msgstr "Извештајот е примен."
+
+#: ckanext/issues/controller/controller.py:337
+#: ckanext/issues/controller/controller.py:374
+msgid "Marked as abuse/spam."
+msgstr "Обележи како злоупотреба/спам."
+
+#: ckanext/issues/controller/controller.py:338
+msgid "Issue is visible."
+msgstr "Проблемот е видлив."
+
+#: ckanext/issues/controller/controller.py:340
+msgid "Issue is invisible to normal users."
+msgstr "Овој проблем не е видилив за обични корисници."
+
+#: ckanext/issues/controller/controller.py:343
+msgid "Issue reported to an administrator"
+msgstr "Проблемот е пријавен до администратор"
+
+#: ckanext/issues/controller/controller.py:359
+msgid "You must be logged in to report comments"
+msgstr "Морате да бидете најавени за да додавате коментари"
+
+#: ckanext/issues/controller/controller.py:375
+msgid "Comment is visible."
+msgstr "Коментарот е видлив."
+
+#: ckanext/issues/controller/controller.py:377
+msgid "Comment is invisible to normal users."
+msgstr "Коментарот не е видлив за обични корисници."
+
+#: ckanext/issues/controller/controller.py:380
+msgid "Comment has been reported to an administrator"
+msgstr "Коментарот беше испратен до администратор"
+
+#: ckanext/issues/controller/controller.py:403
+msgid "Issue report cleared"
+msgstr "Извештајот за проблеми е исчистен"
+
+#: ckanext/issues/controller/controller.py:408
+msgid "You must be logged in clear abuse reports"
+msgstr "Морате да бидете најавени за да ги исчистите извештаите што се злоупотреба"
+
+#: ckanext/issues/controller/controller.py:426
+msgid "Spam/abuse report cleared"
+msgstr "Исчистен спам/злоупотреба извештај"
+
+#: ckanext/issues/controller/controller.py:431
+msgid "You must be logged in to clear abuse reports"
+msgstr "Морате да бидете најавени за да ги исчистите извештаите што се злоупотреба"
+
+#: ckanext/issues/controller/controller.py:448
+#: ckanext/issues/controller/controller.py:488
+msgid "Validation error: {0}"
+msgstr "Валидациска грешка: {0}"
+
+#: ckanext/issues/controller/moderation.py:17
+#: ckanext/issues/controller/moderation.py:76
+msgid "Organization not found"
+msgstr "Организацијата не е најдена"
+
+#: ckanext/issues/controller/moderation.py:22
+msgid "You must be logged in to moderate issues"
+msgstr "Морате да бидете најавени за да модерирате проблеми"
+
+#: ckanext/issues/controller/moderation.py:29
+msgid "Issue permanently hidden"
+msgstr "Проблемот е перманентно скриен"
+
+#: ckanext/issues/controller/moderation.py:33
+msgid "All issue reports cleared"
+msgstr "Сите извештаи се исчистени"
+
+#: ckanext/issues/controller/moderation.py:81
+msgid "You must be logged in to moderate comment"
+msgstr "Морате да бидете најавени за да модерирате коментар"
+
+#: ckanext/issues/controller/moderation.py:88
+msgid "Comment permanently hidden"
+msgstr "Коментарот е перманентно скриен"
+
+#: ckanext/issues/controller/moderation.py:92
+msgid "All comment reports cleared"
+msgstr "Сите извештаи за коментари се исчистени"
+
+#: ckanext/issues/controller/show.py:18
+msgid "No description provided"
+msgstr "Опис не беше даден"
+
+#: ckanext/issues/lib/helpers.py:202
+msgid "[{site_title} Issue] {dataset}"
+msgstr "[{site_title} Проблем] {dataset}"
+
+#: ckanext/issues/logic/action/action.py:63
+msgid "Issue does not exist"
+msgstr "Проблемот не постои"
+
+#: ckanext/issues/logic/action/action.py:83
+msgid "Issue marked as spam/abuse"
+msgstr "Проблемот е бележан како спам/злоупотреба"
+
+#: ckanext/issues/logic/action/action.py:561
+msgid "Issue has already been reported by this user"
+msgstr "Проблемот веќе беше пријавен од одовј корисник"
+
+#: ckanext/issues/logic/validators/validators.py:13
+msgid "{0} is not a valid status"
+msgstr "{0} не е валиден статус"
+
+#: ckanext/issues/logic/validators/validators.py:44
+#: ckanext/issues/logic/validators/validators.py:55
+msgid "Not found"
+msgstr "Не е најдено"
+
+#: ckanext/issues/logic/validators/validators.py:45
+#: ckanext/issues/templates/issues/organization_issues.html:41
+msgid "Dataset"
+msgstr "Податочен сет"
+
+#: ckanext/issues/logic/validators/validators.py:56
+msgid "Organization"
+msgstr "Организација"
+
+#: ckanext/issues/logic/validators/validators.py:65
+#: ckanext/issues/logic/validators/validators.py:78
+msgid "Issue not found"
+msgstr "Проблемот не е најден"
+
+#: ckanext/issues/logic/validators/validators.py:87
+msgid "Issue Comment not found"
+msgstr "Коментарот на проблемот не е најден"
+
+#: ckanext/issues/model/__init__.py:131
+msgid "Newest"
+msgstr "Најнови"
+
+#: ckanext/issues/model/__init__.py:132
+msgid "Oldest"
+msgstr "Најстари"
+
+#: ckanext/issues/model/__init__.py:133
+msgid "Most Commented"
+msgstr "Најкоментирани"
+
+#: ckanext/issues/model/__init__.py:134
+msgid "Least Commented"
+msgstr "Најмалку коментирани"
+
+#: ckanext/issues/model/__init__.py:135
+msgid "Most Recently Updated"
+msgstr "Најчесто ажурирани"
+
+#: ckanext/issues/model/__init__.py:136
+msgid "Least Recently Updated"
+msgstr "Најмалку ажурирани"
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:31
+msgid "No matches found"
+msgstr "Не се најдени совпаѓања"
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:32
+msgid "Start typing…"
+msgstr "Почнете да пишувате..."
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:34
+msgid "Input is too short, must be at least one character"
+msgstr "Внесот е премногу краток, мора да внесете барем еден знак"
+
+#: ckanext/issues/templates/issues/add.html:3
+#: ckanext/issues/templates/issues/add.html:5
+#: ckanext/issues/templates/issues/dataset.html:22
+msgid "New Issue"
+msgstr "Нов проблем"
+
+#: ckanext/issues/templates/issues/add.html:16
+#: ckanext/issues/templates/issues/edit.html:14
+msgid "The form contains invalid entries:"
+msgstr "Формата содржи невалидни записи:"
+
+#: ckanext/issues/templates/issues/add.html:27
+#: ckanext/issues/templates/issues/edit.html:25
+#: ckanext/issues/templates/issues/organization_issues.html:40
+msgid "Title"
+msgstr "Наслов"
+
+#: ckanext/issues/templates/issues/add.html:28
+#: ckanext/issues/templates/issues/edit.html:26
+msgid "Description"
+msgstr "Опис"
+
+#: ckanext/issues/templates/issues/add.html:28
+#: ckanext/issues/templates/issues/edit.html:26
+msgid "Add a comment"
+msgstr "Додај коментар"
+
+#: ckanext/issues/templates/issues/add.html:33
+#: ckanext/issues/templates/issues/confirm_delete.html:12
+#: ckanext/issues/templates/issues/edit.html:34
+msgid "Cancel"
+msgstr "Откажи"
+
+#: ckanext/issues/templates/issues/add.html:35
+msgid "Create"
+msgstr "Креирај"
+
+#: ckanext/issues/templates/issues/all_issues.html:5
+#: ckanext/issues/templates/issues/all_issues.html:8
+#: ckanext/issues/templates/issues/all_issues.html:12
+msgid "All Issues"
+msgstr "Сите проблеми"
+
+#: ckanext/issues/templates/issues/all_issues.html:24
+msgid "There are currently no issues"
+msgstr "Нема проблеми во овој момент"
+
+#: ckanext/issues/templates/issues/base.html:9
+msgid "Datasets"
+msgstr "Податочни сетови"
+
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr "Проблеми"
+
+#: ckanext/issues/templates/issues/base_form_page.html:15
+msgid "What are issues?"
+msgstr "Што се проблеми?"
+
+#: ckanext/issues/templates/issues/base_form_page.html:17
+msgid ""
+" <p>Isses are problems reported per dataset and can be filled out by "
+"signed-in users.</p> "
+msgstr ""
+" <p>Проблемите се недоследности со податочни сетови и можат да бидат "
+"пополнети од најавени корисници на порталот.</p> "
+
+#: ckanext/issues/templates/issues/comment_moderation.html:10
+#: ckanext/issues/templates/issues/moderation.html:9
+msgid "Reported issues"
+msgstr "Пријавени проблеми"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:23
+msgid "No reported comments."
+msgstr "Нема пријавени коментари."
+
+#: ckanext/issues/templates/issues/comment_moderation.html:30
+#: ckanext/issues/templates/issues/moderation.html:29
+#: ckanext/issues/templates/issues/organization_issues.html:12
+msgid "Organizations"
+msgstr "Организации"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:33
+#: ckanext/issues/templates/issues/moderation.html:32
+msgid "Reported Issues"
+msgstr "Пријавени проблеми"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:50
+#: ckanext/issues/templates/issues/moderation.html:50
+msgid "See dataset"
+msgstr "Видете податочен сет"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:59
+#: ckanext/issues/templates/issues/moderation.html:59
+msgid "Abuse"
+msgstr "Злоупотреба"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:70
+#: ckanext/issues/templates/issues/moderation.html:70
+msgid "Not abuse"
+msgstr "Не е злоупотреба"
+
+#: ckanext/issues/templates/issues/common.html:8
+msgid "Spam/Abuse - hidden from normal users"
+msgstr "Скриено за обични корисници"
+
+#: ckanext/issues/templates/issues/common.html:12
+msgid "Reported by you to admins"
+msgstr "Проблемот е пријавен до администратор"
+
+#: ckanext/issues/templates/issues/common.html:23
+msgid "Opened by "
+msgstr "Отворено од "
+
+#: ckanext/issues/templates/issues/common.html:26
+msgid "updated"
+msgstr "aжурирано"
+
+#: ckanext/issues/templates/issues/common.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:77
+#, python-format
+msgid "%s comments"
+msgstr "%s коментари"
+
+#: ckanext/issues/templates/issues/common.html:43
+#: ckanext/issues/templates/issues/organization_issues.html:43
+msgid "Status"
+msgstr "Статус"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Open"
+msgstr "Отворени"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Closed"
+msgstr "Затворени"
+
+#: ckanext/issues/templates/issues/common.html:58
+msgid "Visibility"
+msgstr "Видливост"
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Visible"
+msgstr "Видливи"
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Hidden"
+msgstr "Скриени"
+
+#: ckanext/issues/templates/issues/confirm_delete.html:3
+#: ckanext/issues/templates/issues/confirm_delete.html:13
+msgid "Confirm Delete"
+msgstr "Потврдете го бришењето"
+
+#: ckanext/issues/templates/issues/confirm_delete.html:9
+msgid "Are you sure you want to delete issue - {0}?"
+msgstr "Дали сте сигурни дека саката да го исбришете овој проблем - {0}"
+
+#: ckanext/issues/templates/issues/dataset.html:26
+#: ckanext/issues/templates/issues/organization_issues.html:28
+msgid "Search issues..."
+msgstr "Пребарај проблеми..."
+
+#: ckanext/issues/templates/issues/dataset.html:35
+msgid "No issues"
+msgstr "Нема проблеми"
+
+#: ckanext/issues/templates/issues/edit.html:3
+#: ckanext/issues/templates/issues/edit.html:5
+msgid "Edit Issue"
+msgstr "Уреди го проблемот"
+
+#: ckanext/issues/templates/issues/edit.html:36
+msgid "Update"
+msgstr "Ажурирај"
+
+#: ckanext/issues/templates/issues/moderation.html:22
+msgid "No reported issues."
+msgstr "Нема пријавени проблеми"
+
+#: ckanext/issues/templates/issues/moderation.html:43
+#: ckanext/issues/templates/issues/moderation.html:45
+msgid "created issue"
+msgstr "Креирани проблеми"
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:44
+msgid "{number} issue found"
+msgstr "{number} најден проблем"
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:45
+msgid "{number} issues found"
+msgstr "{number} најдени проблеми"
+
+#: ckanext/issues/templates/issues/organization_issues.html:42
+msgid "Reported"
+msgstr "Пријавен"
+
+#: ckanext/issues/templates/issues/organization_issues.html:44
+msgid "Comments"
+msgstr "Коментари"
+
+#: ckanext/issues/templates/issues/organization_issues.html:62
+msgid "Resource"
+msgstr "Ресурс"
+
+#: ckanext/issues/templates/issues/organization_issues.html:67
+msgid "Reported as spam/abuse"
+msgstr "Проблемот е пријавен како спам/злоупотреба"
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "closed"
+msgstr "затворен"
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "open"
+msgstr "отворен"
+
+#: ckanext/issues/templates/issues/organization_issues.html:88
+msgid "There are currently no issues for"
+msgstr "Моментално нема проблеми за"
+
+#: ckanext/issues/templates/issues/show.html:19
+msgid "Issue"
+msgstr "Проблеми"
+
+#: ckanext/issues/templates/issues/show.html:68
+msgid "Edit"
+msgstr "Ажурирај"
+
+#: ckanext/issues/templates/issues/show.html:96
+msgid "You have reported this as abuse, cancel the report"
+msgstr "Вие сте го пријавиле ова како злоупотреба, откажете го извештајот"
+
+#: ckanext/issues/templates/issues/show.html:112
+msgid "Mark as spam/abuse"
+msgstr "Обележи како спам/злоупотреба"
+
+#: ckanext/issues/templates/issues/show.html:125
+msgid "Mark as NOT spam/abuse"
+msgstr "Облежи дека НЕ е спам/злоупотреба"
+
+#: ckanext/issues/templates/issues/show.html:127
+msgid "Not spam/abuse"
+msgstr "Не е спам/злоупотреба"
+
+#: ckanext/issues/templates/issues/show.html:135
+msgid "user reports this is spam/abuse"
+msgstr "корисникот го пријавува ова како спам/злоупотреба"
+
+#: ckanext/issues/templates/issues/show.html:140
+msgid "Hidden from normal users"
+msgstr "Скриено за обични корисници"
+
+#: ckanext/issues/templates/issues/show.html:145
+msgid "Moderated: "
+msgstr "Модерирано:"
+
+#: ckanext/issues/templates/issues/show.html:152
+msgid "Owner"
+msgstr "Сопственик"
+
+#: ckanext/issues/templates/issues/show.html:157
+msgid "commented"
+msgstr "коментираше"
+
+#: ckanext/issues/templates/issues/show.html:175
+msgid "opened this issue"
+msgstr "го отвори овој проблем"
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comment"
+msgstr "{number} коментар"
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comments"
+msgstr "{number} коментар"
+
+#: ckanext/issues/templates/issues/show.html:201
+msgid "Leave a comment"
+msgstr "Остави коментар"
+
+#: ckanext/issues/templates/issues/show.html:204
+msgid ""
+"You can use <a "
+"href=\"http://daringfireball.net/projects/markdown/syntax\" "
+"target=\"_blank\">Markdown formatting</a> here"
+msgstr ""
+"Овде можe да користите <a "
+"href=\"http://daringfireball.net/projects/markdown/syntax\" "
+"target=\"_blank\">форматирање со Markdown</a>"
+
+#: ckanext/issues/templates/issues/show.html:210
+msgid "Are you sure you want to delete this issue?"
+msgstr "Дали сте сигурни дека сакате да го избришете овој проблем?"
+
+#: ckanext/issues/templates/issues/show.html:211
+msgid "Delete"
+msgstr "Избриши"
+
+#: ckanext/issues/templates/issues/show.html:216
+msgid "Close"
+msgstr "Затвори"
+
+#: ckanext/issues/templates/issues/show.html:220
+msgid "Re-open"
+msgstr "Отвори повторно"
+
+#: ckanext/issues/templates/issues/show.html:226
+msgid "Comment"
+msgstr "Коментирај"
+
+#: ckanext/issues/templates/issues/show.html:233
+msgid "Login to comment"
+msgstr "Најавете се за да коментирате"
+
+#: ckanext/issues/templates/issues/show.html:251
+msgid "Assignee"
+msgstr "Доделено на"
+
+#: ckanext/issues/templates/issues/show.html:258
+msgid "This issue has been assigned to an administrator for the publisher"
+msgstr "Овој проблем беше доделен на администраторот на објавувачот"
+
+#: ckanext/issues/templates/issues/show.html:260
+msgid "No one"
+msgstr "Никој"
+
+#: ckanext/issues/templates/issues/show.html:267
+msgid "Change Assignee"
+msgstr "Додели на друг"
+
+#: ckanext/issues/templates/issues/show.html:271
+msgid "Username"
+msgstr "Корисничко име"
+
+#: ckanext/issues/templates/issues/show.html:281
+msgid "Assign"
+msgstr "Додели"
+
+#: ckanext/issues/templates/snippets/search_form.html:6
+msgid "Order by"
+msgstr "Редослед според"
+
+#: ckanext/issues/templates/snippets/search_form.html:15
+msgid "Go"
+msgstr "Оди"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:18
+msgid "{number} catalog found"
+msgid_plural "{number} catalogs found"
+msgstr[0] "{number} најден каталог"
+msgstr[1] "{number} најдени каталози"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:19
+msgid "No catalogs found"
+msgstr "Не се најдени каталози"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:21
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number} податочен сет пронајден за \"{query}\""
+msgstr[1] "{number} податочни сетови пронајдени за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:22
+msgid "No datasets found for \"{query}\""
+msgstr "Не се најдени податочни сетови за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:23
+msgid "{number} dataset found"
+msgid_plural "{number} datasets found"
+msgstr[0] "{number} најден податочен сет"
+msgstr[1] "{number} најдени податочни сетови"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:24
+msgid "No datasets found"
+msgstr "Не се најдени податочни сетови"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:28
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} најдена група за \"{query}\""
+msgstr[1] "{number} најдени групи за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:29
+msgid "No groups found for \"{query}\""
+msgstr "Не се најдени групи за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:30
+msgid "{number} group found"
+msgid_plural "{number} groups found"
+msgstr[0] "{number} најдена група"
+msgstr[1] "{number} најдени групи"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:31
+msgid "No groups found"
+msgstr "Не се најдени групи"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:34
+msgid "{number} organization found for \"{query}\""
+msgid_plural "{number} organizations found for \"{query}\""
+msgstr[0] "{number} најдена организација за \"{query}\""
+msgstr[1] "{number} најдени организации за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:35
+msgid "No organizations found for \"{query}\""
+msgstr "Не се најдени организации за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:36
+msgid "{number} organization found"
+msgid_plural "{number} organizations found"
+msgstr[0] "{number} најдена организација"
+msgstr[1] "{number} најдени организации"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:37
+msgid "No organizations found"
+msgstr "Не се пронајдени организации"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:40
+msgid "{number} issue found for \"{query}\""
+msgstr "{number} најден проблем за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:41
+msgid "{number} issues found for \"{query}\""
+msgstr "{number} најдени проблеми за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:43
+msgid "No issues found for \"{query}\""
+msgstr "Не се најдени проблеми за \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:47
+msgid "No issues found"
+msgstr "Не се најдени проблеми"
+
+# | msgid "{number} issue found"
+# | msgid_plural "{number} issues found"
+#~ msgid "{number} најден проблем"
+#~ msgstr "{number} најдени проблеми"
+
+# | msgid "{number} comment"
+# | msgid_plural "{number} comments"
+#~ msgid "{number} коментар"
+#~ msgstr "{number} коментари"
+
+#~ msgid "Assigned to {user}"
+#~ msgstr "Доделено на {user}"
+
+#~ msgid " <p>Issues are ... .</p> "
+#~ msgstr " <p>Проблеми се ... .</p> "
+
+#~ msgid "Datasets"
+#~ msgstr "Податочни сетови"
+

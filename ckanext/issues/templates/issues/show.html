@@ -5,6 +5,8 @@ dataset - package object
 #}
 {% extends "issues/base.html" %}
 
+{% set ckan_28 = True if h.ckan_version().startswith('2.8') else False %}
+
 {% block styles %}
   {{ super() }}
   {% asset 'issues/autocomplete-action-api' %}
@@ -14,7 +16,7 @@ dataset - package object
 
 {% block head_extras -%}
   {% set description = h.markdown_extract(issue.comment , extract_length=200)|forceescape %}
-  <meta property="og:title" content="Issue {{issue.number}}: {{ issue.title }} - {{ g.site_title }}">
+  <meta property="og:title" content="{{ _('Issue') }} {{issue.number}}: {{ issue.title }} - {{ g.site_title }}">
   {% set statusUpper = issue.status|upper %}
   <meta property="og:description" content="{{statusUpper}}: {{ description }}">
   <meta property="og:url" content="{{ h.full_current_url() }}">
@@ -63,7 +65,7 @@ dataset - package object
       <div class="issue-comment-actions">
         {% if header_is_for_issue and can_edit_issue %}
           <div class="issue-comment-action" id="issue-edit-button">
-            <a id="issue-edit-link" href="{{h.url_for('issues.edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="subtle-btn" title="Edit">
+            <a id="issue-edit-link" href="{{h.url_for('issues_edit', dataset_id=dataset.name, issue_number=issue.number)}}" class="btn btn-xs btn-default" title="{{ _('Edit') }}">
               <i class="fa fa-pencil"></i>
             </a>
           </div>
@@ -91,8 +93,8 @@ dataset - package object
               {% else %}
                 <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
-                <button class="subtle-btn-active subtle-btn-abuse-active" type="submit" data-toggle="tooltip" title="You have reported this as abuse, cancel the report">
-                  <i class="fa fa-flag"></i>
+                <button class="btn btn-xs btn-default" type="submit" data-toggle="tooltip" title="{{ _('You have reported this as abuse, cancel the report') }}">
+                  <i class="{fa fa-flag"></i>
                 </button>
               </form>
             </div>
@@ -107,7 +109,7 @@ dataset - package object
               {% else %}
                 <form class="issue-comment-report-abuse-form" method="post" action="{{h.url_for('issues.report_comment', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
-                <button class="subtle-btn-active subtle-btn-abuse" type="submit" title="Mark as spam/abuse">
+                <button class="btn btn-xs btn-default" type="submit" title="{{ _('Mark as spam/abuse') }}">
                   <i class="fa fa-flag"></i>
                 </button>
               </form>
@@ -120,7 +122,7 @@ dataset - package object
               {% else %}
                 <form id="issue-not-abuse-button" method="post" action="{{h.url_for('issues.comment_report_clear', dataset_id=dataset.name, issue_number=issue.number, comment_id=issue_or_comment.id)}}">
               {% endif %}
-                <button class="subtle-btn-active" type="submit" data-toggle="tooltip" title="Mark as NOT spam/abuse">
+                <button class="btn btn-xs btn-default" type="submit" data-toggle="tooltip" title="{{ _('Mark as NOT spam/abuse') }}">
                   <i class="fa fa-check"></i>
                   {{ _('Not spam/abuse') }}
                 </button>
@@ -130,12 +132,12 @@ dataset - package object
           {% if reports_by_users %}
             <div class="issue-comment-label" data-toggle="tooltip" title="{% for user in h.issues_users_who_reported_issue(issue_or_comment.abuse_reports) %} {{ user.fullname }} ({{ user.name }}) {%
 endfor %}">
-              {{ reports_by_users }} user reports this is spam/abuse
+              {{ reports_by_users }} {{ _('user reports this is spam/abuse') }}
             </div>
           {% endif %}
           {% if issue_or_comment.visibility != 'visible' %}
             <div class="issue-comment-label">
-              Hidden from normal users
+              {{ _('Hidden from normal users') }}
             </div>
           {% endif %}
           {% if issue_or_comment.abuse_status != 0  %}
@@ -147,12 +149,12 @@ endfor %}">
       </div>
       {% if h.issues_user_is_owner(user=issue_or_comment.user, dataset_id=dataset.id) %}
         <div class="issue-comment-label">
-           Owner 
+           {{ _('Owner') }}
         </div>
       {% endif %}
       <div class="issue-header-text">
         <a href="{{issue_or_comment.user.ckan_url}}" class="author">{{ issue_or_comment.user.name}}</a>
-        commented
+        {{ _('commented') }}
         <span title="{{issue_or_comment.created}}">{{ h.time_ago_from_timestamp(issue_or_comment.created).lower() }}</span>
       </div>
     </div>
@@ -168,10 +170,10 @@ endfor %}">
         </h1>
         <div class="issue-header-meta">
           <span class="issue-header-status {{issue.status}}">
-            <i class="fa fa-exclamation-circle"></i> {{issue.status.title()}}
+            <i class="fa fa-exclamation-circle"></i> {{ _(issue.status.title()) }}
           </span>
-          <a href="{{issue.user.ckan_url}}">{{issue.user.name}}</a> opened this issue {{issue.time_ago}} &middot;
-          {{ ungettext('{number} comment', '{number} comments', comment_count).format(number=comment_count) }}
+          <a href="{{issue.user.ckan_url}}">{{issue.user.name}}</a> {{ _('opened this issue') }} {{issue.time_ago}} &middot;
+          {{ ungettext(_('{number} comment'), _('{number} comments'), comment_count).format(number=comment_count) }}
         </div>
       </div>
 
@@ -193,13 +195,13 @@ endfor %}">
           <form id="issue-comment-form" class="dataset-form" method="post"
             data-module="basic-form"
             action="{{h.url_for('issues.comments', issue_number=issue.number, dataset_id=dataset.id)}}">
-            <div class="control-group control-full">
+            <div class="form-group control-full">
               <div class="controls editor">
-                <textarea id="comment" name="comment" cols="20" rows="5"
-                  placeholder="Leave a comment"
+                <textarea class="form-control" id="comment" name="comment" cols="20" rows="5"
+                  placeholder="{{ _('Leave a comment') }}"
                   tabindex="1"></textarea>
                 <span class="editor-info-block">
-                  You can use <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown formatting</a> here</span>
+                  {% trans %}You can use <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown formatting</a> here{% endtrans %}</span>
               </div>
             </div>
             {% block form_actions %}
@@ -210,11 +212,11 @@ endfor %}">
               {% endif %}
               {% if can_edit_issue %}
                 {% if issue.status == 'open' %}
-                <button class="btn" type="submit" name="close" tabindex="3">
+                <button class="btn btn-default" type="submit" name="close" tabindex="3">
                   {{ _('Close') }}
                 </button>
                 {% else %}
-                <button class="btn" type="submit" name="reopen" tabindex="3">
+                <button class="btn btn-default" type="submit" name="reopen" tabindex="3">
                   {{ _('Re-open') }}
                 </button>
                 {% endif %}
@@ -246,9 +248,9 @@ endfor %}">
   </div>
   <h2 class="module-heading">
     <i class="fa fa-user"></i>
-    Assignee
+    {{ _('Assignee') }}
   </h2>
-  <div id='ckanext-issues-assignee'>
+  <div id='ckanext-issues-assignee' class="module-content">
     {% if issue.assignee %}
       {{ h.gravatar((issue.assignee.email_hash), size=22) }}
       {{ issue.assignee.name }}
@@ -262,11 +264,11 @@ endfor %}">
     {% if is_publisher %}
     <h2 class="module-heading">
       <i class="fa fa-edit"></i>
-      Change Assignee
+      {{ _('Change Assignee') }}
     </h2>
     <form id='ckanext-issues-assign' class="dataset-form form-horizontal add-member-form" method='post' action="{{ h.url_for('issues.assign', issue_number=issue.number, dataset_id=dataset.id) }}">
         <div class="controls">
-          <input id="assignee" type="text" name="assignee" placeholder="Username"
+          <input id="assignee" type="text" name="assignee" placeholder="{{ _('Username') }}"
           value="" class="control-medium" data-module="autocomplete-action-api"
           {% if dataset['owner_org'] %}
           data-module-source="/api/3/action/organization_users_autocomplete?organization_id={{ dataset['owner_org']}}&q=?">
@@ -275,7 +277,7 @@ endfor %}">
           {% endif %}
         </div>
         <div>
-          <button class="btn btn-success btn-mini" type="submit" name="assign">
+          <button class="btn btn-sm btn-success" type="submit" name="assign">
             {{ _('Assign') }}
           </button>
         </div>

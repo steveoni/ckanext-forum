@@ -5,7 +5,9 @@ from logging import getLogger
 log = getLogger(__name__)
 
 import ckan.plugins as p
+from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins import implements, toolkit
+from ckan.lib.helpers import ckan_version
 
 from ckanext.issues.views.issues import issues
 from ckanext.issues.views.moderation import moderation
@@ -15,10 +17,11 @@ from ckanext.issues.views.moderation import moderation
 # Imports are done in methods to speed up paster.
 # Please don't move back up to here.
 
-class IssuesPlugin(p.SingletonPlugin):
+class IssuesPlugin(p.SingletonPlugin, DefaultTranslation):
     """
     CKAN Issues Extension
     """
+    implements(p.ITranslation)
     implements(p.IConfigurer, inherit=True)
     implements(p.ITemplateHelpers, inherit=True)
     implements(p.IActions)
