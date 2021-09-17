@@ -41,7 +41,7 @@ The issue tracker user interface can be found at:
 
 You can add an issue at:
 
-    /dataset/{dataset-name-or-id}/issues/add
+    /dataset/{dataset-name-or-id}/issues/new
 
 ### Issues API
 
