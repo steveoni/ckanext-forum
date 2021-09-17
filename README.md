@@ -8,11 +8,9 @@ instance.
 
 ## Installation
 
-To install the plugin, enter your virtualenv and install the source::
+To install the plugin, enter your virtualenv and install the source:
 
     pip install -e git+http://github.com/keitaroinc/ckanext-issues
-    cd ckanext-issues
-    python setup.py install
 
 Create the necessary tables:
 
@@ -98,7 +96,7 @@ For the extra field to work you must not set `enabled_per_dataset` or `enabled_f
 
 Please open an issue in the github [issue tracker][issues].
 
-[issues]: https://github.com/ckan/ckanext-issues
+[issues]: https://github.com/keitaroinc/ckanext-issues
 
 ## Developers
 
