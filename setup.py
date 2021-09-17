@@ -27,12 +27,11 @@ setup(
     [ckan.plugins]
     issues=ckanext.issues.plugin:IssuesPlugin
 
-	[babel.extractors]
-	ckan = ckan.lib.extract:extract_ckan
+    [babel.extractors]
+    ckan = ckan.lib.extract:extract_ckan
+    """,
 
-	""",
-
-	# If you are changing from the default layout of your extension, you may
+    # If you are changing from the default layout of your extension, you may
     # have to change the message extractors, you can read more about babel
     # message extraction at
     # http://babel.pocoo.org/docs/messages/#extraction-method-mapping-and-configuration
