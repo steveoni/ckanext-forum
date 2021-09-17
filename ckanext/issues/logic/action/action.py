@@ -90,6 +90,15 @@ def issue_show(context, data_dict):
                                                          context['user'])
         comments.append(comment_dict)
 
+    try :
+        # if it comes from api it will throw sql instance ant be serialized
+        # datetime.datetime can't be serialized
+        if context['api_version']:
+            del issue_dict['_sa_instance_state' ]
+            issue_dict['created'] = str(issue_dict['created'])
+    except KeyError:
+        pass
+
     issue_dict['comments'] = comments
 
     p.toolkit.check_access('issue_show', context, issue_dict)

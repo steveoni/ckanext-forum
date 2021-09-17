@@ -42,6 +42,7 @@ class TestModeratedAbuseReport(object):
                                 issue_number=issue_abuse['number']),
             extra_environ=env,
         )
+        print('------------', response.body)
 
         assert 'Test Issue' in response.body
         assert 'Hidden from normal users' in response.body
