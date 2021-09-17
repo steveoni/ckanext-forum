@@ -1,0 +1,735 @@
+# Albanian translations for ckanext-issues.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the ckanext-issues
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-issues 0.3\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-08-10 14:09+0200\n"
+"PO-Revision-Date: 2018-08-10 12:20+0200\n"
+"Last-Translator: \n"
+"Language: sq\n"
+"Language-Team: sq <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/issues/auth.py:20
+msgid "User {0} not authorized for action on issue {1}"
+msgstr "Përdoruesi {0} nuk është i autorizuar për të vepruar mbi çështjen {1}"
+
+#: ckanext/issues/auth.py:42
+msgid "User {0} not authorized for action"
+msgstr "Përdoruesi {0} nuk është i autorizuar për të vepruar"
+
+#: ckanext/issues/auth.py:91
+msgid "User {user} not authorized for action on issue {issue}"
+msgstr "Përdoruesi {user} nuk është i autorizuar për të vepruar mbi çështjen {1}"
+
+#: ckanext/issues/controller/controller.py:49
+msgid "Issues have not been enabled for this dataset"
+msgstr "Raportimi i problemeve nuk është aktivizuar për këtë grup të të dhënave"
+
+#: ckanext/issues/controller/controller.py:52
+#: ckanext/issues/controller/controller.py:70
+msgid "Dataset not found"
+msgstr "Seti i të Dhënave nuk u gjet"
+
+#: ckanext/issues/controller/controller.py:55
+msgid "Unauthorized to view issues for this dataset"
+msgstr "I paautorizuar për t'i shikuar problemet për këtë grup të dhënave"
+
+#: ckanext/issues/controller/controller.py:67
+msgid "Issues have not been enabled for this organization"
+msgstr ""
+"Raportimi i problemeve (çështjeve) nuk është i aktivizuar për këtë "
+"organizatë"
+
+#: ckanext/issues/controller/controller.py:73
+msgid "Unauthorized to view issues for this organization"
+msgstr "I paautorizuar për t'i shikuar problemet (çështjet) e kësaj organizate"
+
+#: ckanext/issues/controller/controller.py:78
+msgid "Please login to add a new issue"
+msgstr "Ju lutemi, identifikohuni për të raportuar një problem të ri"
+
+#: ckanext/issues/controller/controller.py:87
+msgid "Not authorized to add a new issue"
+msgstr "Nuk jeni i autorizuar për të raportuar një problem të ri"
+
+#: ckanext/issues/controller/controller.py:114
+msgid "Your issue has been registered, thank you for the feedback"
+msgstr "Problemi juaj është regjistruar, faleminderit për riveprimin (feedback)"
+
+#: ckanext/issues/controller/controller.py:132
+#: ckanext/issues/controller/controller.py:135
+msgid "Issue not found: {0}"
+msgstr "Problemi nuk u gjet: {0}"
+
+#: ckanext/issues/controller/controller.py:179
+msgid "Invalid request"
+msgstr "Kërkesë e pavlefshme"
+
+#: ckanext/issues/controller/controller.py:191
+msgid "Not authorized"
+msgstr "Nuk jeni i autorizuar"
+
+#: ckanext/issues/controller/controller.py:200
+msgid "Comment cannot be empty"
+msgstr "Komenti nuk mund të jetë i zbrazët"
+
+#: ckanext/issues/controller/controller.py:216
+msgid "Issue closed"
+msgstr "Problemi (Çështja) u mbyll"
+
+#: ckanext/issues/controller/controller.py:218
+msgid "Issue re-opened"
+msgstr "Problemi (Çështja) u rihap"
+
+#: ckanext/issues/controller/controller.py:256
+msgid "Unauthorized to delete issue {0}"
+msgstr "I paautorizuar për ta fshirë problemin {0}"
+
+#: ckanext/issues/controller/controller.py:261
+msgid "Issue {0} has been deleted."
+msgstr "Problemi {0} është fshirë."
+
+#: ckanext/issues/controller/controller.py:279
+msgid "User {0} does not exist"
+msgstr "Përdoruesi {0} nuk ekziston"
+
+#: ckanext/issues/controller/controller.py:309
+msgid "Unauthorized to assign users to issue"
+msgstr "I pa autorizuar për t'i caktuar përdoruesit të lëshojnë"
+
+#: ckanext/issues/controller/controller.py:323
+msgid "You must be logged in to report issues"
+msgstr "Ju duhet të identifikoheni për ta raportuar çështjen"
+
+#: ckanext/issues/controller/controller.py:334
+#: ckanext/issues/controller/controller.py:371
+msgid "Report acknowledged."
+msgstr "Raporti konfirmoi"
+
+#: ckanext/issues/controller/controller.py:337
+#: ckanext/issues/controller/controller.py:374
+msgid "Marked as abuse/spam."
+msgstr "Shënuar si abuzim/spam."
+
+#: ckanext/issues/controller/controller.py:338
+msgid "Issue is visible."
+msgstr "Problemi është i dukshëm."
+
+#: ckanext/issues/controller/controller.py:340
+msgid "Issue is invisible to normal users."
+msgstr "Problemi është i padukshëm për përdoruesit normal."
+
+#: ckanext/issues/controller/controller.py:343
+msgid "Issue reported to an administrator"
+msgstr "Problemi raportohet tek një administratrues"
+
+#: ckanext/issues/controller/controller.py:359
+msgid "You must be logged in to report comments"
+msgstr "Ju duhet të identifikoheni për t'i raportuar komentet"
+
+#: ckanext/issues/controller/controller.py:375
+msgid "Comment is visible."
+msgstr "Komenti është i dukshëm."
+
+#: ckanext/issues/controller/controller.py:377
+msgid "Comment is invisible to normal users."
+msgstr "Komenti është i padukshëm për përdoruesit normal."
+
+#: ckanext/issues/controller/controller.py:380
+msgid "Comment has been reported to an administrator"
+msgstr "Komenti është raportuar tek një administrues"
+
+#: ckanext/issues/controller/controller.py:403
+msgid "Issue report cleared"
+msgstr "Raporti i problemit u pastrua"
+
+#: ckanext/issues/controller/controller.py:408
+msgid "You must be logged in clear abuse reports"
+msgstr "Ju duhet të identifikoheni qartë për t'i pastruar raportet e abuzimeve"
+
+#: ckanext/issues/controller/controller.py:426
+msgid "Spam/abuse report cleared"
+msgstr "Raporti Spam/abuzimi u pastrua"
+
+#: ckanext/issues/controller/controller.py:431
+msgid "You must be logged in to clear abuse reports"
+msgstr "Ju duhet të identifikoheni për t'i pastruar raportet e abuzimit"
+
+#: ckanext/issues/controller/controller.py:448
+#: ckanext/issues/controller/controller.py:488
+msgid "Validation error: {0}"
+msgstr "Gabim i validimit: {0}"
+
+#: ckanext/issues/controller/moderation.py:17
+#: ckanext/issues/controller/moderation.py:76
+msgid "Organization not found"
+msgstr "Organizata nuk u gjet"
+
+#: ckanext/issues/controller/moderation.py:22
+msgid "You must be logged in to moderate issues"
+msgstr "Ju duhet të identifikoheni për t'i moderuar problemet"
+
+#: ckanext/issues/controller/moderation.py:29
+msgid "Issue permanently hidden"
+msgstr "Problemi i fshehur përgjithmonë"
+
+#: ckanext/issues/controller/moderation.py:33
+msgid "All issue reports cleared"
+msgstr "Të gjitha raportet e problemeve u pastruan"
+
+#: ckanext/issues/controller/moderation.py:81
+msgid "You must be logged in to moderate comment"
+msgstr "Ju duhet të identifikoheni për t'i moderuar komentet"
+
+#: ckanext/issues/controller/moderation.py:88
+msgid "Comment permanently hidden"
+msgstr "Komenti i fshehur përgjithmonë"
+
+#: ckanext/issues/controller/moderation.py:92
+msgid "All comment reports cleared"
+msgstr "Të gjitha raportet e komenteve u pastruan"
+
+#: ckanext/issues/controller/show.py:18
+msgid "No description provided"
+msgstr "Nuk është dhënë asnjë përshkrim"
+
+#: ckanext/issues/lib/helpers.py:202
+msgid "[{site_title} Issue] {dataset}"
+msgstr "[{site_title} Problemi] {dataset}"
+
+#: ckanext/issues/logic/action/action.py:63
+msgid "Issue does not exist"
+msgstr "Problemi nuk ekziston"
+
+#: ckanext/issues/logic/action/action.py:83
+msgid "Issue marked as spam/abuse"
+msgstr "Problemi është shënuar si spam/abuzim"
+
+#: ckanext/issues/logic/action/action.py:561
+msgid "Issue has already been reported by this user"
+msgstr "Ky problem është raportuar tanimë nga ky përdorues"
+
+#: ckanext/issues/logic/validators/validators.py:13
+msgid "{0} is not a valid status"
+msgstr "{0} nuk është një status i vlefshëm"
+
+#: ckanext/issues/logic/validators/validators.py:44
+#: ckanext/issues/logic/validators/validators.py:55
+msgid "Not found"
+msgstr "Nuk u gjet"
+
+#: ckanext/issues/logic/validators/validators.py:45
+#: ckanext/issues/templates/issues/organization_issues.html:41
+msgid "Dataset"
+msgstr "Seti i të Dhënave"
+
+#: ckanext/issues/logic/validators/validators.py:56
+msgid "Organization"
+msgstr "Organizatë"
+
+#: ckanext/issues/logic/validators/validators.py:65
+#: ckanext/issues/logic/validators/validators.py:78
+msgid "Issue not found"
+msgstr "Problemi nuk u gjet"
+
+#: ckanext/issues/logic/validators/validators.py:87
+msgid "Issue Comment not found"
+msgstr "Nuk u gjet komenti i problemit"
+
+#: ckanext/issues/model/__init__.py:131
+msgid "Newest"
+msgstr "Më të rejat"
+
+#: ckanext/issues/model/__init__.py:132
+msgid "Oldest"
+msgstr "Më i vjetër"
+
+#: ckanext/issues/model/__init__.py:133
+msgid "Most Commented"
+msgstr "Më të komentuarat"
+
+#: ckanext/issues/model/__init__.py:134
+msgid "Least Commented"
+msgstr "Më pak të komentuarat"
+
+#: ckanext/issues/model/__init__.py:135
+msgid "Most Recently Updated"
+msgstr "Më shumë i përditësuar kohëve të fundit "
+
+#: ckanext/issues/model/__init__.py:136
+msgid "Least Recently Updated"
+msgstr "Më pak i përditësuar kohëve të fundit "
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:31
+msgid "No matches found"
+msgstr "Nuk u gjetën rezultate"
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:32
+msgid "Start typing…"
+msgstr "Filloni të shkruani ..."
+
+#: ckanext/issues/public/scripts/autocomplete-action-api.js:34
+msgid "Input is too short, must be at least one character"
+msgstr "Input është shumë i shkurtër, duhet të jetë të paktën një karakter"
+
+#: ckanext/issues/templates/issues/add.html:3
+#: ckanext/issues/templates/issues/add.html:5
+#: ckanext/issues/templates/issues/dataset.html:22
+msgid "New Issue"
+msgstr "Çështje e re"
+
+#: ckanext/issues/templates/issues/add.html:16
+#: ckanext/issues/templates/issues/edit.html:14
+msgid "The form contains invalid entries:"
+msgstr "Formulari përmban shënime të pavlefshme:"
+
+#: ckanext/issues/templates/issues/add.html:27
+#: ckanext/issues/templates/issues/edit.html:25
+#: ckanext/issues/templates/issues/organization_issues.html:40
+msgid "Title"
+msgstr "Titull"
+
+#: ckanext/issues/templates/issues/add.html:28
+#: ckanext/issues/templates/issues/edit.html:26
+msgid "Description"
+msgstr "Përshkrim"
+
+#: ckanext/issues/templates/issues/add.html:28
+#: ckanext/issues/templates/issues/edit.html:26
+msgid "Add a comment"
+msgstr "Shto një koment"
+
+#: ckanext/issues/templates/issues/add.html:33
+#: ckanext/issues/templates/issues/confirm_delete.html:12
+#: ckanext/issues/templates/issues/edit.html:34
+msgid "Cancel"
+msgstr "Аnuloj"
+
+#: ckanext/issues/templates/issues/add.html:35
+msgid "Create"
+msgstr "Кrijoj"
+
+#: ckanext/issues/templates/issues/all_issues.html:5
+#: ckanext/issues/templates/issues/all_issues.html:8
+#: ckanext/issues/templates/issues/all_issues.html:12
+msgid "All Issues"
+msgstr "Të gjitha çështjet (problemet)"
+
+#: ckanext/issues/templates/issues/all_issues.html:24
+msgid "There are currently no issues"
+msgstr "Aktualisht nuk ka probleme"
+
+#: ckanext/issues/templates/issues/base.html:9
+msgid "Datasets"
+msgstr "Seti i të dhënave"
+
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/comment_moderation.html:32
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/moderation.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:9
+#: ckanext/issues/templates/issues/organization_issues.html:14
+#: ckanext/issues/templates/issues/organization_issues.html:23
+#: ckanext/issues/templates/issues/show.html:15
+msgid "Issues"
+msgstr "Problemet (çështjet)"
+
+#: ckanext/issues/templates/issues/base_form_page.html:15
+msgid "What are issues?"
+msgstr "Cilat janë problemet?"
+
+#: ckanext/issues/templates/issues/base_form_page.html:17
+msgid ""
+" <p>Isses are problems reported per dataset and can be filled out by "
+"signed-in users.</p> "
+msgstr ""
+" <p>Çështjet janë probleme të raportuara për grupin e të dhënave dhe mund"
+" të plotësohen nga përdorues të regjistruar.</p>"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:10
+#: ckanext/issues/templates/issues/moderation.html:9
+msgid "Reported issues"
+msgstr "Problemet e raportuara"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:23
+msgid "No reported comments."
+msgstr "Nuk ka komente të raportuara."
+
+#: ckanext/issues/templates/issues/comment_moderation.html:30
+#: ckanext/issues/templates/issues/moderation.html:29
+#: ckanext/issues/templates/issues/organization_issues.html:12
+msgid "Organizations"
+msgstr "Organizatat"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:33
+#: ckanext/issues/templates/issues/moderation.html:32
+msgid "Reported Issues"
+msgstr "Problemet e raportuara"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:50
+#: ckanext/issues/templates/issues/moderation.html:50
+msgid "See dataset"
+msgstr "Shikoni Setin e të Dhënave"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:59
+#: ckanext/issues/templates/issues/moderation.html:59
+msgid "Abuse"
+msgstr "Abuzim"
+
+#: ckanext/issues/templates/issues/comment_moderation.html:70
+#: ckanext/issues/templates/issues/moderation.html:70
+msgid "Not abuse"
+msgstr "S'ka abuzim"
+
+#: ckanext/issues/templates/issues/common.html:8
+msgid "Spam/Abuse - hidden from normal users"
+msgstr "Spam / Abuzimi - i fshehur nga përdoruesit normal"
+
+#: ckanext/issues/templates/issues/common.html:12
+msgid "Reported by you to admins"
+msgstr "Raportimi juaj tek administruesit"
+
+#: ckanext/issues/templates/issues/common.html:23
+msgid "Opened by "
+msgstr "Hapur nga "
+
+#: ckanext/issues/templates/issues/common.html:26
+msgid "updated"
+msgstr "Përditësuar"
+
+#: ckanext/issues/templates/issues/common.html:31
+#: ckanext/issues/templates/issues/organization_issues.html:77
+#, python-format
+msgid "%s comments"
+msgstr "%s komente"
+
+#: ckanext/issues/templates/issues/common.html:43
+#: ckanext/issues/templates/issues/organization_issues.html:43
+msgid "Status"
+msgstr "Statusi"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Open"
+msgstr "Hapur"
+
+#: ckanext/issues/templates/issues/common.html:50
+msgid "Closed"
+msgstr "Mbyllur"
+
+#: ckanext/issues/templates/issues/common.html:58
+msgid "Visibility"
+msgstr "Dukshmëria"
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Visible"
+msgstr "I dukshëm"
+
+#: ckanext/issues/templates/issues/common.html:65
+msgid "Hidden"
+msgstr "I fshehur"
+
+#: ckanext/issues/templates/issues/confirm_delete.html:3
+#: ckanext/issues/templates/issues/confirm_delete.html:13
+msgid "Confirm Delete"
+msgstr "Konfirmoni fshirjen"
+
+#: ckanext/issues/templates/issues/confirm_delete.html:9
+msgid "Are you sure you want to delete issue - {0}?"
+msgstr "A jeni i sigurtë se dëshironi ta fshini problemin - {0}?"
+
+#: ckanext/issues/templates/issues/dataset.html:26
+#: ckanext/issues/templates/issues/organization_issues.html:28
+msgid "Search issues..."
+msgstr "Kërkimi i problemit..."
+
+#: ckanext/issues/templates/issues/dataset.html:35
+msgid "No issues"
+msgstr "Nuk ka probleme"
+
+#: ckanext/issues/templates/issues/edit.html:3
+#: ckanext/issues/templates/issues/edit.html:5
+msgid "Edit Issue"
+msgstr "Redakto problemin"
+
+#: ckanext/issues/templates/issues/edit.html:36
+msgid "Update"
+msgstr "Përditësim"
+
+#: ckanext/issues/templates/issues/moderation.html:22
+msgid "No reported issues."
+msgstr "Nuk ka probleme të raportuara."
+
+#: ckanext/issues/templates/issues/moderation.html:43
+#: ckanext/issues/templates/issues/moderation.html:45
+msgid "created issue"
+msgstr "krijoi çështjen "
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:44
+msgid "{number} issue found"
+msgstr "{number} 1 problem u gjet"
+
+#: ckanext/issues/templates/issues/organization_issues.html:30
+#: ckanext/issues/templates/snippets/search_result_text.html:45
+msgid "{number} issues found"
+msgstr "{number} problemet e gjetura"
+
+#: ckanext/issues/templates/issues/organization_issues.html:42
+msgid "Reported"
+msgstr "Të raportuara"
+
+#: ckanext/issues/templates/issues/organization_issues.html:44
+msgid "Comments"
+msgstr "Komentet"
+
+#: ckanext/issues/templates/issues/organization_issues.html:62
+msgid "Resource"
+msgstr "Burimi"
+
+#: ckanext/issues/templates/issues/organization_issues.html:67
+msgid "Reported as spam/abuse"
+msgstr "Raportuar si spam/abuzim"
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "closed"
+msgstr "mbyllur"
+
+#: ckanext/issues/templates/issues/organization_issues.html:73
+msgid "open"
+msgstr "hapur"
+
+#: ckanext/issues/templates/issues/organization_issues.html:88
+msgid "There are currently no issues for"
+msgstr "Aktualisht nuk ka asnjë problem për"
+
+#: ckanext/issues/templates/issues/show.html:19
+msgid "Issue"
+msgstr "Çështje (problem)"
+
+#: ckanext/issues/templates/issues/show.html:68
+msgid "Edit"
+msgstr "Redakto"
+
+#: ckanext/issues/templates/issues/show.html:96
+msgid "You have reported this as abuse, cancel the report"
+msgstr "Ju e keni raportuar këtë si abuzim, anuloni raportin"
+
+#: ckanext/issues/templates/issues/show.html:112
+msgid "Mark as spam/abuse"
+msgstr "Shëno si spam/abuzim"
+
+#: ckanext/issues/templates/issues/show.html:125
+msgid "Mark as NOT spam/abuse"
+msgstr "Shëno si JO spam/abuzim"
+
+#: ckanext/issues/templates/issues/show.html:127
+msgid "Not spam/abuse"
+msgstr "Jo spam/abuzim"
+
+#: ckanext/issues/templates/issues/show.html:135
+msgid "user reports this is spam/abuse"
+msgstr "Raportet e përdoruesve kjo është spam/abuzim"
+
+#: ckanext/issues/templates/issues/show.html:140
+msgid "Hidden from normal users"
+msgstr "Fshehur nga përdoruesit normal"
+
+#: ckanext/issues/templates/issues/show.html:145
+msgid "Moderated: "
+msgstr "Moderuar: "
+
+#: ckanext/issues/templates/issues/show.html:152
+msgid "Owner"
+msgstr "Pronar"
+
+#: ckanext/issues/templates/issues/show.html:157
+msgid "commented"
+msgstr "komentoi"
+
+#: ckanext/issues/templates/issues/show.html:175
+msgid "opened this issue"
+msgstr "e hapi këtë çështje"
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comment"
+msgstr "{number} koment"
+
+#: ckanext/issues/templates/issues/show.html:176
+msgid "{number} comments"
+msgstr "{number} komente"
+
+#: ckanext/issues/templates/issues/show.html:201
+msgid "Leave a comment"
+msgstr "Lini një koment"
+
+#: ckanext/issues/templates/issues/show.html:204
+msgid ""
+"You can use <a "
+"href=\"http://daringfireball.net/projects/markdown/syntax\" "
+"target=\"_blank\">Markdown formatting</a> here"
+msgstr ""
+"Ju mund të përdorni  <a "
+"href=\"http://daringfireball.net/projects/markdown/syntax\" "
+"target=\"_blank\">Formatimi Markdown </a> këtu"
+
+#: ckanext/issues/templates/issues/show.html:210
+msgid "Are you sure you want to delete this issue?"
+msgstr "A jeni i sigurtë se doni ta fshini këtë problem?"
+
+#: ckanext/issues/templates/issues/show.html:211
+msgid "Delete"
+msgstr "Fshij"
+
+#: ckanext/issues/templates/issues/show.html:216
+msgid "Close"
+msgstr "Mbyll"
+
+#: ckanext/issues/templates/issues/show.html:220
+msgid "Re-open"
+msgstr "Rihap"
+
+#: ckanext/issues/templates/issues/show.html:226
+msgid "Comment"
+msgstr "Koment"
+
+#: ckanext/issues/templates/issues/show.html:233
+msgid "Login to comment"
+msgstr "Identifikohuni për të komentuar"
+
+#: ckanext/issues/templates/issues/show.html:251
+msgid "Assignee"
+msgstr "Përfitues"
+
+#: ckanext/issues/templates/issues/show.html:258
+msgid "This issue has been assigned to an administrator for the publisher"
+msgstr "Kjo çështje është caktuar tek një administrues për ta publikuar "
+
+#: ckanext/issues/templates/issues/show.html:260
+msgid "No one"
+msgstr "Askush"
+
+#: ckanext/issues/templates/issues/show.html:267
+msgid "Change Assignee"
+msgstr "Ndryshoni detyrën"
+
+#: ckanext/issues/templates/issues/show.html:271
+msgid "Username"
+msgstr "Emri i përdoruesit"
+
+#: ckanext/issues/templates/issues/show.html:281
+msgid "Assign"
+msgstr "Caktoj"
+
+#: ckanext/issues/templates/snippets/search_form.html:6
+msgid "Order by"
+msgstr "Urdhër nga"
+
+#: ckanext/issues/templates/snippets/search_form.html:15
+msgid "Go"
+msgstr "Shko"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:16
+#: ckanext/issues/templates/snippets/search_result_text.html:18
+msgid "{number} catalog found"
+msgid_plural "{number} catalogs found"
+msgstr[0] "{number} katalog i gjetur"
+msgstr[1] "{number} kataloga jan gjetur"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:17
+#: ckanext/issues/templates/snippets/search_result_text.html:19
+msgid "No catalogs found"
+msgstr "Asnjë katalog sësht gjetur"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:21
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number} seti i të dhënave u gjet për \"{query}\""
+msgstr[1] "Datat e {number} gjenden për \\ \"{query} \""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:22
+msgid "No datasets found for \"{query}\""
+msgstr "Asnjë set  i të dhënave nuk u gjet për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:23
+msgid "{number} dataset found"
+msgid_plural "{number} datasets found"
+msgstr[0] "{number} seti i të dhënave u gjet"
+msgstr[1] "{number} grupe të të dhënave u gjetën"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:24
+msgid "No datasets found"
+msgstr "Asnjë set i të dhënave nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:28
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} grupi i gjetur për \"{query}"
+msgstr[1] "{number} grupe të gjetura për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:29
+msgid "No groups found for \"{query}\""
+msgstr "Nuk u gjet asnjë grup për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:30
+msgid "{number} group found"
+msgid_plural "{number} groups found"
+msgstr[0] "{number} grupi u gjet"
+msgstr[1] "U gjetën {number} grupe"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:31
+msgid "No groups found"
+msgstr "Asnjë grup nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:34
+msgid "{number} organization found for \"{query}\""
+msgid_plural "{number} organizations found for \"{query}\""
+msgstr[0] "{number} i organizatave të gjetura për \"{query}\""
+msgstr[1] "{number} organizatave të gjetura për \"{query}\\"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:35
+msgid "No organizations found for \"{query}\""
+msgstr "Nuk u gjet asnjë organizatë për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:36
+msgid "{number} organization found"
+msgid_plural "{number} organizations found"
+msgstr[0] "{number} organizata u gjet"
+msgstr[1] "{number} organizata gjetën \""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:37
+msgid "No organizations found"
+msgstr "Asnjë organizatë nuk u gjet"
+
+#: ckanext/issues/templates/snippets/search_result_text.html:40
+msgid "{number} issue found for \"{query}\""
+msgstr "{number} problem i gjetur për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:41
+msgid "{number} issues found for \"{query}\""
+msgstr "{number} probleme të gjetura për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:43
+msgid "No issues found for \"{query}\""
+msgstr "Asnjë problem nuk është gjetur për \"{query}\""
+
+#: ckanext/issues/templates/snippets/search_result_text.html:47
+msgid "No issues found"
+msgstr "Nuk u gjetën probleme"
+
+#~ msgid "Assigned to {user}"
+#~ msgstr "I caktuar për {user}"
+
+#~ msgid " <p>Issues are ... .</p> "
+#~ msgstr " <p>Problemet janë ...</p> "
+

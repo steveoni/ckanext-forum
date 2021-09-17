@@ -9,7 +9,7 @@
 {% set errors = g.errors %}
 
 {% block ourform %}
-<form id="issue-new" class="dataset-form form-horizontal" method="post" data-module="basic-form">
+<form id="issue-new" class="dataset-form" method="post" data-module="basic-form">
   {% block error_summary %}
     {% if g.error_summary | count %}
       <div class="alert alert-error error-explanation">
@@ -30,6 +30,7 @@ set           {% for key, error in g.error_summary.items() %}
   {% endblock %}
 
   <div class="form-actions">
+
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Create') }}</button>
   </div>
 </form>

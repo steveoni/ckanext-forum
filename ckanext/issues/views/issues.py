@@ -309,8 +309,8 @@ def assign(dataset_id, issue_number):
 
             if notifications:
                 subject = get_issue_subject(issue)
-                body = toolkit._('Assigned to {user}'.format(
-                    user=assignee['display_name']))
+                body = u'Доделено на {user}.\n\n---\nCaktuar për {user}.\n\n---\nAssigned to {user}.'.format(
+                        user=assignee['display_name'])
 
                 user_obj = model.User.get(assignee_id)
                 try:

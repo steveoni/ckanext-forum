@@ -19,14 +19,11 @@
       <h1 class="page-heading">
         {{ _('Issues') }}
         <div class="issues-actions">
-          <a class="btn btn-success" href="{{ h.url_for('issues.new', dataset_id=pkg_dict.name) }}">{{ _('New Issue') }}</a>
+          {{ h.nav_link(_('New Issue'), named_route='issues.new', icon="plus-square", dataset_id=pkg.name, class_='btn btn-primary') }}
         </div>
       </h1>
    <div>
       {% snippet 'snippets/search_form.html', type='issue', query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search issues...'), no_bottom_border=true, no_title=true, count=pagination.total_count %}
-      <h2 id="issues-found">
-        {{ ungettext('{number} issue found', '{number} issues found', pagination.total_count) .format(number=pagination.total_count) }}
-      </h2>
     </div>
   {% if issues %}
     <ul id="issue-list" class="issue-list-group list-group">

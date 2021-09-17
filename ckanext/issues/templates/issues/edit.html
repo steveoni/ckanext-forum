@@ -7,7 +7,7 @@
 {% import 'macros/form.html' as form %}
 
 {% block ourform %}
-<form id="issue-edit" class="dataset-form form-horizontal" method="post" data-module="basic-form">
+<form id="issue-edit" class="dataset-form" method="post" data-module="basic-form">
   {% block error_summary %}
     {% if errors %}
       <div class="alert alert-error error-explanation">
@@ -32,7 +32,7 @@ set           {% for key, error in errors.items() %}
   {% block form_actions %}
   <div class="form-actions">
     {{ h.nav_link(_('Cancel'), controller='ckanext.issues.controller:IssueController', named_route='issues.show_issue', dataset_id=c.pkg.id, issue_number=issue.number,
-    class_='btn') }}
+    class_='btn btn-danger pull-left') }}
     <button class="btn btn-primary" type="submit" name="save" tabindex="4">{{ _('Update') }}</button>
   </div>
   {% endblock %}

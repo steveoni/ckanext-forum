@@ -29,6 +29,17 @@ class TestIssueShow(object):
         )
         assert 'Test Issue' == issue['title']
         assert 'Some description' == issue['description']
+
+    @pytest.mark.usefixtures("clean_db", "issues_setup")
+    def test_issue_show_api(self, issue1):
+        issue = helpers.call_action(
+            'issue_show',
+            dataset_id=issue1['dataset_id'],
+            issue_number=issue1['number'],
+            api_version=3
+        )
+        assert 'Test Issue' == issue['title']
+        assert 'Some description' == issue['description']
         
     @pytest.mark.usefixtures("clean_db", "issues_setup")
     def test_issue_user_dictization(self, issue1):

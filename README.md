@@ -6,6 +6,30 @@ instance.
 
 **Current Status:** Beta
 
+## Installation
+
+To install the plugin, enter your virtualenv and install the source:
+
+    pip install -e git+http://github.com/keitaroinc/ckanext-issues
+
+Create the necessary tables:
+
+    ckan -c path-to/ckan.ini issuesdb
+
+This will also register a plugin entry point, so you now should be
+able to add the following to your CKAN .ini file::
+
+    ckan.plugins = issues
+
+After you clear your cache and restart the web server, the Issues extension
+should be available.
+
+## Upgrade from older versions
+
+When upgrading ckanext-issues from older code versions, you should run the issues upgrade command, in case there are any model migrations (e.g. 11th Jan 2016):
+
+    ckan -c path-to/ckan.ini issuesupdate
+
 ## What it does
 
 Once installed and enabled, the issues extension will make available a per-
@@ -17,7 +41,7 @@ The issue tracker user interface can be found at:
 
 You can add an issue at:
 
-    /dataset/{dataset-name-or-id}/issues/add
+    /dataset/{dataset-name-or-id}/issues/new
 
 ### Issues API
 
@@ -38,30 +62,6 @@ Specifically:
     /api/3/action/issue_report_clear
     /api/3/action/issue_comment_report
     /api/3/action/issue_comment_report_clear
-
-## Installation
-
-To install the plugin, enter your virtualenv and install the source::
-
-    pip install -e git+http://github.com/ckan/ckanext-issues
-
-Create the necessary tables:
-
-    ckan -c path-to/ckan.ini issuesdb
-
-This will also register a plugin entry point, so you now should be
-able to add the following to your CKAN .ini file::
-
-    ckan.plugins = issues
-
-After you clear your cache and restart the web server, the Issues extension
-should be available.
-
-## Upgrade from older versions
-
-When upgrading ckanext-issues from older code versions, you should run the issues upgrade command, in case there are any model migrations (e.g. 11th Jan 2016):
-
-    ckan -c path-to/ckan.ini issuesupdate
 
 ## Configuration
 
@@ -96,7 +96,7 @@ For the extra field to work you must not set `enabled_per_dataset` or `enabled_f
 
 Please open an issue in the github [issue tracker][issues].
 
-[issues]: https://github.com/ckan/ckanext-issues
+[issues]: https://github.com/keitaroinc/ckanext-issues
 
 ## Developers
 

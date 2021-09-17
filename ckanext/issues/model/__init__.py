@@ -17,6 +17,7 @@ import enum
 from sqlalchemy import func, types, Table, ForeignKey, Column, Index
 from sqlalchemy.orm import relation, backref, subqueryload, foreign, remote
 from sqlalchemy.sql.expression import or_
+from ckan.plugins import toolkit
 
 log = logging.getLogger(__name__)
 
@@ -126,12 +127,12 @@ def _user_dict(user):
 
 
 class IssueFilter(enum.Enum):
-    newest = 'Newest'
-    oldest = 'Oldest'
-    most_commented = 'Most Commented'
-    least_commented = 'Least Commented'
-    recently_updated = 'Most Recently Updated'
-    least_recently_updated = 'Least Recently Updated'
+    newest = toolkit._('Newest')
+    oldest = toolkit._('Oldest')
+    most_commented = toolkit._('Most Commented')
+    least_commented = toolkit._('Least Commented')
+    recently_updated = toolkit._('Most Recently Updated')
+    least_recently_updated = toolkit._('Least Recently Updated')
 
     @classmethod
     def get_filter(cls, issue_filter):
@@ -223,7 +224,10 @@ class Issue(domain_object.DomainObject):
                 query = query.filter(model.Package.owner_org == org.id)
 
         if q:
-            search_expr = '%{0}%'.format(q)
+            if isinstance(q, str):
+                search_expr = u'%{0}%'.format(q)
+            else:
+                search_expr = '%{0}%'.format(q)
             query = query.filter(or_(cls.title.ilike(search_expr),
                                      cls.description.ilike(search_expr)))
 

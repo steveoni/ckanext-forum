@@ -1,8 +1,76 @@
-{% if type == 'issue' %}
-  {% set text_query = ungettext('{number} issue found for "{query}"', '{number} issues found for "{query}"', count) %}
-  {% set text_query_none = _('No issues found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} issue found', '{number} issues found', count) %}
-  {% set text_no_query_none = _('No issues found') %}
-{% endif %}
+{#
 
-{% ckan_extends %}
+Displays a test for results of a search.
+
+query        - The text that was searched for
+count        - The number of results for the search
+type         - Search result type (dataset, group, organization)
+
+Example:
+
+  {% snippet 'snippets/search_result_text.html', query=query, count=count, type='dataset' %}
+
+#}
+{% if type == 'dataset' %}
+  {% if query == 'extras_org_catalog_enabled:true' %}
+    {% set text_query = ungettext('{number} catalog found', '{number} catalogs found', count) %}
+    {% set text_query_none = _('No catalogs found') %}
+    {% set text_no_query = ungettext('{number} catalog found', '{number} catalogs found', count) %}
+    {% set text_no_query_none = _('No catalogs found') %}
+  {% else %}
+    {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
+    {% set text_query_none = _('No datasets found for "{query}"') %}
+    {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
+    {% set text_no_query_none = _('No datasets found') %}
+  {% endif %}
+
+{% elif type == 'group' %}
+  {% set text_query = ungettext('{number} group found for "{query}"', '{number} groups found for "{query}"', count) %}
+  {% set text_query_none = _('No groups found for "{query}"') %}
+  {% set text_no_query = ungettext('{number} group found', '{number} groups found', count) %}
+  {% set text_no_query_none = _('No groups found') %}
+
+{% elif type == 'organization' %}
+  {% set text_query = ungettext('{number} organization found for "{query}"', '{number} organizations found for "{query}"', count) %}
+  {% set text_query_none = _('No organizations found for "{query}"') %}
+  {% set text_no_query = ungettext('{number} organization found', '{number} organizations found', count) %}
+  {% set text_no_query_none = _('No organizations found') %}
+{% elif type == 'issue' %}
+  {% set count = count if count is defined else 0 %}
+  {% set number_issues_found_for = _('{number} issue found for "{query}"') %}
+  {% set number_issues_found_for_plural = _('{number} issues found for "{query}"') %}
+  {% set text_query = ungettext(number_issues_found_for, number_issues_found_for_plural, count) %}
+  {% set text_query_none = _('No issues found for "{query}"') %}
+  {% set number_issues_found = _('{number} issue found')%}
+  {% set number_issues_fount_pl = _('{number} issues found')%}
+  {% set text_no_query = ungettext(number_issues_found, number_issues_fount_pl, count) %}
+  {% set text_no_query_none = _('No issues found') %}
+
+{% else %}
+  {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
+  {% set text_query_plural = '{number} ' + type + 's found for "{query}"' %}
+  {% set text_query_none_plural = 'No ' + type + 's found for "{query}"' %}
+  {% set text_no_query_singular = '{number} ' + type + ' found' %}
+  {% set text_no_query_plural = '{number} ' + type + 's found' %}
+  {% set text_no_query_none_plural = 'No ' + type + 's found' %}
+
+  {% set text_query = ungettext(text_query_singular, text_query_plural, count) %}
+  {% set text_query_none = _(text_query_none_plural) %}
+  {% set text_no_query = ungettext(text_no_query_singular, text_no_query_plural, count) %}
+  {% set text_no_query_none = _(text_no_query_none_plural) %}
+{%- endif -%}
+
+{% if query %}
+  {%- if count -%}
+    {{ text_query.format(number=h.localised_number(count), query=query, type=type) }}
+  {%- else -%}
+    {{ text_query_none.format(query=query, type=type) }}
+  {%- endif -%}
+{%- else -%}
+  {%- if count -%}
+    {{ text_no_query.format(number=h.localised_number(count), type=type) }}
+  {%- else -%}
+    {{ text_no_query_none.format(type=type) }}
+  {%- endif -%}
+{%- endif -%}
+

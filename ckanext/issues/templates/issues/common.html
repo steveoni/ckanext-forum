@@ -4,11 +4,11 @@
         {% set reported_by_current_user = h.issues_user_has_reported_issue(current_user, issue.abuse_reports) %}
         {% if issue.visibility == 'hidden' %}
           <div class="issue-comment-label">
-            Spam/Abuse - hidden from normal users
+            {{ _('Spam/Abuse - hidden from normal users') }}
           </div>
         {% elif reported_by_current_user %}
           <div class="issue-comment-label">
-            <i class="fa fa-flag"></i>Reported by you to admins
+            <i class="fa fa-flag"></i>{{ _('Reported by you to admins') }}
           </div>
         {% endif%}
         <h4 class="list-group-item-name">
@@ -22,12 +22,12 @@
           <li>{{ _('Opened by ') }}<a href="{{ h.url_for('user.read', id=issue.user) }}">{{issue.user}}</a></li>
           <li>
             <i class="fa fa-clock"></i>
-            <span class="timeago" title="{{h.render_datetime(issue.created)}}"> updated {{ h.time_ago_from_timestamp(issue.created) }}</span>
+            <span class="timeago" title="{{h.render_datetime(issue.created)}}"> {{ _('updated') }} {{ h.time_ago_from_timestamp(issue.created) }}</span>
           </li>
           <li>
             <i class="fa fa-comments"></i>
             <a href="{{ h.url_for('issues.show_issue', dataset_id=pkg.id, issue_number=issue.number) }}" >
-              comments: {{ _(issue.comment_count)}}
+              {{issue.comment_count}}
             </a>
           </li>
         </ul>
@@ -38,14 +38,14 @@
   <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <i class="fa fa-filter"></i>
-        Status
+        {{ _('Status') }}
     </h2>
     <ul class="unstyled nav nav-simple">
         {% for valid_status in ['open', 'closed'] %}
         <li class="nav-item {% if status==valid_status%}active{% endif %}">
         {% set href = h.replace_url_param(new_params={'status': valid_status}, extras=url_params) %}
         <a id="{{ valid_status }}-filter" href="{{ href }}">
-        <span>{{_(valid_status.title())}}</span>
+            <span>{{ _('Open') if valid_status == 'open' else _('Closed') }}</span>
         </a>
         </li>
         {% endfor %}
@@ -53,14 +53,14 @@
     {% if user_can_change_visibility %}
     <h2 class="module-heading">
         <i class="fa fa-filter"></i>
-        Visibility
+        {{ _('Visibility') }}
     </h2>
     <ul class="unstyled nav nav-simple nav-facet">
         {% for valid_visibility in ['visible', 'hidden'] %}
         <li class="nav-item {% if visibility==valid_visibility%}active{% endif %}">
         {% set href = h.remove_url_param('visibility', extras=url_params) if visibility==valid_visibility else h.replace_url_param(new_params={'visibility': valid_visibility}, extras=url_params) %}
         <a id="{{ valid_visibility }}-filter" href="{{ href }}">
-        <span>{{_(valid_visibility.title())}}</span>
+        <span>{{_('Visible') if valid_visibility == 'visible' else _('Hidden') }}</span>
         </a>
         </li>
         {% endfor %}
@@ -72,8 +72,8 @@
 {% macro page_selector(pagination, number_per_page, url_params={}) -%}
 <div class="row">
   {% if pagination.pages > 1 %}
-  <div class="col-md-8 " id="page">
-    <ul class="pagination pagination-small">
+    <div class="col-md-8 " id="page">
+      <ul class="pagination pagination-small">
       {% if pagination.has_previous %}
       <li>
         {% set href = h.replace_url_param(new_params={'page': pagination.page - 1}, extras=url_params) %}
@@ -139,5 +139,5 @@
       </ul>
     </div>
   {% endif %}
-
+</div>
 {%- endmacro %}

@@ -42,6 +42,7 @@ class TestModeratedAbuseReport(object):
                                 issue_number=issue_abuse['number']),
             extra_environ=env,
         )
+        print('------------', response.body)
 
         assert 'Test Issue' in response.body
         assert 'Hidden from normal users' in response.body
@@ -70,7 +71,7 @@ class TestModeratedAbuseReport(object):
             extra_environ=env,
         )
 
-        assert '0 issues found' in response.body
+        assert 'No issues found' in response.body
 
     @pytest.mark.usefixtures("clean_db", "issues_setup", "issue_abuse")
     def test_reported_as_abuse_does_not_appear_as_non_admin(self, app, user, dataset):
@@ -79,8 +80,9 @@ class TestModeratedAbuseReport(object):
                                 dataset_id=dataset['id']),
             extra_environ=env,
         )
+        print(response.body)
 
-        assert '0 issues found' in response.body
+        assert 'No issues found' in response.body
         assert 'Spam' not in response.body
 
 
