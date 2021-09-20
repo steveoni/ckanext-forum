@@ -4,7 +4,9 @@
 This extension allows users to to report issues with datasets in a CKAN
 instance.
 
-**Current Status:** Beta
+## Requirements
+
+This extension works with CKAN 2.9+.
 
 ## Installation
 
