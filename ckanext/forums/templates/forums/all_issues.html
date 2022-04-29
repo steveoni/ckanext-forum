@@ -1,0 +1,25 @@
+{% extends "forums/organization_issues.html" %}
+
+{% import "forums/common.html" as common with context %}
+
+{% block subtitle %}{{ _('All Issues') }} - {{ super() }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('All Issues'), named_route='forum.all_issues_page' %}</li>
+{% endblock %}
+
+{% block page_heading %}
+  {{ _('All Issues') }}
+{% endblock %}
+
+{% block secondary_content %}
+  {% if g.userobj.sysadmin %}
+    {{ common.search_options_sidebar(user_can_change_visibility=True) }}
+  {% else %}
+    {{ common.search_options_sidebar(user_can_change_visibility=False) }}
+   {% endif %}
+{% endblock %}
+
+{% block no_issues %}
+  {{ _('There are currently no issues') }}
+{% endblock %}

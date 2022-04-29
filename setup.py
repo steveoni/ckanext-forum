@@ -28,7 +28,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 version = '1.0.0'
 
 setup(
-    name='ckanext-issues',
+    name='ckanext-forums',
     version=version,
 
     # description
@@ -69,7 +69,7 @@ setup(
     keywords='''CKAN ckanext issues''',
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    namespace_packages=['ckanext', 'ckanext.issues'],
+    namespace_packages=['ckanext', 'ckanext.forums'],
 
     include_package_data=True,
     package_data={},
@@ -80,7 +80,7 @@ setup(
     ],
     entry_points="""
     [ckan.plugins]
-    issues=ckanext.issues.plugin:IssuesPlugin
+    forums=ckanext.forums.plugin:IssuesPlugin
 
     [babel.extractors]
     ckan = ckan.lib.extract:extract_ckan
