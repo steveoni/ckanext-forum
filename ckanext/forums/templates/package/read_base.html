@@ -1,0 +1,8 @@
+{% ckan_extends "package/read_base.html" %}
+
+{% block content_primary_nav %}
+  {{ super() }}
+  {% if h.forum_enabled(pkg) %}
+    {{ h.build_nav_icon('forums.dataset', _('Issues'), dataset_id=pkg.name) }}
+  {% endif %}
+{% endblock %}

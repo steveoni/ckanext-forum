@@ -1,0 +1,46 @@
+{% extends "forums/base.html" %}
+
+{% import "forums/common.html" as common with context %}
+
+{% block styles %}
+  {{ super() }}
+  {% asset 'forums/style' %}
+{% endblock %}
+
+
+{% set filters = h.get_forum_filter_types() %}
+{% set issues_per_page = h.get_forum_per_page() %}
+
+{% block subtitle %}{{ _('Community Forum') }} - {{ super() }}{% endblock %}
+
+{% block page_header%}{% endblock %}
+
+{% block primary_content_inner %}
+<section class="module issues-home">
+    <div class="header">
+      <h1 class="page-heading">
+        {{ _('Community Forum') }}
+        <div class="issues-actions">
+          {{ h.nav_link(_('New Discussion'), named_route='forums.new', icon="plus-square", class_='btn btn-primary') }}
+        </div>
+      </h1>
+   <div>
+      {% snippet 'snippets/search_form.html', type='issue', query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search forum...'), no_bottom_border=true, no_title=true, count=pagination.total_count %}
+    </div>
+  {% if issues %}
+    <ul id="issue-list" class="issue-list-group list-group">
+      {% for issue in issues %}
+        {{ common.issue_item(issue, 'forum', g.user) }}
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">{{ _('No issues') }}</p>
+  {% endif %}
+  </div>
+
+  {{ common.page_selector(pagination, issues_per_page, url_params={'dataset_id': forum}) }}
+</section>
+{% endblock %}
+
+
+

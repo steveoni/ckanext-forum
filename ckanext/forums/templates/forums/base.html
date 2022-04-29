@@ -1,0 +1,25 @@
+{% extends "page.html" %}
+
+{% block styles %}
+  {{ super() }}
+  {% asset 'forums/style' %}
+{% endblock %}
+
+{% block breadcrumb_content %}
+
+  <li><a href="{{ h.url_for('forums.dataset') }}">{{_('Community Forum')}}</a></li>
+  <li class="active">{% block breadcrumb_item %}{% endblock %}</li>
+{% endblock %}
+
+{% block secondary_content %}
+<div class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+    Community Forum
+  </h2>
+  <div class="module-content">
+    <p>
+      Platform to hold community dicussion.
+    </p>
+  </div>
+</div>
+{% endblock %}
