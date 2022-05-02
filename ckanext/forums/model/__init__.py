@@ -38,7 +38,7 @@ def setup():
         if report_tables:
             for table in report_tables:
                 table.create(checkfirst=True)
-        log.debug('Issue tables created')
+        log.debug('Forum tables created')
 
         # add default categories if they don't already exist
         session = model.meta.Session()
@@ -52,10 +52,10 @@ def setup():
                 category.description = category_desc
                 session.add(category)
         if session.new:
-            log.debug('Issue categories created')
+            log.debug('Forum categories created')
             session.commit()
     else:
-        log.debug('Issue tables already exist')
+        log.debug('Forum tables already exist')
 
 
 def upgrade():
@@ -94,7 +94,7 @@ class IssueCategory(object):
         self.name = name
 
     def __repr__(self):
-        return "<IssueCategory('%s')>" % (self.name)
+        return "<ForumCategory('%s')>" % (self.name)
 
     @classmethod
     def get(cls, reference):
@@ -464,7 +464,7 @@ class IssueComment(domain_object.DomainObject):
 
 
 issue_category_table = Table(
-    'issue_category',
+    'forum_category',
     meta.metadata,
     Column('id', types.Integer, primary_key=True, autoincrement=True),
     Column('name', types.Unicode(ISSUE_CATEGORY_NAME_MAX_LENGTH),
@@ -474,7 +474,7 @@ issue_category_table = Table(
            nullable=False))
 
 issue_table = Table(
-    'issue',
+    'forum',
     meta.metadata,
     Column('id', types.Integer, primary_key=True, autoincrement=True),
     Column('number', types.Integer, nullable=False),
@@ -493,18 +493,18 @@ issue_table = Table(
     Column('abuse_status',
            types.Integer,
            default=AbuseStatus.unmoderated.value),
-    Index('idx_issue_number_dataset_id', 'dataset_id', 'number',
+    Index('idx_forum_number_dataset_id', 'dataset_id', 'number',
           unique=True),
 )
 
 issue_comment_table = Table(
-    'issue_comment',
+    'forum_comment',
     meta.metadata,
     Column('id', types.Integer, primary_key=True, autoincrement=True),
     Column('comment', types.Unicode, nullable=False),
     Column('user_id', types.Unicode, nullable=False, index=True),
     Column('issue_id', types.Integer,
-           ForeignKey('issue.id', onupdate='CASCADE', ondelete='CASCADE'),
+           ForeignKey('forum.id', onupdate='CASCADE', ondelete='CASCADE'),
            nullable=False, index=True),
     Column('created', types.DateTime, default=datetime.utcnow,
            nullable=False),
@@ -556,7 +556,7 @@ meta.mapper(
     properties={
         'user': relation(
             model.User,
-            backref=backref('issue_comments',
+            backref=backref('forum_comments',
                             cascade='all, delete-orphan',
                             single_parent=True),
             primaryjoin=foreign(issue_comment_table.c.user_id) == remote(User.id)

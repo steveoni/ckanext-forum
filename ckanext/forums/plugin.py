@@ -42,7 +42,7 @@ class IssuesPlugin(p.SingletonPlugin, DefaultTranslation):
         import click
 
         @click.command()
-        def issuesdb():
+        def forumsdb():
             """Creates issues data tables"""
             from ckanext.forums.model import setup
             setup()
@@ -54,7 +54,7 @@ class IssuesPlugin(p.SingletonPlugin, DefaultTranslation):
             upgrade()
             print('Issues tables are up to date')
 
-        return [issuesdb, issuesupdate]
+        return [forumsdb, issuesupdate]
     
     # ITemplateHelpers
     def get_helpers(self):
